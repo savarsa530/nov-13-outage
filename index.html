@@ -180,7 +180,7 @@ table.eg td.fact .src{display:block}
 <div class="bar">
   <button id="r-night" class="on">Fri noon → Sat 7 am</button>
   <button id="r-today">Fri 12:30–8:30 pm</button>
-  <button id="r-wide">Since Nov 12 noon</button>
+  <button id="r-wide">Nov 12 noon → Nov 15</button>
   <button id="r-week">Since Sep 15 (SMART launch)</button>
   <button id="r-faa" class="on">Fold FAA detail</button>
   <button id="r-all">Show all lanes</button>
@@ -196,12 +196,17 @@ table.eg td.fact .src{display:block}
 <div class="card" id="chart"><div id="tip"></div><div id="cs"></div></div>
 <p class="note">Tap any dot, bar or numbered badge for its details and sources. The FAA lane splits into four rows under it: radios, radar and centers; ground stops and flights; cause and who says what; contracts, rebuild and money. The ground stop bar and the intersection badges stay on the FAA row itself; tap "FAA air traffic" or "Fold FAA detail" to roll the four back into one. Microsoft, 911, Workday, Gateway Fiber, Verizon, AT&amp;T phone service, travel demand and other transport share the dimmed "Background" lane, each dot in its own color; "Show all lanes" splits them back out. Selecting an intersection brightens its dots even when they sit in the folded lane.<span class="mob"> Swipe the timeline sideways to see more.</span></p>
 
+<details class="fold" id="timepoints">
+ <summary>Time points, defined</summary>
+ <div class="fold-body wrap"><p class="note">Advisory = when the FAA Command Center sent it. Official statement = a time an official said aloud. Reported = a time a news outlet gave. Derived = this page's own arithmetic.</p><table id="tp" class="cards noterm"><thead><tr><th>Time (ET)</th><th>What</th><th>Who or source</th><th>Kind</th></tr></thead><tbody></tbody></table></div>
+</details>
+
 <h2>How the facts fit each explanation</h2>
 <p class="note">How could one update cross FTI's two separate backbone cores? Each key fact is checked against each way. Tap a cell for the reasoning. The verdicts are this page's reading, not reporting.</p>
 <div class="card wrap" id="grid"></div>
 
 <h2 id="claims-h">Claims on the record</h2>
-<p class="note">What has been said, by whom, and how much detail came with it. Open questions below are what nobody has said yet.</p>
+<p class="note">What has been said, by whom, and how much detail came with it. A claim here is a statement put out as fact without ample evidence behind it yet; it stays here while open questions about it haven't been addressed. Saturday times are derived from the briefing stream (start ~10:30 plus stream time). Open questions below are what nobody has said yet.</p>
 <div class="wrap"><table id="claims" class="cards noterm"><thead><tr><th>Claim</th><th>Who</th><th>On record</th><th>How specific</th><th>Direction</th><th>First said</th></tr></thead><tbody></tbody></table></div>
 <p class="note">Claims that rule things out are firmer than claims that assign cause. Early in an incident that can be innocent: ruling things out is fast, and assigning cause takes an investigation. Recheck when the FAA publishes preliminary findings.</p>
 
@@ -227,12 +232,18 @@ table.eg td.fact .src{display:block}
 <p class="note">Duffy, Friday: "We didn't think we would have this kind of outage" and "I don't know that this exact scenario will happen." The record shows FTI's fragility was known; what officials say they didn't expect is a nationwide failure. Linked from <a href="#q12">q12</a>.</p>
 <div class="wrap"><table id="priors" class="cards"><thead><tr><th>When</th><th>Who</th><th>What</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 
+<h2 id="carriers-h">Who was retiring the line</h2>
+<p class="note">Nobody on the record has named who was retiring the copper line in the Nov 13 work (<a href="#q13">q13</a>). Duffy named three carriers as partners on the new architecture. This lists what is documented about each, with sources; it doesn't link any of them to the outage. No source alleges a conflict of interest.</p>
+<div class="wrap"><table id="carriers" class="cards"><thead><tr><th>Carrier</th><th>Copper or TDM retirement</th><th>FAA role</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+
 <h2>What all 22 centers share (common points of failure)</h2>
 <h3 id="centers-h">Which centers failed</h3>
-<p class="note">Six of 22 are named in reporting. The FAA has confirmed none by name. Linked from <a href="#q10">q10</a> and <a href="#q1">q1</a>.</p>
+<p class="note">Six of 22 are named in reporting. The FAA has confirmed none by name; Bedford says instability hit 17, none named. Linked from <a href="#q10">q10</a> and <a href="#q1">q1</a>.</p>
 <div class="wrap"><table id="centers" class="cards"><thead><tr><th>Center</th><th>Earliest sign (ET)</th><th>What was reported</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 <p id="unconf" class="note"></p>
 <ul id="centersnotes"></ul>
+<p class="note">What each official said about scope. Data points to check against each other, not verdicts. Saturday times are derived from the briefing stream.</p>
+<div class="wrap"><table id="scope" class="cards noterm"><thead><tr><th>Speaker</th><th>When (ET)</th><th>Their words</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 <h3>What they all depend on</h3>
 <p class="note">If one update took down every center, the cause sits in something every center depends on. Added 8:10 pm from FAA, L3Harris and industry documents; some architecture details date from 2015–2017 and may have changed during the copper-to-fiber rebuild. How well each candidate fits is now judged in the grid above.</p>
 <div class="exgrid" id="explainers"></div>
@@ -244,6 +255,7 @@ table.eg td.fact .src{display:block}
 <ul id="context"></ul>
 
 <h2>Event log</h2>
+<p class="note">Corrected Sat 4 pm: the ground stop bar now ends at 8:19 pm, the lift advisory's send time (was 8:15, CNBC). Intersection #7 said every center lost comms; Bedford says instability at 17 of 22 and none went dark. Mullin's "patches" line no longer says "security," which his words didn't. The Salt Lake City precedent was dated 2007; it was Nov 19, 2009. q7 is open again until independently confirmed. Saturday times are derived from the briefing stream.</p>
 <p class="note">Corrected Sat 6:45 am: the ground stop bar now ends at 8:15 pm. Earlier versions showed it still in effect.</p>
 <div class="wrap"><table id="log" class="cards noterm"><thead><tr><th>Time (ET)</th><th>Thread</th><th>Event</th><th>Type</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 </main>
@@ -285,25 +297,38 @@ const S = {
  mmail:{name:"Malay Mail (Reuters)", url:"https://www.malaymail.com/news/world/2025/05/13/us-scrambles-to-fix-newark-air-traffic-woes-blames-biden-era-neglect/176669"},
  yabc:{name:"Yahoo / ABC News", url:"https://www.yahoo.com/news/faa-launches-emergency-task-force-013839207.html"},
  slf:{name:"Streamline Feed (citing CBS)", url:"https://streamlinefeed.co.ke/news/officials-blame-legacy-network-for-nationwide-us-ground-stop"},
+ dotbrief:{name:"DOT briefing, Nov 14 (AP live stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ dotrel:{name:"DOT release", url:"https://www.transportation.gov/briefing-room/icymi-us-transportation-secretary-sean-p-duffy-provides-update-restoration-airspace"},
+ atc13:{name:"ATCSCC advisories, Nov 13", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-13&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ atc14:{name:"ATCSCC advisories, Nov 14", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-14&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ gao:{name:"GAO-26-107992", url:"https://files.gao.gov/reports/GAO-26-107992/index.html?pubDate=20260922"},
+ att25:{name:"AT&T filing, FL PSC 15389-2025", url:"https://www.psc.state.fl.us/library/filings/2025/15389-2025/15389-2025.pdf"},
+ att26:{name:"AT&T filing, FL PSC 06315-2026", url:"https://www.floridapsc.com/pscfiles/library/filings/2026/06315-2026/06315-2026.pdf"},
+ oig09:{name:"DOT Inspector General (2010)", url:"https://webarchive.library.unt.edu/web/20161103185913/https://www.oig.dot.gov/sites/default/files/WEB%20FILE2_FTI%20%20Nov%2019%20outage-6-18-10_Final%20Signature%28a%29%20%282%29.pdf"},
+ nw09:{name:"Network World (Nov 19, 2009)", url:"https://www.networkworld.com/article/768573/data-center-faa-glitch-shines-spotlight-on-troubled-telco-project.html"},
+ avweb_fens:{name:"AvWeb", url:"https://avweb.com/aviation-news/faa-att-74-3-million-new-atc-network/"},
+ fcc:{name:"Federal Register (FCC 26-19)", url:"https://www.federalregister.gov/documents/2026/04/20/2026-07622/reducing-barriers-to-network-improvements-and-service-changes"},
+ tra:{name:"Telecom Review Americas", url:"https://www.telecomreviewamericas.com/articles/telecom-operators/att-to-drive-faas-next-generation-communications-backbone/"},
+ cspan:{name:"C-SPAN (Internet Archive)", url:"https://archive.org/details/CSPAN_20250613_045600_Transportation_Secy._Duffy_Press_Conference_on_Air_India_Crash"},
  cloud:{name:"2024 market research", url:"https://www.potomacofficersclub.com/faa-conducts-market-research-to-identify-cloud-service-contractors/"}
 };
 
 const DATA = {
-updated: "2026-11-14T06:45:00-05:00",
+updated: "2026-11-14T16:00:00-05:00",
 /* Spans with no end were last checked here; they are drawn up to this time, not to the latest update. */
 spansChecked: "2026-11-13T20:10",
 
 /* When this box changes, move the old text into the event log as a dated line, so the page keeps a record of how its read shifted. */
 bestRead: {
- asOf: "2026-11-14T06:45",
+ asOf: "2026-11-14T16:00",
  confidence: "moderate",
- basis: "Officials' statements plus anonymous sourcing; no root cause from the FAA",
- text: "Officials now describe a new trigger on old hardware. Mullin said new security patches overwhelmed the older system's routers. Duffy said the old copper-era hardware failed and the new IP switches did not. CBS sources say an update to FTI (run by L3Harris) caused a reboot that crashed, and the FBI is reportedly examining a software update. Nobody on the record has named the update, who pushed it, or how it reached every center.",
- confidenceWhy: "Two official framings that point at different parties; the only specific account is anonymous; the FAA's own statement still says \"multiple\" centers, not all.",
+ basis: "Officials' statements at the Friday and Saturday briefings, plus anonymous sourcing; no root cause from the FAA",
+ text: "Officials' Saturday account: a router being replaced during copper-to-fiber work at a remote site flooded the network with about 1,000 connection attempts every 4–5 seconds, and systems came back once that work was isolated. Duffy said the line was \"such an old wire that it was being discontinued\" and that L3Harris \"actually owns that network.\" Bedford called the work sustainment, not modernization, and said the fault (installation, configuration or a bad router) is undetermined. Friday's accounts were neither confirmed nor withdrawn: Mullin said the FAA was \"putting patches into the system… new equipment and new technology\"; CBS sources said an FTI update caused a reboot. Nobody has named who was retiring the line.",
+ confidenceWhy: "The detailed account is the officials' own and isn't settled: Duffy said \"a single location,\" Guy \"two places,\" and Bedford that the fault is undetermined, with a root cause analysis promised but not dated. Scope is Bedford's count, instability at 17 of 22 en route facilities, none named and none going dark.",
  flipLink: "Anchorage and Honolulu stayed up",
  flip: "Then the shared cause is more likely ERAM, which runs only in the lower 48.",
  flipQ: "q1",
- srcs: [S.cbs, S.cnn, S.mcid, S.sw]
+ srcs: [S.dotbrief, S.cbs, S.mcid, S.sw]
 },
 
 terms: [
@@ -321,7 +346,7 @@ terms: [
  {id:"eram", term:"ERAM", match:["ERAM"], def:"The computer system at the 20 lower-48 centers that processes flight plans and radar tracks."},
  {id:"vscs", term:"VSCS", match:["VSCS"], def:"The voice switch inside a center that connects controllers to their radios and phones."},
  {id:"optical", term:"Optical layer (DWDM)", match:["optical/DWDM layer","optical layer","DWDM"], card:"ex-cores", def:"Equipment that sends many signals down one fiber as different colors of light."},
- {id:"rebuild", term:"Copper-to-fiber rebuild", match:["copper-to-fiber rebuild"], def:"L3Harris's ongoing swap of old copper lines for fiber, about 70% of sites as of Nov 2."},
+ {id:"rebuild", term:"Copper-to-fiber rebuild", match:["copper-to-fiber rebuild"], def:"L3Harris's ongoing swap of old copper lines for fiber, about 70% of sites as of Nov 2. Saturday: Duffy said 69%, then Bedford \"over 70%.\""},
  {id:"smart", term:"SMART", match:["SMART"], def:"The AI-assisted traffic management tool the FAA expanded to all airspace as of Nov 10. Advisory and cloud-based."},
  {id:"dd", term:"Downdetector", match:["Downdetector"], def:"A site that counts user complaints about outages. Spikes show complaints, not causes."}
 ],
@@ -340,7 +365,7 @@ grid: {
   {fact:"Centers lost over about 30 minutes, Chicago ~3:02 to Kansas City ~3:30", when:"View from the Wing, HNGN", src:[S.vftw, S.hngn], ev:"spread",
    cells:{push:["mixed","One push predicts near-simultaneous loss.","One push everywhere predicts near-simultaneous loss; a roll reads more like a cascade."], mgmt:["fits","Shared tooling can roll site by site.","A push through shared tooling can roll out site by site."], optical:["silent",""], cyber:["silent",""]}},
   {fact:"Started at a router at Chicago Midway and cascaded", when:"CNN, airline source", src:[S.cnn], ev:"midway",
-   cells:{push:["cuts","A push to both cores wouldn't begin at one router.","A push to both cores at once wouldn't begin at one router."], mgmt:["fits","Same shape as the 2007 Salt Lake City precedent.","Same shape as the 2007 Salt Lake City precedent: maintenance in one place broke a router in another."], optical:["cuts","Optical failure looks like cuts, not one router.","An optical failure looks like cuts or loss of light, not one router failing."], cyber:["silent",""]}},
+   cells:{push:["cuts","A push to both cores wouldn't begin at one router.","A push to both cores at once wouldn't begin at one router."], mgmt:["fits","Same shape as the 2009 Salt Lake City precedent.","Same shape as the Nov 19, 2009 Salt Lake City precedent: a router misconfigured in one place broke service in another."], optical:["cuts","Optical failure looks like cuts, not one router.","An optical failure looks like cuts or loss of light, not one router failing."], cyber:["silent",""]}},
   {fact:"An FTI update triggered a reboot that crashed", when:"CBS, multiple sources", src:[S.cbs], ev:"ftiupd",
    cells:{push:["fits",""], mgmt:["fits",""], optical:["cuts","Not a router update."], cyber:["cuts","With the FBI row.","Cuts, taken with the FBI row below."]}},
   {fact:"Officials: new patches / new technology overwhelmed old routers", when:"Mullin, Fri briefing; AP", src:[S.cbs, S.mcid], ev:"patches",
@@ -349,7 +374,9 @@ grid: {
    cells:{push:["mixed","One push predicts near-simultaneous loss."], mgmt:["fits","A site-by-site rollout or cascade."], optical:["silent",""], cyber:["silent",""]}},
  {fact:"FBI doesn't believe it was a cyberattack", when:"Bloomberg, via Startup Fortune", src:[S.sf], ev:"fbi",
    cells:{push:["silent",""], mgmt:["silent",""], optical:["silent",""], cyber:["cuts",""]}},
-  {fact:"Did Anchorage and Honolulu fail?", when:"Still unknown as of Sat 6:45 am", src:[], q:"q1",
+  {fact:"Officials, Sat: a router being replaced at a remote site flooded other routers during copper-to-fiber work; systems recovered once it was isolated", when:"DOT briefing; official claim, root cause pending", src:[S.dotbrief],
+   cells:{push:["cuts","One device type at one or two sites, not a push to both cores.","One device type at one or two sites (Duffy and Guy differ), not a push to both cores."], mgmt:["silent","No management tooling named."], optical:["cuts","Flooding, not a light-path failure."], cyber:["cuts","Official claim only."]}},
+  {fact:"Did Anchorage and Honolulu fail?", when:"Still unknown as of Sat 4 pm (Saturday's briefing didn't say)", src:[], q:"q1",
    cells:{push:["unknown","","Silent until answered."], mgmt:["unknown","","Silent until answered."], optical:["unknown","","Silent until answered."], cyber:["unknown","Decides ERAM versus the network.","Silent until answered. This one decides ERAM (lower 48 only) versus the network, not between these columns."]}}
  ]
 },
@@ -357,16 +384,18 @@ grid: {
 /* status: open | partly | answered */
 pinned: [
  {id:"q1", q:"Did Anchorage and Honolulu fail too?", splits:"Duffy said 'all' centers. Yes rules out ERAM (20 centers) and VSCS (21), leaving FTI and its management plane. Only the lower 48 puts ERAM back in play.", status:"open", answer:"Lead, not an answer: ABC reported flights taking off in Alaska and Hawaii during the stop. That speaks to how far the order reached, not whether the two centers failed.", src:[S.abc7]},
- {id:"q4", q:"What was the update, and who pushed it: L3Harris, someone working on the transition, or the FAA? From the Melbourne NOCC, and to how many devices?", splits:"Names the change and its owner. A push to both cores is a process failure (grid column 1); one router at a time leans management plane (column 2).", status:"partly", answer:"CBS (multiple sources): an update to FTI caused a reboot that crashed. FAA to airlines: a router problem starting at Midway. Mullin (Fri briefing): new security patches added to the older system appeared to overwhelm its routers. FBI reportedly examining a software update. Still missing: what the patch was, who pushed it, from where, to how many devices.", src:[S.cbs, S.cnn, S.sw]},
- {id:"q9", q:"Does SMART deploy over FTI, or share a change window with the update?", splits:"SMART denied a role before any cause was known, and the reported cause names no author for the update. A shared path or window puts SMART back in the picture; neither leaves the denial standing.", status:"open", answer:"Note, not an answer: Duffy said there is \"no possible way\" SMART was involved because it isn't connected to the core systems controllers use to track flights. That doesn't say whether SMART traffic rides FTI.", src:[S.mcid]},
- {id:"q5", q:"Was it scheduled, and why didn't the backups keep things running?", splits:"Process failure versus design failure. Also open: why rollback failed.", status:"open"},
- {id:"q6", q:"Why push an update to a live national network around 3 pm on a Friday, near peak traffic?", splits:"Network changes usually go in overnight; L3Harris says it works in maintenance windows. Inference, not reported.", status:"open"},
- {id:"q2", q:"Is the dual-core, two-vendor design still intact partway through the copper-to-fiber rebuild?", splits:"If the rebuild merged or simplified the cores, that alone could explain how one update reached everything.", status:"open"},
+ {id:"q4", q:"What was the update, and who pushed it: L3Harris, someone working on the transition, or the FAA? From the Melbourne NOCC, and to how many devices?", splits:"Names the change and its owner. A push to both cores is a process failure (grid column 1); one router at a time leans management plane (column 2).", status:"partly", answer:"CBS (multiple sources): an update to FTI caused a reboot that crashed. FAA to airlines: a router problem starting at Midway. Mullin (Fri briefing): as the FAA was \"putting patches into the system, they were putting new equipment and new technology,\" which \"was overwhelming the older system.\" FBI reportedly examining a software update. Sat briefing: a router being replaced at a remote site flooded the network; Guy said two places sent \"a thousand connections over every four to five seconds\" and \"only about 60\" of that router are deployed. Duffy, phrasing it as a question, said the routers were \"in essence manufactured in 2001\" and \"out of service really by 2006\"; Bedford named Cisco 600 routers (auto-captions; check the video). Still missing: which change, who made it, and at which site.", src:[S.cbs, S.cnn, S.sw, S.dotbrief]},
+ {id:"q9", q:"Does SMART deploy over FTI, or share a change window with the update?", splits:"SMART denied a role before any cause was known, and the reported cause names no author for the update. A shared path or window puts SMART back in the picture; neither leaves the denial standing.", status:"open", answer:"Note, not an answer: Duffy (Fri briefing) said SMART \"isn't plugged in to STARS and ERAM\" and \"there was no possible way SMART would have impacted what happened today\"; Saturday, that it is \"not uh tied into or connected to the systems that went down.\" Neither says whether SMART traffic rides FTI.", src:[S.mcid, S.dotbrief]},
+ {id:"q5", q:"Was it scheduled, and why didn't the backups keep things running?", splits:"Process failure versus design failure. Also open: why rollback failed.", status:"open", answer:"Note, not an answer: Bedford said backups are \"integral to each of the facilities,\" with three levels of redundancy, and that the flooding \"went to the backups at other en route facilities and it propagated from there.\" Why they didn't hold, and when they were last tested, wasn't addressed. Maintenance is \"done manually, logged manually.\"", src:[S.dotbrief]},
+ {id:"q6", q:"Why push an update to a live national network around 3 pm on a Friday, near peak traffic?", splits:"Network changes usually go in overnight; L3Harris says it works in maintenance windows. Inference, not reported.", status:"open", answer:"Note, not an answer: Duffy said remote-site switchovers are done \"during the day\" and big facilities at night, and \"there'll be a reevaluation of when we uh do this work.\" Friday wasn't addressed, no policy was cited and no approver was named.", src:[S.dotbrief]},
+ {id:"q2", q:"Is the dual-core, two-vendor design still intact partway through the copper-to-fiber rebuild?", splits:"If the rebuild merged or simplified the cores, that alone could explain how one update reached everything.", status:"open", answer:"Note, not an answer: Bedford said \"we have one federal telephone infrastructure. One. We don't have two.\" He didn't say it in terms of cores.", src:[S.dotbrief]},
  {id:"q3", q:"Did both backbone cores go down, or did one fail and the other not take over?", splits:"Two different failures with different owners.", status:"open"},
- {id:"q7", q:"Is the Midway router in the old copper layer or the new fiber/IP layer?", splits:"Old layer fits \"old broken stuff\"; new layer cuts against it.", status:"partly", answer:"Officials answer \"old layer, new trigger.\" Duffy: \"Our new IP switches did not go down. It's the old hardware that went down.\" AP: new technology added to the system overloaded antiquated parts. Official claim only; nobody independent has confirmed which layer failed.", src:[S.mcid]},
+ {id:"q7", q:"Is the Midway router in the old copper layer or the new fiber/IP layer?", splits:"Old layer fits \"old broken stuff\"; new layer cuts against it.", status:"open", answer:"Officials answer \"old layer, new trigger.\" Duffy: \"Our new IP switches did not go down. It's the old hardware that went down.\" AP: new technology added to the system overloaded antiquated parts. Official claim only; nobody independent has confirmed which layer failed. Saturday's wording points both ways: \"that router that was being replaced\" (Duffy); \"a bad piece of router technology that we put into this system\" (Bedford); \"that router that we think was the original\" (Guy).", src:[S.mcid, S.dotbrief]},
  {id:"q8", q:"Why did the New Orleans tanker lose steering?", splits:"Background only. Not linked to the FAA; the NTSB's to answer, likely months. Coast Guard: \"some type of loss of steering.\"", status:"open"},
- {id:"q10", q:"Which centers actually failed?", splits:"Six are named in reporting; the FAA has confirmed none by name and said \"multiple,\" while Duffy said \"all.\" If Anchorage, Honolulu or several western centers never failed, \"all 22\" was an overstatement and the shared cause is narrower. See the centers table.", status:"partly", answer:"Named in reporting: Chicago, New York, Boston, Washington, Minneapolis, Kansas City. Sixteen unconfirmed.", src:[S.tac, S.kcp]},
- {id:"q11", q:"What kind of change was it: security patch, firmware, configuration? Is Mullin's \"patches\" the same change CBS's sources describe?", splits:"A security patch points at whoever runs patching on FTI; a configuration push points at the management plane.", status:"open"},
+ {id:"q10", q:"Which centers actually failed?", splits:"Six are named in reporting; the FAA has confirmed none by name and said \"multiple,\" while Duffy said \"all.\" If Anchorage, Honolulu or several western centers never failed, \"all 22\" was an overstatement and the shared cause is narrower. See the centers table.", status:"partly", answer:"Named in reporting: Chicago, New York, Boston, Washington, Minneapolis, Kansas City. Sixteen unconfirmed. Bedford (Sat): instability at \"17 of our 22\" en route facilities and \"no facilities went dark\"; he named none, and no one said which five were unaffected.", src:[S.tac, S.kcp, S.dotbrief]},
+ {id:"q11", q:"What kind of change was it: patch, new equipment, firmware, configuration? Is Mullin's \"patches\" (\"new equipment and new technology\") the same change CBS's sources describe?", splits:"A patch or new equipment points at whoever was installing on FTI (Saturday: L3Harris); a configuration push points at the management plane.", status:"open", answer:"Note, not an answer: Saturday, nobody used the words \"update\" or \"patch.\" Duffy called the work \"routine maintenance\"; Bedford said \"this isn't modernization. This is sustainment\" and listed \"a faulty configuration\" as one possibility.", src:[S.dotbrief]},
+ {id:"q13", q:"Who was retiring the copper line in the Nov 13 work?", splits:"A carrier retiring the line points at a carrier deadline driving FAA timing. L3Harris's own sustainment points at L3Harris and FAA scheduling.", status:"open", answer:"Duffy: it was \"such an old wire that it was being discontinued\" and \"we were required to do it or it was going to be shut down.\" He said only \"they were taking it out of service.\" No source found names the carrier or party. See the carriers panel.", src:[S.dotbrief]},
+ {id:"q14", q:"Which obsolescence-fee figure is right?", splits:"If fees are still paid, the June 2025 \"stopped\" claim was partial or wrong. If not, the $200M measures something else.", status:"open", answer:"Duffy, Sat: \"we spend over $200 million a year in obsolescence fees.\" Duffy, June 2025: the FAA worked with AT&T, Verizon and smaller providers \"to get them to stop charging us the obsolescence fees,\" almost $800 million a year. Bedford, Sat: \"a billion dollars a year\" to maintain and sustain the TDM network. How the figures relate wasn't stated.", src:[S.dotbrief, S.cspan]},
  {id:"q12", q:"Duffy: \"We didn't think we would have this kind of outage.\" What did the FAA expect, given the 2023 review and his own May 2025 warning?", splits:"Separates \"we knew it was fragile\" from \"we didn't expect a nationwide failure.\" Only the second is what he said. See what was known before Friday.", status:"open"},
  {id:"qa1", q:"Who took over the FTI replacement from Verizon?", status:"answered", answer:"AT&T has led FENS since Aug 11, 2026; Verizon kept a supporting role with core network functions. Nobody has replaced L3Harris: it still runs the live network.", src:[S.wt]}
 ],
@@ -403,7 +432,7 @@ spans: [
  {lane:"ms", start:"2026-11-12T12:30", end:null, kind:"reported", label:"Microsoft 365 / Outlook outage, recovering but ongoing"},
  {lane:"911", start:"2026-11-12T20:34", end:"2026-11-13T10:30", kind:"reported", label:"911 report wave (Downdetector), peak 298 at 5:21 am"},
  {lane:"att", start:"2026-11-13T06:00", end:"2026-11-13T10:15", kind:"estimated", label:"AT&T morning spike, peak ~9 am"},
- {lane:"faa", start:"2026-11-13T15:54", end:"2026-11-13T20:15", kind:"official", label:"National ground stop, 3:54–8:15 pm (4h21m; 'five hours' counts from the ~3:30 first alert)"},
+ {lane:"faa", start:"2026-11-13T15:54", end:"2026-11-13T20:19", kind:"official", label:"National ground stop, 3:54–8:19 pm by FAA advisory send times (4h25m). Bedford put the start at ~3:45 and Duffy the opening at 8:15; a reporter Friday called it a 'five hours' stop"},
  {lane:"wd", start:"2026-11-13T15:45", end:"2026-11-13T16:55", kind:"reported", label:"Workday small rise (Downdetector: since 3:45)"},
  {lane:"wd", start:"2026-11-13T16:55", end:null, kind:"estimated", label:"Workday large spike, 1,000+ reports"},
  {lane:"911", start:"2026-11-13T16:00", end:null, kind:"estimated", label:"911 afternoon climb to ~420"},
@@ -415,16 +444,35 @@ spans: [
 ],
 /* via:true = the cited outlet is passing on someone else's reporting. orig = original outlet or body if known. origUrl = filled in once traced. */
 events: [
+ {lane:"faa", sub:"cause", t:"2026-11-14T06:45", kind:"reported", label:"Page's best read at 6:45 am (archived): officials describe a new trigger on old hardware (Mullin's patches; Duffy's old hardware); CBS sources: an FTI update caused a reboot; nobody had named the update or who pushed it", src:"CBS News", url:"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/"},
+ {lane:"faa", sub:"flights", t:"2026-11-14T06:00", kind:"reported", label:"CNBC early-Saturday count: 6,200+ delays, 3,400+ cancellations (differs from ABC7's; time approx.)", src:"CNBC", url:"https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html"},
+ {lane:"faa", sub:"fail", t:"2026-11-13T15:00", kind:"official", label:"Bedford (Sat): the system \"started to exhibit some instability\"; \"over a course of about 45 minutes, we could not assess the cause\" (time derived from his ~3:45; Duffy said Fri \"at 3:36 p.m., we experienced instability\")", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"faa", sub:"flights", t:"2026-11-13T15:45", kind:"official", label:"Bedford (Sat): ground stop \"at approximately 3:45 p.m.\" The Air Current: issued 3:44. Advisory 111 went out at 3:54 (time approx.)", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"faa", sub:"flights", t:"2026-11-13T15:28", kind:"official", label:"Advisory 107: ORD ground stop (ORD arrival delays at 3:21; all-airports diversion recovery at 3:30)", src:"ATCSCC advisory list", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-13&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ {lane:"faa", sub:"flights", t:"2026-11-13T15:31", kind:"official", label:"Advisory 109: Midway ground stop (oceanic route closure at 3:43)", src:"ATCSCC advisory list", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-13&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ {lane:"faa", sub:"flights", t:"2026-11-13T16:21", kind:"official", label:"Advisory 117: extended flight-plan drop times at all centers (Chicago Center 4:11, Los Angeles Center 4:13); nationwide airborne holding at 4:20", src:"ATCSCC advisory list", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-13&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ {lane:"faa", sub:"flights", t:"2026-11-13T17:46", kind:"official", label:"Advisory 120: NATIONWIDE GROUND STOP, with an operations plan the same minute. Likely the extension to 11:30 pm that TheStreet reported; advisory text not read", src:"ATCSCC advisory list", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-13&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ {lane:"faa", sub:"flights", t:"2026-11-13T20:19", kind:"official", label:"Advisory 005: CNX NATIONWIDE GROUND STOP; ground delay programs at LGA, BOS, LAS, SAN and SFO cancelled 8:20–8:23", src:"ATCSCC advisory list", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-14&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ {lane:"faa", sub:"flights", t:"2026-11-13T20:41", kind:"official", label:"Airport ground stops after the lift, 8:41–11:41 pm: ORD (several), MSP, SEA, SAN, LAX, DFW, EWR, ATL. They read as recovery and volume management; an airport stop is not evidence its center failed", src:"ATCSCC advisory list", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-14&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ {lane:"faa", sub:"flights", t:"2026-11-14T07:44", kind:"official", label:"Advisory 054 (all centers): extended flight-plan drop times cancelled, about 15½ hours after they began and 11 hours after the stop lifted", src:"ATCSCC advisory list", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-14&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ {lane:"faa", sub:"cause", t:"2026-11-14T11:14", kind:"official", label:"Duffy: at \"at least one of our remote FAA locations, a contractor was doing routine maintenance\" switching copper to fiber; the line was \"such an old wire that it was being discontinued\"; \"L3 Harris actually owns that network\" (time derived)", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"faa", sub:"cause", t:"2026-11-14T11:30", kind:"official", label:"Duffy: \"we spend over $200 million a year in obsolescence fees\"; \"there'll be a reevaluation of when we uh do this work\" (time derived)", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"faa", sub:"cause", t:"2026-11-14T11:33", kind:"official", label:"Bedford: \"not part of the [Peraton] FAA 12 billion dollar modernization effort\"; \"a billion dollars a year\" to sustain the TDM network; \"constantly replacing\" Cisco 600 routers with Juniper (auto-captions; time derived)", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"faa", sub:"fail", t:"2026-11-14T11:34", kind:"official", label:"Bedford: instability at \"17 of our 22\" en route facilities, spreading into TRACONs; \"no facilities went dark\" (time derived)", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"faa", sub:"cause", t:"2026-11-14T11:40", kind:"official", label:"Guy: two places sent \"a thousand connections over every four to five seconds\"; both disabled; \"We stopped functionality in all of that across the [NAS],\" then \"some of that functionality\"; \"only about 60\" deployed; testing with L3Harris (time derived)", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"faa", sub:"context", t:"2026-11-14T11:32", kind:"official", label:"Duffy: new architecture with \"AT&T, Verizon, and Lumen\"; \"I'm stuck with L3 Harris, who owns this network\" (time derived)", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"faa", sub:"context", t:"2026-11-14T11:49", kind:"official", label:"Duffy: \"$30 billion\" request, full request to the Hill \"on Monday\" (Friday's $50B not mentioned); Bedford: $31B itemization, about $10.1B to finish modernization (time derived)", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"att", t:"2026-11-15T00:00", kind:"official", label:"AT&T's planned discontinuance of special access DS1/DS3 (T1/T3) in parts of 19 states, \"effective on or after November 15, 2026, pending regulatory approval\" (filed Dec 1, 2025). AT&T set the same date for other copper services, so it is AT&T's broader retirement date. No source ties it to the Nov 13 site", src:"AT&T filing (FL PSC 15389-2025)", url:"https://www.psc.state.fl.us/library/filings/2025/15389-2025/15389-2025.pdf"},
  {lane:"faa", sub:"cause", t:"2026-11-13T20:10", kind:"reported", label:"Page's best read at 8:10 pm (archived): FTI update caused a reboot that crashed (CBS); router trouble starting at Midway (CNN)", src:"CBS News", url:"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/"},
  {id:"tacseq", lane:"faa", sub:"fail", t:"2026-11-13T15:30", kind:"reported", label:"Command Center notified multiple centers lost comms, radio and radar; Chicago first, then Boston, Washington, New York, Minneapolis in rapid succession", src:"The Air Current", url:"https://theaircurrent.com/feed/dispatches/u-s-halts-flight-departures-nationwide-on-air-traffic-communications-outage/"},
  {lane:"faa", sub:"flights", t:"2026-11-13T15:54", kind:"reported", label:"Stop first planned for the eastern system, extended nationwide as more facilities failed", src:"The Air Current", url:"https://theaircurrent.com/feed/dispatches/u-s-halts-flight-departures-nationwide-on-air-traffic-communications-outage/"},
- {lane:"faa", sub:"flights", t:"2026-11-13T20:15", kind:"official", label:"Nationwide ground stop lifted; FAA says it tested systems for stability before releasing flights", src:"CNBC", url:"https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html"},
+ {lane:"faa", sub:"flights", t:"2026-11-13T20:15", kind:"official", label:"Airspace opened. Duffy (Fri briefing): \"at 8:15 tonight, Eastern time, we've opened up the airspace\"; CNBC gives the same time and says the FAA tested systems for stability first. The cancellation advisory went out at 8:19.", src:"CNBC", url:"https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html"},
  {lane:"faa", sub:"cause", t:"2026-11-13T20:30", kind:"official", label:"Duffy briefing: routers 'got overloaded with data'; 'Our new IP switches did not go down'; 'We didn't think we would have this kind of outage' (time approx.)", src:"Martin Cid", url:"https://www.martincid.com/business/faa-ground-stop-new-equipment-overloaded-old-switches/"},
- {id:"patches", lane:"faa", sub:"cause", t:"2026-11-13T20:31", kind:"official", label:"Mullin: new security patches added to the older system appeared to 'overwhelm' its routers; no cyberattack (time approx.)", src:"CBS News", url:"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/"},
+ {id:"patches", lane:"faa", sub:"cause", t:"2026-11-13T20:31", kind:"official", label:"Mullin: as the FAA was \"putting patches into the system, they were putting new equipment and new technology,\" which \"was overwhelming the older system\"; no sign of a cyberattack yet (time approx.)", src:"CBS News", url:"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/"},
  {lane:"faa", sub:"context", t:"2026-11-13T20:32", kind:"official", label:"Duffy asks Congress for $50B; 'You will have more of these' without an upgrade (time approx.)", src:"Fox Business", url:"https://www.foxbusiness.com/politics/duffy-sounds-alarm-over-aging-faa-system-after-nationwide-air-travel-shutdown"},
  {lane:"faa", sub:"cause", t:"2026-11-13T22:00", kind:"reported", label:"NSA, DoD, CISA joining the investigation per Mullin; FBI reportedly probing a software update; no root cause announced (time approx.)", src:"SecurityWeek", url:"https://www.securityweek.com/no-signs-of-hacking-in-faa-ground-stop-as-fbi-reportedly-probes-software-update/"},
  {lane:"faa", sub:"context", t:"2026-11-13T23:00", kind:"official", label:"Sen. Blumenthal calls for a 'prompt, penetrating investigation' (late Friday; time approx.)", src:"NPR", url:"https://www.npr.org/2026/11/13/nx-s1-6040403/faa-nationwide-groundstop-airports"},
- {lane:"faa", sub:"flights", t:"2026-11-14T06:00", kind:"reported", label:"FlightAware: 3,374 cancelled and 1,008 delayed Saturday morning; 12,506 cancelled Fri–Sat (ABC7 count; CNBC early-Sat count differs: 6,200+ delays, 3,400+ cancellations)", src:"ABC7 live", url:"https://abc7ny.com/live-updates/faa-ground-stop-live-updates-what-know-nationwide-flights-are-grounded/20038887/"},
+ {lane:"faa", sub:"flights", t:"2026-11-14T06:00", kind:"reported", label:"FlightAware via ABC7: 3,374 cancelled and 1,008 delayed Saturday morning; 12,506 cancelled Fri–Sat", src:"ABC7 live", url:"https://abc7ny.com/live-updates/faa-ground-stop-live-updates-what-know-nationwide-flights-are-grounded/20038887/"},
  {lane:"faa", sub:"flights", t:"2026-11-14T06:10", kind:"reported", label:"Thousands of fresh Saturday cancellations; international authorities warn flights to and from the US may be disrupted", src:"Washington Post", url:"https://www.washingtonpost.com/transportation/2026/11/14/ground-stop-aftermath-sees-thousands-flights-canceled-delayed-saturday/"},
  {lane:"smart", t:"2026-09-21T12:00", kind:"official", label:"SMART launches in DC-area airspace (reported later expansion to Atlanta, Jacksonville, Miami not confirmed in other reporting)", src:"Quartz", url:"https://qz.com/faa-smart-ai-air-traffic-management-washington-airports-092226"},
  {lane:"smart", t:"2026-11-10T12:00", kind:"official", label:"FAA: SMART active at all 22 ARTCCs (cloud-based, ~200 data streams)", src:"AVweb / FLYING", url:"https://avweb.com/aviation-news/faa-expands-ai-assisted-traffic-management/"},
@@ -434,7 +482,7 @@ events: [
  {lane:"faa", sub:"flights", t:"2026-11-13T15:39", kind:"reported", label:"O'Hare and Midway stops for equipment outage, held until at least 4:30 ET", src:"Liberty One News", via:true, orig:null, origUrl:null, url:"https://libertyonenews.com/faa-grounds-all-us-flights-nationwide-after-air-traffic-radio-failure/"},
  {lane:"faa", sub:"flights", t:"2026-11-13T15:24", kind:"reported", label:"Last departure from Kansas City Intl (2:24 CT)", src:"KMBC", url:"https://www.kmbc.com/article/kci-kansas-city-nationwide-faa-issued-ground-stop/74427638"},
  {lane:"faa", sub:"flights", t:"2026-11-13T15:30", kind:"reported", label:"Kansas City Center ground stop for intermittent equipment outages; spreads to other centers 'in quick succession'", src:"HNGN", via:true, orig:"Paddle Your Own Kanoo", origUrl:null, url:"https://www.hngn.com/articles/273835/20261113/faa-orders-nationwide-ground-stop-after-air-traffic-comms-issue.htm"},
- {lane:"faa", sub:"fail", t:"2026-11-13T16:45", kind:"reported", label:"Airline told The Air Current: Command Center says outage affecting 10 en route centers 'and growing' (time approx.)", src:"TheStreet", via:true, orig:"The Air Current", origUrl:null, url:"https://www.thestreet.com/travel/faa-issues-nationwide-ground-stop-due-to-communication-issues"},
+ {lane:"faa", sub:"fail", t:"2026-11-13T16:54", kind:"reported", label:"Dispatcher told The Air Current: Command Center says outage affecting 10 en route centers 'and growing' (public by ~4:54 pm, TheStreet's entry; when the Command Center said it is unknown)", src:"TheStreet", via:true, orig:"The Air Current", origUrl:null, url:"https://www.thestreet.com/travel/faa-issues-nationwide-ground-stop-due-to-communication-issues"},
  {id:"radar", lane:"faa", sub:"fail", t:"2026-11-13T17:42", kind:"reported", label:"Source: outages include ATC radars as well as radio frequencies", src:"CNN", url:"https://www.cnn.com/2026/11/13/us/live-news/flights-ground-stop-faa"},
  {lane:"smart", t:"2026-11-13T17:48", kind:"official", label:"ASI on X: ground stop 'not based on or a result of the SMART system, any product of ASI or our integration with FAA and ATC'", src:"The War Zone / Washington Times", url:"https://www.twz.com/air/faa-orders-ground-stop-for-all-flights-across-the-u-s"},
  {id:"fbi", lane:"faa", sub:"cause", t:"2026-11-13T18:00", kind:"reported", label:"Bloomberg: FBI doesn't believe it was a cyberattack or crime; one line of inquiry is whether a software update caused it (time approx.)", src:"Startup Fortune", via:true, orig:"Bloomberg", origUrl:null, url:"https://startupfortune.com/fbi-probes-whether-a-software-update-caused-the-faa-ground-stop/"},
@@ -486,26 +534,30 @@ intersections: [
    {text:"The NWS gives a start time. Before about 4 pm strengthens this; well after suggests a separate failure or a knock-on."},
    {text:"A carrier (AT&T, Verizon, Lumen, Zayo) posts an incident, especially Midwest or Kansas City. That would make #1 and #2 a shared root cause."},
    {text:"The FAA and NWS name different causes, which would downgrade this to coincidence plus shared timing."}]},
- {n:7, t:"2026-11-13T15:15", lanes:["smart","faa"], status:"open", title:"SMART pushed to all 22 centers three days before all centers lost comms",
-  claim:"SMART reached the airspace of all 22 centers on Nov 10, three days before every center lost comms.",
+ {n:7, t:"2026-11-13T15:15", lanes:["smart","faa"], status:"open", title:"SMART reached all 22 centers' airspace three days before instability hit 17 of them",
+  claim:"SMART reached the airspace of all 22 centers on Nov 10, three days before instability at 17 of 22 en route facilities. Bedford named none of the 17 and says none went dark.",
   supports:[
-   {text:"Failures hit Chicago, New York and Boston at nearly the same moment, which fits a change applied everywhere at once.", src:[S.avweb, S.vftw]},
+   {text:"Nov 13 reporting had Chicago, New York and Boston failing within minutes of each other, which would fit a change applied everywhere at once.", src:[S.avweb, S.vftw]},
    {text:"If SMART played a part, the plausible path is integration plumbing (new data connections and network config), not the AI."}],
   against:[
    {text:"The Nov 10 expansion covers the airspace of all 22 centers, not software at each one. Specialists at a SMART center in Washington send recommendations to the Command Center in Warrenton, VA.", src:[S.airways, S.vabiz]},
    {text:"SMART is cloud-based and advisory and carries no voice. It rides on the network rather than running it."},
    {text:"CBS and CNN, on anonymous sources, point to an L3Harris FTI update and a router failure at Midway. A failure in the network itself weakens the SMART path considerably.", src:[S.cbs, S.cnn]},
    {text:"ASI denies any role, including 'our integration with FAA and ATC'. An interested party's claim, not evidence either way.", src:[S.twz], weight:"low"},
-   {text:"Duffy, on record: \"no possible way\" SMART was involved, because it isn't connected to the core systems controllers use to track flights. An assertion with no architecture shown; it doesn't address whether SMART traffic rides FTI.", src:[S.mcid], q:"q9"}],
+   {text:"Duffy, on record (Fri briefing): SMART \"isn't plugged in to STARS and ERAM\"; \"there was no possible way SMART would have impacted what happened today.\" An assertion with no architecture shown; it doesn't address whether SMART traffic rides FTI.", src:[S.mcid], q:"q9"},
+   {text:"Officials' Saturday account names another trigger: a router being replaced at a remote site during copper-to-fiber work flooded the network, and systems came back once that work was isolated. Official claim; the fault is undetermined and the root cause analysis is pending.", src:[S.dotbrief]},
+   {text:"Bedford describes spread from facility to facility (\"two, three, 10, 17\"), not simultaneous loss. That cuts against a change applied everywhere at once.", src:[S.dotbrief]},
+   {text:"Duffy, Sat: SMART is \"not uh tied into or connected to the systems that went down.\" He didn't name those systems, say whether SMART traffic rides FTI, or mention the Nov 10 expansion.", src:[S.dotbrief], q:"q9"},
+   {text:"Bedford, Sat: \"zero evidence of anything AI related.\" A statement about evidence held, with no basis described; caption reading, check the video before quoting.", src:[S.dotbrief]}],
   settles:[
    {text:"Whether the first centers to fail were Nov 10 additions, and whether Washington Center (SMART airspace since September) failed later or less severely. Update: The Air Current lists Washington among the first five, alongside Chicago, Boston, New York and Minneapolis, so September and Nov 10 centers failed together.", src:[S.tac]},
    {text:"Recovery order, center by center. West Coast centers got SMART on Nov 10 and are resuming first (~7 pm). If they lead while September centers lag, that cuts against the Nov 10 additions breaking; the reverse supports it."},
    {text:"Whether FAA voice circuits share network paths with data feeds. If voice is fully isolated, the SMART path weakens sharply."},
-   {text:"Service coming back at the same time SMART is paused, disconnected or rolled back at the centers. That would be the clearest tell, even if no one says so."},
-   {text:"Whether any failed center had SMART-related network or integration changes this week."},
+   {text:"Service coming back at the same time SMART is paused, disconnected or rolled back at the centers. That would be the clearest tell, even if no one says so. Officials, Sat: systems came back after the remote-site work was isolated; no SMART pause was mentioned."},
+   {text:"Whether any failed center had SMART-related network or integration changes this week. Not raised at the Sat briefing."},
    {text:"Whether SMART deploys over FTI or shared a change window with the update.", q:"q9"},
-   {text:"The FAA names a root cause."}],
-  more:"Before Nov 10, reported SMART use was the Washington area (its 180 reroutes were there, per <a href=\"https://www.aerotime.aero/articles/faa-smart-air-traffic-tool-22-en-route-centers\">AeroTime</a>); earlier use at Atlanta, Jacksonville or Miami isn't confirmed. DHS says it's examining the rollout; the FBI is looking at a software update. Builder: Air Space Intelligence (see the contractor section). Not official; held open until the FAA names a root cause."},
+   {text:"The FAA publishes its root cause analysis (promised Saturday, no date)."}],
+  more:"Before Nov 10, reported SMART use was the Washington area (its 180 reroutes were there, per <a href=\"https://www.aerotime.aero/articles/faa-smart-air-traffic-tool-22-en-route-centers\">AeroTime</a>); earlier use at Atlanta, Jacksonville or Miami isn't confirmed. Mullin said Friday the administration was examining the rollout; Bloomberg reported the FBI was looking at a software update. Neither DHS nor a software update came up at Saturday's briefing. Builder: Air Space Intelligence (see the contractor section). Not official; held open until the FAA names a root cause."},
  {n:2, t:"2026-11-13T16:30", lanes:["faa","gf"], status:"open", title:"Middle-of-the-country overlap",
   claim:"The FAA failure and a Gateway Fiber spike both sit in the middle of the country.",
   supports:[
@@ -515,15 +567,16 @@ intersections: [
    {text:"Gateway's spike trails the FAA by about 80 minutes."},
    {text:"The Air Current's sequence starts at Chicago, and Kansas City isn't in the first five centers named.", src:[S.tac]}],
   settles:[
-   {text:"Where did it start? Chicago signs come first in public audio (~3:02, O'Hare stop 3:10). Kansas City Center's own ground stop is reported ~3:30, with spread 'in quick succession'. NY and Boston frequency losses ~3:15. The Air Current (Sat update): Chicago first. The FAA hasn't said.", src:[S.tac]},
+   {text:"Where did it start? Chicago signs come first in public audio (~3:02); ORD and Midway ground-stop advisories went out at 3:28 and 3:31. Kansas City Center's own ground stop is reported ~3:30, with spread 'in quick succession'. NY and Boston frequency losses ~3:15. The Air Current (Sat update): Chicago first. The FAA hasn't said.", src:[S.tac]},
    {text:"No public reporting yet names a Kansas City data center. Kansas City Center (Olathe, KS) is the ATC facility. Any report naming a specific data center or carrier facility there would be new."},
    {text:"A carrier posts an incident for the Midwest or Kansas City (see #1)."}]},
  {n:3, t:"2026-11-13T15:45", lanes:["wd","faa"], status:"open", title:"Workday rises before the national order",
   claim:"Workday complaints started rising before the national ground stop order.",
   supports:[
-   {text:"Downdetector reports start 3:45, after the first local ATC trouble (3:10) but before Advisory 111 (3:54). The only public spike that leads the order.", src:[S.dd_wd]},
+   {text:"Downdetector reports start 3:45, after the first local ATC trouble (~3:02) but before Advisory 111 (3:54). The only public spike that leads the advisory.", src:[S.dd_wd]},
    {text:"StatusGator may put Workday trouble as early as 3:24 ET (if its times are UTC), minutes after Chicago's first problems.", src:[S.sg]}],
   against:[
+   {text:"It doesn't lead the decision: Bedford put the stop at ~3:45 and The Air Current at 3:44, against Workday's 3:45.", src:[S.dotbrief, S.tac]},
    {text:"No known link between Workday and ASI or the FAA."},
    {text:"Workday was among services hit by Cloudflare's Feb 20 failure, so shared cloud or network infrastructure is the likelier tie.", src:[S.cf, S.i365]},
    {text:"Workday also appears to have a weekly Friday early-morning outage pattern (not sourced here)."},
@@ -579,7 +632,7 @@ common: [
 ],
 commonNotes: [
  "<b>Built so this couldn't happen.</b> FTI's operational IP backbone uses a dual-core design, each core a distinct set of vendor-specific network elements with a completely isolated routing protocol; the FAA described the second routing domain as protection against faults. If an update crashed everything, it had to cross that design: (1) the same update pushed to both cores, a process failure; (2) the shared management plane; (3) the shared optical layer; or (4) shared services. <a href=\"https://www.actiac.org/system/files/FTI-2%20%20SDN-NFV%20White%20Paper_051817.pdf\">ACT-IAC</a> · <a href=\"https://www.faa.gov/sites/faa.gov/files/air_traffic/technology/cinp/fens/fti-2_challenges_and_focus_areas_final_06-24-2015.pdf\">FAA 2015</a>",
- "<b>Precedent, 2007.</b> The FAA blamed a 'software configuration problem' within FTI in Salt Lake City; the PASS union said scheduled maintenance on FTI in Los Angeles corrupted a router in Salt Lake City. FAA technicians on site couldn't do much because Harris managed the system. Maintenance in one place breaking a router in another is the same shape as 'started at Midway and cascaded.' <a href=\"https://www.networkworld.com/article/768573/data-center-faa-glitch-shines-spotlight-on-troubled-telco-project.html\">Network World</a>",
+ "<b>Precedent, Nov 19, 2009.</b> The FAA blamed a 'software configuration problem' within FTI in Salt Lake City; the DOT Inspector General later found a Harris technician had misconfigured a temporary router at Los Angeles Center during Salt Lake City Center's move to fiber (<a href=\"https://webarchive.library.unt.edu/web/20161103185913/https://www.oig.dot.gov/sites/default/files/WEB%20FILE2_FTI%20%20Nov%2019%20outage-6-18-10_Final%20Signature%28a%29%20%282%29.pdf\">DOT IG</a>); the PASS union said scheduled maintenance on FTI in Los Angeles corrupted a router in Salt Lake City. FAA technicians on site couldn't do much because Harris managed the system. Maintenance in one place breaking a router in another is the same shape as 'started at Midway and cascaded.' <a href=\"https://www.networkworld.com/article/768573/data-center-faa-glitch-shines-spotlight-on-troubled-telco-project.html\">Network World</a>",
  "<b>Who can act.</b> FAA procedure assigns monitoring, troubleshooting and repair to the FTI contractor; FAA technicians must rule out their own equipment before reporting to the contractor's operations center. In a nationwide failure, the 22 centers largely wait on one contractor NOCC. <a href=\"https://www.faa.gov/documentLibrary/media/Order/JO%206000.200.pdf\">FAA Order JO 6000.200</a>",
  "<b>Strongest open question, unconfirmed:</b> is the dual-core, two-vendor design still intact partway through the copper-to-fiber rebuild? If the rebuild merged or simplified the cores, that alone could explain how one update reached everything."
 ],
@@ -599,17 +652,26 @@ explainers: [
 /* onRecord: named | anon | party (interested party). spec: specific | partial | none. dir: plain words. */
 claims: [
  {claim:"Not a cyberattack", who:"Mullin (DHS)", onRecord:"named", spec:"none", specNote:"no evidence described", dir:"Rules out", t:"Fri afternoon", src:[S.cbs]},
- {claim:"Not SMART", who:"ASI; then Duffy", onRecord:"party", also:"named", spec:"partial", specNote:"\"not connected to the core systems\"", dir:"Rules out", t:"Before any cause was named", src:[S.twz, S.mcid], q:"q9"},
+ {claim:"Not SMART", who:"ASI; then Duffy", onRecord:"party", also:"named", spec:"partial", specNote:"\"isn't plugged in to STARS and ERAM\"", dir:"Rules out", t:"Before any cause was named", src:[S.twz, S.mcid], q:"q9"},
  {claim:"New IP switches didn't fail; the old hardware did", who:"Duffy", onRecord:"named", spec:"partial", specNote:"names a layer, not a device", dir:"Rules out the new layer", t:"Fri evening briefing", src:[S.mcid], q:"q7"},
  {claim:"Routers got overloaded and gave inconsistent data", who:"Duffy", onRecord:"named", spec:"partial", specNote:"a mechanism; no site, device or count", dir:"Assigns cause", t:"Fri evening briefing", src:[S.abcn]},
- {claim:"New security patches overwhelmed the routers", who:"Mullin (DHS)", onRecord:"named", spec:"none", specNote:"no patch named", dir:"Assigns cause", t:"Fri briefing", src:[S.cbs], q:"q11"},
+ {claim:"\"Putting patches into the system… new equipment and new technology\" overwhelmed the older system", who:"Mullin (DHS)", onRecord:"named", spec:"none", specNote:"no patch named", dir:"Assigns cause", t:"Fri briefing", src:[S.cbs], q:"q11"},
  {claim:"An update to FTI caused a reboot that crashed", who:"CBS sources", onRecord:"anon", spec:"partial", specNote:"names the network, not the change", dir:"Assigns cause", t:"Fri afternoon", src:[S.cbs], q:"q4"},
  {claim:"The FBI is examining a software update", who:"Bloomberg source", onRecord:"anon", spec:"none", specNote:"", dir:"Assigns cause", t:"Fri night", src:[S.sw]},
- {claim:"\"All\" centers affected", who:"Duffy (X post)", onRecord:"named", spec:"none", specNote:"the FAA's own statement said \"multiple\"", dir:"Scope", t:"~3:54 pm Fri", src:[S.kcp], q:"q10"}
+ {claim:"\"All\" centers affected", who:"Duffy (X post)", onRecord:"named", spec:"none", specNote:"the FAA's own statement said \"multiple\"", dir:"Scope", t:"~3:54 pm Fri", src:[S.kcp], q:"q10"},
+ {claim:"The line was being discontinued; \"we were required to do it\"", who:"Duffy", onRecord:"named", spec:"partial", specNote:"no carrier or party named", dir:"Context", t:"Sat ~11:14 (derived)", src:[S.dotbrief], q:"q13"},
+ {claim:"Sustainment, not modernization", who:"Bedford (FAA)", onRecord:"named", spec:"partial", specNote:"\"not part of the [Peraton] FAA 12 billion dollar modernization effort\"", dir:"Rules out modernization work", t:"Sat ~11:33 (derived)", src:[S.dotbrief], q:"q11"},
+ {claim:"Cisco \"600 series\" routers built 2001–2006", who:"CBS sources; then Duffy, Bedford", onRecord:"anon", also:"named", spec:"partial", specNote:"no \"600 series\" end-of-life notice found; Duffy phrased it as a question", dir:"Assigns cause", t:"Fri–Sat", src:[S.cbs, S.dotbrief], q:"q4"},
+ {claim:"\"Over $200 million a year\" in obsolescence fees", who:"Duffy", onRecord:"named", spec:"none", specNote:"conflicts with his June 2025 account of getting carriers to stop charging", dir:"Context", t:"Sat ~11:30 (derived)", src:[S.dotbrief], q:"q14"},
+ {claim:"Instability at 17 of 22 en route facilities", who:"Bedford", onRecord:"named", spec:"partial", specNote:"a count; no facilities named", dir:"Scope", t:"Sat ~11:34 (derived)", src:[S.dotbrief], q:"q10"},
+ {claim:"\"No facilities went dark\"; \"Nothing was fully lost\"", who:"Bedford", onRecord:"named", spec:"none", specNote:"no facility data shown; Duffy called them \"the systems that went down\"", dir:"Rules out outright failure", t:"Sat ~11:35 (derived)", src:[S.dotbrief], q:"q10"},
+ {claim:"\"A single location\"", who:"Duffy", onRecord:"named", spec:"none", specNote:"site not named; earlier \"at least one\" remote location", dir:"Scope", t:"Sat ~11:29 (derived)", src:[S.dotbrief]},
+ {claim:"Two places flooded the network, ~1,000 connections every 4–5 seconds", who:"Guy (FAA Acting CTO)", onRecord:"named", spec:"partial", specNote:"a rate and a count; sites not named; conflicts with \"a single location\"", dir:"Assigns cause", t:"Sat ~11:40 (derived)", src:[S.dotbrief], q:"q4"},
+ {claim:"September's outage was \"a massive Amtrak line cut\"", who:"Bedford", onRecord:"named", spec:"partial", specNote:"\"I think\"; the page records that attribution as corrected (see the Sept 21 event)", dir:"Context", t:"Sat ~11:36 (derived)", src:[S.dotbrief, S.aero]}
 ],
 /* status: reported | unconfirmed | up */
 centers: [
- {name:"Chicago (ZAU)", status:"reported", t:"~3:02 audio; O'Hare/Midway stops ~3:10", note:"Center audio: \"lost all frequencies and automation\"; FAA advisory stretched flight-plan processing to 3 hours. Strongest evidence.", src:[S.kcp, S.vftw]},
+ {name:"Chicago (ZAU)", status:"reported", t:"~3:02 audio; ORD and MDW ground-stop advisories 3:28 and 3:31", note:"Center audio: \"lost all frequencies and automation\"; FAA advisory stretched flight-plan processing to 3 hours. Strongest evidence.", src:[S.kcp, S.vftw, S.atc13]},
  {name:"New York (ZNY)", status:"reported", t:"~3:15", note:"Some sectors couldn't accept traffic.", src:[S.vftw]},
  {name:"Boston (ZBW)", status:"reported", t:"~3:15", note:"Frequency losses.", src:[S.vftw, S.tac]},
  {name:"Washington (ZDC)", status:"reported", t:"by ~3:30", note:"Among the first five; SMART airspace since September.", src:[S.tac]},
@@ -620,19 +682,41 @@ centers: [
  {name:"Indianapolis", status:"unconfirmed"}, {name:"Jacksonville", status:"unconfirmed"}, {name:"Los Angeles", status:"unconfirmed"}, {name:"Memphis", status:"unconfirmed"},
  {name:"Miami", status:"unconfirmed"}, {name:"Oakland", status:"unconfirmed"}, {name:"Salt Lake City", status:"unconfirmed"}, {name:"Seattle", status:"unconfirmed"}
 ],
+timepoints: [{"t": "~3:00 pm", "what": "Onset of instability", "who": "Bedford's \"about 45 minutes\" before ~3:45", "kind": "Derived"}, {"t": "~3:02", "what": "Frequency problems heard at O'Hare", "who": "SOFREP, via KCRA; ATC audio", "kind": "Reported"}, {"t": "3:28 / 3:31", "what": "ORD / Midway ground stops", "who": "Advisories 107, 109", "kind": "Advisory"}, {"t": "3:36", "what": "\"we experienced instability\"", "who": "Duffy, Fri briefing", "kind": "Official statement"}, {"t": "3:44", "what": "Ground stop issued", "who": "The Air Current", "kind": "Reported"}, {"t": "~3:45", "what": "Ground stop \"implemented\"", "who": "Bedford, Sat", "kind": "Official statement"}, {"t": "~3:53", "what": "Ground stop issued \"around\" then", "who": "TheStreet", "kind": "Reported"}, {"t": "3:54", "what": "NATIONAL GROUND STOP", "who": "Advisory 111", "kind": "Advisory"}, {"t": "by ~4:54", "what": "\"10 en route centers 'and growing'\"", "who": "Dispatcher via The Air Current, quoted by TheStreet", "kind": "Reported (secondhand)"}, {"t": "5:46", "what": "NATIONWIDE GROUND STOP (likely the extension; text not read)", "who": "Advisory 120", "kind": "Advisory"}, {"t": "8:15", "what": "Airspace \"opened up\"", "who": "Duffy, Fri briefing; CNBC", "kind": "Official statement; reported"}, {"t": "8:19", "what": "CNX NATIONWIDE GROUND STOP", "who": "Advisory 005", "kind": "Advisory"}, {"t": "~8:30", "what": "Duffy and Mullin briefing", "who": "Duffy: \"come at 8:30 at night\"", "kind": "Official statement"}, {"t": "4h21m / 4h25m", "what": "Length of the stop", "who": "3:54–8:15 / 3:54–8:19", "kind": "Derived"}, {"t": "\"4hour\"", "what": "Length of the stop", "who": "Bedford, Sat", "kind": "Official statement"}, {"t": "\"five hours\"", "what": "Length of the stop", "who": "A reporter's question, Fri briefing", "kind": "Reported (question)"}, {"t": "Sat ~11:07–12:00", "what": "DOT briefing remarks", "who": "AP stream start ~10:30 (DOT: began at 10:30) plus stream time 37:07–1:29:56", "kind": "Derived"}],
+scope: [
+ {who:"Duffy", t:"Fri ~3:54 pm, X post", words:"\"all\" centers (as reported)", src:[S.kcp]},
+ {who:"Duffy", t:"Fri ~8:30 pm briefing", words:"\"it was in our TRACONs and our centers throughout the NAS\"; \"went down everywhere\"; \"I shouldn't say they went down; they started to give us inconsistency in the data\"", src:[S.mcid]},
+ {who:"Duffy", t:"Sat ~11:29–11:57", words:"\"the systems that went down yesterday\"; \"it didn't go out, but we had issues\"", src:[S.dotbrief]},
+ {who:"Bedford", t:"Sat ~11:34–11:35", words:"instability at \"17 of our 22 en route facilities\"; \"Nothing went down\"; \"no facilities went dark. Nothing was fully lost\"", src:[S.dotbrief]},
+ {who:"Guy", t:"Sat ~11:40–11:52", words:"\"two places\" flooding the network; technology that had already been digital \"actually continued to be okay\"", src:[S.dotbrief]}
+],
 centersNotes: [
- "A dispatcher told The Air Current the Command Center put it at 10 en route centers \"and growing,\" so about four failures are unnamed.",
+ "Bedford, Sat: instability hit \"17 of our 22\" en route facilities and \"no facilities went dark… Nothing was fully lost.\" He named none of the 17. The officials' words differ (table below); the status column stays as reported, and the differences are data points to check.",
+ "Chicago and Los Angeles Centers got their own \"extended flight plan drop times implemented\" advisories (4:11 and 4:13 pm), then all centers at 4:21. That shows centers working the disruption, not that they failed; Los Angeles stays unconfirmed.",
+ "No Kansas City Center advisory is on the Command Center's list, though Kansas City's own ground stop is reported ~3:30. A center's local stop may not go through the Command Center, so the gap proves nothing.",
+ "A dispatcher told The Air Current the Command Center put it at 10 en route centers \"and growing,\" so about four failures are unnamed. Bedford's Saturday count of 17 leaves 11 unnamed.",
  "The FAA first planned a ground stop for the eastern part of the system, then went nationwide as more facilities failed. An airport's ground stop is not evidence its center failed.",
  "Some outlets list Los Angeles or Denver as affected only because they read \"all\" as including them. Those stay unconfirmed."
 ],
 /* newest first */
 priors: [
  {t:"Nov 13, 2026, hours before", who:"White House, DOT", what:"Asked Congress for another $30.1B, including $10.1B for air traffic control upgrades.", src:[S.aerot]},
+ {t:"Sept 14, 2026", who:"GAO (GAO-26-107992)", what:"FAA copper cables \"from the 1960s\"; technology \"no longer supported by the communications providers\"; 2,560 of 5,170 copper lines replaced by May 2026, with a December 2028 target.", src:[S.gao]},
+ {t:"Aug 11, 2026", who:"FAA", what:"AT&T made lead on FENS, the FTI replacement ($74.3M first task order, awarded under waiver authority); Verizon keeps core network functions.", src:[S.avweb_fens, S.tra]},
+ {t:"Mar 26, 2026", who:"FCC", what:"Order FCC 26-19 sped up service discontinuances with a 31-day auto-grant. It adds notice requirements for 911 trunks; nothing for aviation or FAA circuits was found in the part read.", src:[S.fcc]},
+ {t:"Dec 1, 2025", who:"AT&T", what:"Filed to discontinue special access DS1/DS3 (T1/T3) in parts of 19 states \"on or after November 15, 2026, pending regulatory approval.\" A Sept 2026 filing covers 20 states from Sept 1, 2027.", src:[S.att25, S.att26]},
  {t:"Sept 2025", who:"FAA", what:"Dallas outage: L3Harris oversight \"failed to ensure that redundancies in the system functioned properly\"; called a \"clear example\" of outdated infrastructure.", src:[S.nbcdal]},
  {t:"July 2025", who:"Congress", what:"$12.5B appropriated for the air traffic control overhaul.", src:[S.mcid]},
+ {t:"June 12–13, 2025", who:"Duffy", what:"Telecom providers charged \"obsolescence fees\" \"per their contract,\" almost $800 million a year; he said the FAA \"worked with our telecom providers, at&t, verizon, and other smaller providers, to get them to stop charging.\"", src:[S.cspan]},
  {t:"May 2025", who:"Duffy", what:"Newark: \"We could see other situations like this around the country because the system is old.\" He also said an update had just been done on the backup system.", src:[S.mmail, S.yabc]},
  {t:"Nov 2023", who:"FAA-commissioned review", what:"Called FTI obsolete and warned a failure could disconnect an entire regional center.", src:[S.slf]},
- {t:"2007", who:"FAA / PASS union", what:"Salt Lake City FTI \"software configuration problem\" (see the common-points notes).", src:[]}
+ {t:"Nov 19, 2009", who:"FAA / DOT Inspector General", what:"Salt Lake City FTI \"software configuration\" failure. The Inspector General found a Harris technician misconfigured a temporary FTI router at Los Angeles Center during Salt Lake City Center's move to fiber; the error surfaced when a new router went in.", src:[S.oig09, S.nw09]}
+],
+
+carriers: [
+ {name:"AT&T", ret:"Special access DS1/DS3 (T1/T3) in parts of 19 states \"on or after November 15, 2026, pending regulatory approval\"; a Sept 2026 filing covers 20 states from Sept 1, 2027. AT&T set Nov 15, 2026 for other copper services too.", role:"Lead on FENS, the FTI replacement, since Aug 11, 2026.", src:[S.att25, S.att26, S.avweb_fens]},
+ {name:"Verizon", ret:"Not on this page until a source is linked.", role:"Keeps core network functions on FENS.", src:[S.avweb_fens]},
+ {name:"Lumen", ret:"Not on this page until a source is linked.", role:"Named by Duffy (Sat) as working on the new architecture, with AT&T and Verizon.", src:[S.dotbrief]}
 ],
 
 seam: [
@@ -647,7 +731,7 @@ seamNotes: [
  "<b>Blame at the seam has a record.</b> After the Sept 2025 Dallas outage the FAA said L3Harris oversight 'failed to ensure that redundancies in the system functioned properly,' and American Airlines' leadership said they struggled to reach Frontier and L3Harris during the crisis. That's the escalation gap in practice. <a href=\"https://www.nbcnews.com/news/us-news/dallas-airports-restored-normal-operations-rcna232637\">NBC News</a>",
  "<b>Failure, then a funding request.</b> DOT and the White House asked Congress for another $30.1B on Friday, the day of the outage (<a href=\"https://www.aljazeera.com/news/2026/11/13/us-grounds-all-flights-after-communication-issue\">Al Jazeera</a>). A $30B request also followed the Sept 21 Northeast failure; the telecom line item has risen from $4.75B to $5.91B (<a href=\"https://avweb.com/?p=396301\">AvWeb</a>). The need can be real and the pattern can still be true.",
  "<b>Old equipment or a bad update.</b> The same day as the $30.1B request, Trump described the cause as 'a bunch of old broken stuff in the infrastructure' (<a href=\"https://www.mediaite.com/media/tv/trump-breaks-silence-to-tell-fox-atc-outage-may-have-been-caused-by-old-broken-stuff/\">Mediaite</a>, citing Reuters and Fox). If the cause holds up as a bad update pushed to routers, that isn't the same thing as old equipment failing. Which layer the Midway router sits in is an <a href=\"#q7\">open question</a>.",
- "<b>Officials now say both.</b> Mullin: new security patches overwhelmed the older system's routers. Duffy: the new IP switches did not go down; the old hardware did (<a href=\"https://www.martincid.com/business/faa-ground-stop-new-equipment-overloaded-old-switches/\">Martin Cid</a>, <a href=\"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/\">CBS</a>). That is the officials' answer to <a href=\"#q7\">q7</a>, not an independent one, and it cuts against the speculation below that the failing routers sit in the newer IP layer.",
+ "<b>Officials now say both.</b> Mullin: as the FAA was \"putting patches into the system, they were putting new equipment and new technology,\" which \"was overwhelming the older system.\" Duffy: the new IP switches did not go down; the old hardware did (<a href=\"https://www.martincid.com/business/faa-ground-stop-new-equipment-overloaded-old-switches/\">Martin Cid</a>, <a href=\"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/\">CBS</a>). That is the officials' answer to <a href=\"#q7\">q7</a>, not an independent one, and it cuts against the speculation below that the failing routers sit in the newer IP layer.",
  "<b>Speculation, labeled:</b> routers belong to the newer IP layer, not the decades-old copper. If the failing update was to routers, the failure may sit in the upgraded part of the network, or at the joint between old and new. That would cut against 'outdated infrastructure' as the explanation. Unconfirmed: which layer the Midway router belongs to is not public.",
  "<b>Pattern match, not evidence:</b> Australia's 2023 Optus outage began with a planned software upgrade at one exchange; routers then disconnected as protection against routing-update overload, cascading nationally for ~12 hours. 'Started at Midway and cascaded' has the same shape. <a href=\"https://en.wikipedia.org/wiki/2023_Optus_outage\">Wikipedia</a>",
  "<b>Open:</b> USASpending showed the current FTI delivery order with a potential end date of Sept 30, 2026 (<a href=\"https://www.federalmediagroup.com/news/faa-adds-21-5m-to-l3harris-telecom-infrastructure-order-cumulative-obligations-approach-2-1-billion\">FMG</a>). I found no public record of the extension L3Harris is presumably working under now. Its terms (length, penalties) bear on incentives around staffing and change approvals."
@@ -674,7 +758,7 @@ const VERD = {fits:"Fits", cuts:"Cuts", mixed:"Mixed", silent:"Silent", unknown:
 const QST = {open:{label:"Open", c:"--open"}, partly:{label:"Partly answered", c:"--demand"}, answered:{label:"Answered", c:"--expl"}};
 const CONF = {low:{label:"Low confidence", c:"--muted"}, moderate:{label:"Moderate confidence", c:"--demand"}, high:{label:"High confidence", c:"--expl"}};
 const MAXLINES = 3;
-const RANGES = {night:["2026-11-13T12:00","2026-11-14T07:00"], today:["2026-11-13T12:30","2026-11-13T20:30"], wide:["2026-11-12T12:00","2026-11-14T07:00"], week:["2026-09-15T00:00","2026-11-14T07:00"]};
+const RANGES = {night:["2026-11-13T12:00","2026-11-14T07:00"], today:["2026-11-13T12:30","2026-11-13T20:30"], wide:["2026-11-12T12:00","2026-11-16T00:00"], week:["2026-09-15T00:00","2026-11-14T07:00"]};
 let range="night", sel=null, showAll=false, faaOpen=true;
 const $ = id => document.getElementById(id);
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -712,7 +796,7 @@ function draw(){
  const [a,b]=RANGES[range].map(T), X=t=>L+(Math.min(Math.max(t,a),b)-a)/(b-a)*(W-L-R), inR=t=>t>=a&&t<=b;
  const fade=id=>{const o=R_[rowOf(id)].other&&!showAll?.4:1; if(!sel)return o; return sel.lanes.includes(id)?1:.15;};
  let s=`<svg viewBox="0 0 ${W} ${H}" style="width:${W>avail?W+"px":"100%"};max-width:none" role="img" aria-label="Swimlane timeline of outage threads. Tap any dot, bar or numbered badge for details.">`;
- const step = range==="today" ? (n?60:30)*60e3 : range==="night" ? (n?3:2)*3600e3 : range==="wide" ? 3*3600e3 : 7*24*3600e3;
+ const step = range==="today" ? (n?60:30)*60e3 : range==="night" ? (n?3:2)*3600e3 : range==="wide" ? (n?24:6)*3600e3 : 7*24*3600e3;
  for(let t=Math.ceil(a/step)*step;t<=b;t+=step){const x=X(t);
   s+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${H-28}" stroke="${css("--grid")}"/><text x="${x}" y="${H-10}" font-size="11.5" text-anchor="middle" fill="${css("--muted")}">${range==="today"||range==="night"?fmtT(t):fmt(t)}</text>`;}
  let lbl=`<svg class="lbl" viewBox="0 0 98 ${H}" width="98" height="${H}" aria-hidden="true">`;
@@ -891,6 +975,7 @@ function render(){
 
  document.querySelector("#seam tbody").innerHTML=DATA.seam.map(r=>`<tr><td data-l="Party"><b>${r.p}</b></td><td data-l="Role on the network">${r.role}</td><td data-l="Why it matters for Nov 13">${r.why}</td><td data-l="Source" class="noterm"><a href="${r.url}" target="_blank" rel="noopener">${r.src}</a></td></tr>`).join("");
  $("seamnotes").innerHTML=DATA.seamNotes.map(w=>`<li>${w}</li>`).join("");
+ document.querySelector("#carriers tbody").innerHTML=DATA.carriers.map(r=>`<tr><td data-l="Carrier"><b>${esc(r.name)}</b></td><td data-l="Copper or TDM retirement">${esc(r.ret)}</td><td data-l="FAA role">${esc(r.role)}</td><td data-l="Source">${srcLinks(r.src)}</td></tr>`).join("");
  $("explainers").innerHTML=DATA.explainers.map(x=>`<section class="card ex" id="${x.id}"><h3>${esc(x.title)}</h3>${x.html}</section>`).join("");
  document.querySelector("#common tbody").innerHTML=DATA.common.map(r=>`<tr><td data-l="Candidate"><b>${r.c}</b></td><td data-l="At all 22?">${r.all}</td><td data-l="Source" class="noterm"><a href="${r.url}" target="_blank" rel="noopener">${r.src}</a></td></tr>`).join("");
  $("commonnotes").innerHTML=DATA.commonNotes.map(w=>`<li>${w}</li>`).join("");
@@ -899,6 +984,8 @@ function render(){
  document.querySelector("#centers tbody").innerHTML=rep_.map(c=>`<tr><td data-l="Center"><b>${esc(c.name)}</b></td><td data-l="Earliest sign (ET)">${esc(c.t)}</td><td data-l="What was reported">${esc(c.note)}</td><td data-l="Source" class="noterm">${srcLinks(c.src)}</td></tr>`).join("");
  $("unconf").innerHTML=`<b>Unconfirmed (${unc.length}):</b> covered only by "all"; no reporting names a failure.<span class="cchips">${unc.map(c=>`<span class="chip">${esc(c.name)}</span>`).join("")}</span>`;
  $("centersnotes").innerHTML=DATA.centersNotes.map(w=>`<li>${w}</li>`).join("");
+ document.querySelector("#scope tbody").innerHTML=DATA.scope.map(r=>`<tr><td data-l="Speaker"><b>${esc(r.who)}</b></td><td data-l="When (ET)">${esc(r.t)}</td><td data-l="Their words">${esc(r.words)}</td><td data-l="Source">${srcLinks(r.src)}</td></tr>`).join("");
+ document.querySelector("#tp tbody").innerHTML=DATA.timepoints.map(r=>`<tr><td data-l="Time (ET)" style="white-space:nowrap"><b>${esc(r.t)}</b></td><td data-l="What">${esc(r.what)}</td><td data-l="Who or source">${esc(r.who)}</td><td data-l="Kind">${esc(r.kind)}</td></tr>`).join("");
  $("context").innerHTML=DATA.context.map(w=>`<li>${w}</li>`).join("");
  const lg=DATA.events.map((e,i)=>({e,i,t:T(e.t)})).sort((x,y)=>x.t-y.t);
  document.querySelector("#log tbody").innerHTML=lg.map(({e,i,t})=>`<tr class="ev" data-i="${i}" tabindex="0"><td data-l="Time (ET)" style="white-space:nowrap">${fmt(t)}</td><td data-l="Thread">${esc(nm(e.lane)+subNm(e))}</td><td data-l="Event">${esc(e.label)}</td><td data-l="Type">${e.kind}</td><td data-l="Source"><a href="${e.url}" target="_blank" rel="noopener">${esc(srcText(e))}</a></td></tr>`).join("");
