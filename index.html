@@ -41,8 +41,8 @@ ul{padding-left:20px;margin:6px 0} li{margin:4px 0}
 tr.ev{cursor:pointer} tr.ev:hover td{background:var(--grid)}
 td.more{color:var(--nws);font-size:12.5px;white-space:nowrap}
 .mob{display:none}
-.sheet{position:fixed;left:0;right:0;bottom:0;max-height:72vh;overflow:auto;background:var(--card);color:var(--ink);border-top:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.18);padding:18px 18px 28px;transform:translateY(105%);transition:transform .22s ease;z-index:30}
-.sheet.open{transform:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-height:72vh;overflow:auto;background:var(--card);color:var(--ink);border-top:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.18);padding:18px 18px 28px;transform:translateY(calc(100% + 60px));visibility:hidden;transition:transform .22s ease,visibility 0s linear .22s;z-index:30}
+.sheet.open{transform:none;visibility:visible;transition:transform .22s ease,visibility 0s}
 .sheet h3{font-size:17px;margin:4px 34px 6px 0;line-height:1.35}
 .sheet h4{font-size:13px;margin:16px 0 6px;color:var(--ink2)}
 .sheet p{margin:6px 0}
@@ -101,6 +101,11 @@ td.more{color:var(--nws);font-size:12.5px;white-space:nowrap}
 <div class="wrap"><table id="seam" class="cards"><thead><tr><th>Party</th><th>Role on the network</th><th>Why it matters for Nov 13</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 <ul id="seamnotes"></ul>
 
+<h2>What all 22 centers share (common points of failure)</h2>
+<p class="note" style="margin-top:0">If one update took down every center, the cause sits in something every center depends on. Added 8:10 pm from FAA, L3Harris and industry documents; some architecture details date from 2015–2017 and may have changed during the copper-to-fiber rebuild.</p>
+<div class="wrap"><table id="common" class="cards"><thead><tr><th>Candidate</th><th>At all 22?</th><th>Fits a nationwide update crash?</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+<ul id="commonnotes"></ul>
+
 <h2>Contractor and political money (context for #7)</h2>
 <p class="note" style="margin-top:0">Public records and reporting only. None of this shows the contract was improper or connects to the outage. It records who is tied to whom.</p>
 <ul id="context"></ul>
@@ -112,7 +117,7 @@ td.more{color:var(--nws);font-size:12.5px;white-space:nowrap}
 
 <script>
 const DATA = {
-updated: "2026-11-13T19:55:00-05:00",
+updated: "2026-11-13T20:10:00-05:00",
 lanes: [
  {id:"smart", name:"SMART AI rollout", color:"--soft"},
  {id:"faa", name:"FAA air traffic", color:"--faa"},
@@ -189,6 +194,22 @@ intersections: [
  {n:5, lens:"neutral", lensNote:"Predates SMART-related events; separate.", t:"2026-11-12T20:34", lanes:["911","ms"], status:"denied", title:"911 reports during the Microsoft outage", note:"911 reports started the night of the Microsoft outage. Authorities say Microsoft shouldn't affect 911 lines; Cybernews found the timing doesn't line up. No confirmed nationwide 911 failure."},
  {n:6, lens:"neutral", lensNote:"Demand explains it either way.", t:"2026-11-13T16:45", lanes:["dem","faa"], status:"explained", title:"Airlines, Amtrak, Bank of America after the stop", note:"Rebooking surges, stranded travelers grabbing trains, card and refund activity. Spikes trail the order, which is what demand predicts."}
 ],
+common: [
+ {c:"ERAM (en route flight-data automation)", all:"No: 20 CONUS centers", fit:"Weak. If Anchorage and Honolulu also failed, ERAM is ruled out as the shared cause.", src:"Wikipedia: ERAM", url:"https://en.wikipedia.org/wiki/En_Route_Automation_Modernization"},
+ {c:"VSCS (center voice switch)", all:"No: 21 centers (CONUS + Alaska)", fit:"Weak. Absent at Honolulu; also a local switch at each center, not a networked system an update would cascade through.", src:"FAA VSCS announcement", url:"https://faaco.faa.gov/index.cfm/announcement/view/25963"},
+ {c:"FTI operational IP backbone", all:"Yes", fit:"Strong. Carries 100% of FAA IP traffic, plus links from remote radio sites to centers, which matches losing frequencies and radar together.", src:"L3Harris FTI profile", url:"https://www.l3harris.com/sites/default/files/2025-03/fti-program-profile-sell-sheet-l3harris-sas-mn.pdf"},
+ {c:"FTI backbone sites (contractor co-location PoPs)", all:"Yes: two per airspace", fit:"The 'data centers' in this story. Core and aggregation routers are owned and operated by L3Harris at co-location facilities, not FAA buildings.", src:"ACT-IAC FTI-2 white paper", url:"https://www.actiac.org/system/files/FTI-2%20%20SDN-NFV%20White%20Paper_051817.pdf"},
+ {c:"L3Harris NOCC management plane (Melbourne, FL)", all:"Yes: manages 100,000+ devices", fit:"Strongest lead. The two backbone cores are separate, but the tooling that pushes configuration to both may not be.", src:"L3Harris FTI profile", url:"https://www.l3harris.com/sites/default/files/2025-03/fti-program-profile-sell-sheet-l3harris-sas-mn.pdf"},
+ {c:"Optical/DWDM layer under both cores", all:"Yes", fit:"Shared by both cores, but a failure here looks like cuts or loss of light, not a router update.", src:"FAA FTI-2 paper (2015)", url:"https://www.faa.gov/sites/faa.gov/files/air_traffic/technology/cinp/fens/fti-2_challenges_and_focus_areas_final_06-24-2015.pdf"},
+ {c:"Shared services: security monitoring, boundary gateways, timing", all:"Likely", fit:"Speculation, labeled. Nothing in reporting points here; standard on an investigator's list.", src:"FAA FTI-2 objectives paper", url:"https://www.faa.gov/sites/faa.gov/files/air_traffic/technology/cinp/fens/fti-2_draft_sir_1_attachment_j-0_fti-2_program_objectives_white_paper.pdf"},
+ {c:"SMART (airspace coverage)", all:"Yes, as of Nov 10", fit:"Weakened tonight. Cloud-based and advisory; it rides on the network rather than running it.", src:"FLYING / AVweb", url:"https://avweb.com/aviation-news/faa-expands-ai-assisted-traffic-management/"}
+],
+commonNotes: [
+ "<b>Built so this couldn't happen.</b> FTI's operational IP backbone uses a dual-core design, each core a distinct set of vendor-specific network elements with a completely isolated routing protocol; the FAA described the second routing domain as protection against faults. If an update crashed everything, it had to cross that design: (1) the same update pushed to both cores, a process failure; (2) the shared management plane; (3) the shared optical layer; or (4) shared services. <a href=\"https://www.actiac.org/system/files/FTI-2%20%20SDN-NFV%20White%20Paper_051817.pdf\">ACT-IAC</a> · <a href=\"https://www.faa.gov/sites/faa.gov/files/air_traffic/technology/cinp/fens/fti-2_challenges_and_focus_areas_final_06-24-2015.pdf\">FAA 2015</a>",
+ "<b>Precedent, 2007.</b> The FAA blamed a 'software configuration problem' within FTI in Salt Lake City; the PASS union said scheduled maintenance on FTI in Los Angeles corrupted a router in Salt Lake City. FAA technicians on site couldn't do much because Harris managed the system. Maintenance in one place breaking a router in another is the same shape as 'started at Midway and cascaded.' <a href=\"https://www.networkworld.com/article/768573/data-center-faa-glitch-shines-spotlight-on-troubled-telco-project.html\">Network World</a>",
+ "<b>Who can act.</b> FAA procedure assigns monitoring, troubleshooting and repair to the FTI contractor; FAA technicians must rule out their own equipment before reporting to the contractor's operations center. In a nationwide failure, the 22 centers largely wait on one contractor NOCC. <a href=\"https://www.faa.gov/documentLibrary/media/Order/JO%206000.200.pdf\">FAA Order JO 6000.200</a>",
+ "<b>Strongest open question, unconfirmed:</b> is the dual-core, two-vendor design still intact partway through the copper-to-fiber rebuild? If the rebuild merged or simplified the cores, that alone could explain how one update reached everything."
+],
 seam: [
  {p:"L3Harris", role:"Operates and maintains FTI, the current network linking 4,400+ FAA facilities, since 2002. Also running the copper-to-fiber rebuild: 70% of sites as of Nov 2.", why:"CBS reports the failing update was to FTI. It's both the operator and the one changing the network under live traffic.", src:"L3Harris", url:"https://www.l3harris.com/all-capabilities/faa-telecommunications-infrastructure-fti"},
  {p:"AT&T", role:"Lead contractor on FENS, the FTI replacement, since Aug 11, 2026. Initial $74.3M task order covers network design and transition planning from legacy services. Awarded under FAA waiver authority, without a new competition.", why:"Planning the transition, not yet running live traffic as far as public records show. Whether any AT&T work touched FTI this week is unknown.", src:"Washington Technology", url:"https://www.washingtontechnology.com/contracts/2026/08/faa-brings-t-network-modernization-program/415412/"},
@@ -215,6 +236,9 @@ context: [
  "<b>Concentration:</b> ASI's Flyways is used by Alaska, Delta and United, and ASI also builds the FAA's flow-management system. One vendor on both sides of the system."
 ],
 watch: [
+ "Did Anchorage and Honolulu fail too? Duffy said 'all' centers. If yes, ERAM (20 centers) and VSCS (21) are ruled out as the shared cause, leaving FTI and its management plane. If only the lower 48 failed, ERAM is back in play.",
+ "Did both FTI backbone cores go down, or did one fail and the other not take over? Those are different failures with different owners.",
+ "Was the update pushed from L3Harris's Melbourne NOCC, and to how many devices at once? A push to both cores would be a process failure, not a design failure.",
  "Recovery order, center by center. West Coast flights are resuming first (~7 pm). West Coast centers got SMART on Nov 10, not in September. If they recover first while centers with weeks of SMART lag, that cuts against the theory that the Nov 10 additions broke; the reverse supports it.",
  "Late-wave Downdetector spikes, all after the 3:54 order: FCC (near zero until ~5 pm, steep after ~6 pm, ~140 reports, mostly app and forms), Starlink (from 4:46 pm), Microsoft Teams (new reports from 6:13 pm), Target, Costco. Pattern fits attention and demand; Starlink and a Teams relapse are worth a second look if they grow.",
  "Iran context: the U.S. is weighing resuming major operations against Iran, and Iran has threatened U.S. bases in Europe. This week: aircraft moved out of RAF Mildenhall over a reported Iran threat (Nov 9-10), a drone response at RAF Lakenheath (Nov 13), and a U.S. Army officer at a NATO unit in England arrested on suspicion of spying for Russia. Officials say no sign of a nefarious cause; the FBI is looking at a software update. Any foreign attribution later gets tested against that baseline. (These items aren't linked here and weren't re-verified in the source check.)",
@@ -353,6 +377,8 @@ function tables(){
  document.getElementById("watch").innerHTML=DATA.watch.map(w=>`<li>${w}</li>`).join("");
  document.querySelector("#seam tbody").innerHTML=DATA.seam.map(r=>`<tr><td data-l="Party"><b>${r.p}</b></td><td data-l="Role on the network">${r.role}</td><td data-l="Why it matters for Nov 13">${r.why}</td><td data-l="Source"><a href="${r.url}">${r.src}</a></td></tr>`).join("");
  document.getElementById("seamnotes").innerHTML=DATA.seamNotes.map(w=>`<li>${w}</li>`).join("");
+ document.querySelector("#common tbody").innerHTML=DATA.common.map(r=>`<tr><td data-l="Candidate"><b>${r.c}</b></td><td data-l="At all 22?">${r.all}</td><td data-l="Fits a nationwide update crash?">${r.fit}</td><td data-l="Source"><a href="${r.url}" target="_blank" rel="noopener">${r.src}</a></td></tr>`).join("");
+ document.getElementById("commonnotes").innerHTML=DATA.commonNotes.map(w=>`<li>${w}</li>`).join("");
  document.getElementById("context").innerHTML=DATA.context.map(w=>`<li>${w}</li>`).join("");
  const rows=DATA.events.map((e,i)=>({i,t:T(e.t),lane:e.lane,label:e.label,kind:e.kind,src:e.src,url:e.url})).sort((x,y)=>x.t-y.t);
  document.querySelector("#log tbody").innerHTML=rows.map(r=>`<tr class="ev" data-i="${r.i}" tabindex="0"><td data-l="Time (ET)" style="white-space:nowrap">${fmt(r.t)}</td><td data-l="Thread">${nm(r.lane)}</td><td data-l="Event">${r.label}</td><td data-l="Type">${r.kind}</td><td data-l="Source"><a href="${r.url}" target="_blank" rel="noopener">${r.src}</a></td></tr>`).join("");
