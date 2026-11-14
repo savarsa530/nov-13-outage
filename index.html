@@ -35,6 +35,37 @@ a{color:var(--nws)}
 ul{padding-left:20px;margin:6px 0} li{margin:4px 0}
 .note{font-size:13px;color:var(--ink2);margin-top:10px}
 .wrap{overflow-x:auto}
+#cs{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.split{display:flex} #chart .split svg.lbl{flex:none;width:98px;height:auto;border-right:1px solid var(--line)} .split .pl{overflow-x:auto;-webkit-overflow-scrolling:touch;flex:1;min-width:0}
+#chart svg .hv:hover circle:last-child,#chart svg .ixb:hover circle:last-of-type{filter:brightness(1.15)}
+tr.ev{cursor:pointer} tr.ev:hover td{background:var(--grid)}
+td.more{color:var(--nws);font-size:12.5px;white-space:nowrap}
+.mob{display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-height:72vh;overflow:auto;background:var(--card);color:var(--ink);border-top:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.18);padding:18px 18px 28px;transform:translateY(105%);transition:transform .22s ease;z-index:30}
+.sheet.open{transform:none}
+.sheet h3{font-size:17px;margin:4px 34px 6px 0;line-height:1.35}
+.sheet h4{font-size:13px;margin:16px 0 6px;color:var(--ink2)}
+.sheet p{margin:6px 0}
+.sheet .x{position:absolute;top:10px;right:10px;width:34px;height:34px;padding:0;border-radius:50%}
+.sheet .src{font-weight:600}
+.go{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;margin:6px 0;padding:9px 10px;line-height:1.4}
+.go .num{flex:none} .go .t{flex:none;min-width:92px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+@media (min-width:900px){.sheet{left:auto;right:20px;bottom:20px;width:400px;max-height:80vh;border:1px solid var(--line);border-radius:14px}}
+@media (max-width:700px){
+ main{padding:20px 14px 90px}
+ h1{font-size:21px}
+ .legend{margin-left:0}
+ .bar button{flex:1 1 auto}
+ .mob{display:inline}
+ table.cards thead{display:none}
+ table.cards tr{display:block;border-bottom:1px solid var(--line);padding:12px 2px}
+ table.cards td{display:block;border:0;padding:3px 0}
+ table.cards td[data-l]::before{content:attr(data-l);display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:4px}
+ #ix td.long{display:none}
+ #ix td[data-l="#"]::before{display:none}
+ td.more{padding-top:6px}
+}
 </style>
 </head>
 <body>
@@ -55,19 +86,19 @@ ul{padding-left:20px;margin:6px 0} li{margin:4px 0}
   </div>
 </div>
 
-<div class="card" id="chart"><div id="tip"></div></div>
-<p class="note">Click an intersection number on the chart or a row below to highlight the threads it connects. Bars show sustained trouble; dots show single moments.</p>
+<div class="card" id="chart"><div id="tip"></div><div id="cs"></div></div>
+<p class="note">Tap any dot, bar or numbered badge to open its details, sources and connected threads. Rows below open the same way. Bars show sustained trouble; dots show single moments.<span class="mob"> Swipe the timeline sideways to see more.</span></p>
 
 <h2>Intersections</h2>
 <p class="note" style="margin-top:0">SMART (#7) is held as a working note, not a conclusion. Every intersection is checked against it: does it fit, cut against, or say nothing? A theory that is too clean has to keep earning it, and the "cuts against" column is where it can lose.</p>
-<div class="wrap"><table id="ix"><thead><tr><th>#</th><th>Where threads meet</th><th>Threads</th><th>Status</th><th>SMART lens</th><th>Why / what it rests on</th></tr></thead><tbody></tbody></table></div>
+<div class="wrap"><table id="ix" class="cards"><thead><tr><th>#</th><th>Where threads meet</th><th>Threads</th><th>Status</th><th>SMART lens</th><th>Why / what it rests on</th><th></th></tr></thead><tbody></tbody></table></div>
 
 <h2>What would change the picture</h2>
 <ul id="watch"></ul>
 
 <h2>Who touches the network (the seam)</h2>
 <p class="note" style="margin-top:0">Corrected 7:55 pm. Earlier versions said the FAA's network was moving from L3Harris to Verizon; that has been out of date since August. Three overlapping efforts run on one live network, which is where ownership of an alarm, a change approval or an escalation call can fall between parties.</p>
-<div class="wrap"><table id="seam"><thead><tr><th>Party</th><th>Role on the network</th><th>Why it matters for Nov 13</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+<div class="wrap"><table id="seam" class="cards"><thead><tr><th>Party</th><th>Role on the network</th><th>Why it matters for Nov 13</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 <ul id="seamnotes"></ul>
 
 <h2>Contractor and political money (context for #7)</h2>
@@ -75,8 +106,9 @@ ul{padding-left:20px;margin:6px 0} li{margin:4px 0}
 <ul id="context"></ul>
 
 <h2>Event log</h2>
-<div class="wrap"><table id="log"><thead><tr><th>Time (ET)</th><th>Thread</th><th>Event</th><th>Type</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+<div class="wrap"><table id="log" class="cards"><thead><tr><th>Time (ET)</th><th>Thread</th><th>Event</th><th>Type</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 </main>
+<aside id="sheet" class="sheet" aria-hidden="true" aria-label="Details"><button id="sheetclose" class="x" aria-label="Close details">✕</button><div id="sheetbody"></div></aside>
 
 <script>
 const DATA = {
@@ -219,68 +251,124 @@ const laneOf = id => DATA.lanes.findIndex(l=>l.id===id);
 const UPD = T(DATA.updated);
 document.getElementById("updated").textContent = "Last updated "+fmt(UPD)+" ET · times Eastern · intersections are hypotheses until a source confirms them";
 
+const narrow=()=>matchMedia("(max-width:700px)").matches;
+const nm=id=>DATA.lanes[laneOf(id)].name;
+const shortNm=n=>n.replace(" (Midwest ISP)","").replace(" (user reports)","").replace("Natl Weather Service","Weather Svc").replace("SMART AI rollout","SMART rollout").replace("Microsoft 365","Microsoft").replace("Travel demand","Travel demand");
+const LENS={fits:'Fits',cuts:'Cuts against',neutral:'Neutral',echo:'Echoes','—':'—'};
+
 function draw(){
- const box=document.getElementById("chart"), W=Math.max(box.clientWidth-28,640);
- const L=180, R=24, top=34, LH=40, H=top+DATA.lanes.length*LH+34;
+ const box=document.getElementById("chart"), cs=document.getElementById("cs"), n=narrow();
+ const avail=box.clientWidth-28-(n?98:0), W=Math.max(avail, n?760:640);
+ const L=n?12:180, R=24, top=34, LH=n?46:40, H=top+DATA.lanes.length*LH+34;
  const [a,b]=RANGES[range].map(T), X=t=>L+(Math.min(Math.max(t,a),b)-a)/(b-a)*(W-L-R);
  const inR=t=>t>=a&&t<=b;
- let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Swimlane timeline of outage threads with intersections">`;
- const step = range==="today" ? 30*60e3 : range==="wide" ? 3*3600e3 : 7*24*3600e3;
+ let s=`<svg viewBox="0 0 ${W} ${H}" style="width:${W>avail?W+'px':'100%'};max-width:none" role="img" aria-label="Swimlane timeline of outage threads. Tap any dot, bar or numbered badge for details.">`;
+ const step = range==="today" ? (n?60:30)*60e3 : range==="wide" ? 3*3600e3 : 7*24*3600e3;
  for(let t=Math.ceil(a/step)*step;t<=b;t+=step){const x=X(t);
   s+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${H-28}" stroke="${css('--grid')}"/>`;
   s+=`<text x="${x}" y="${H-10}" font-size="11.5" text-anchor="middle" fill="${css('--muted')}">${range==="today"?fmtT(t):fmt(t)}</text>`;}
+ let lbl=`<svg class="lbl" viewBox="0 0 98 ${H}" width="98" height="${H}" aria-hidden="true">`;
  DATA.lanes.forEach((l,i)=>{const y=top+i*LH+LH/2, dim=sel&&!sel.lanes.includes(l.id);
-  s+=`<text x="8" y="${y+4}" font-size="13" fill="${css('--ink')}" opacity="${dim?.3:1}" font-weight="${sel&&!dim?600:400}">${l.name}</text>`;
+  if(n) lbl+=`<text x="6" y="${y+4}" font-size="12" fill="${css('--ink')}" opacity="${dim?.3:1}" font-weight="${sel&&!dim?600:400}">${esc(shortNm(l.name))}</text>`; else s+=`<text x="8" y="${y+4}" font-size="13" fill="${css('--ink')}" opacity="${dim?.3:1}" font-weight="${sel&&!dim?600:400}">${esc(l.name)}</text>`;
   s+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="${css('--line')}"/>`;});
  if(inR(UPD)){const x=X(UPD);s+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${H-28}" stroke="${css('--ink2')}" stroke-width="1"/><text x="${x-4}" y="${top-12}" font-size="11" text-anchor="end" fill="${css('--ink2')}">last update</text>`;}
  DATA.spans.forEach((sp,k)=>{const i=laneOf(sp.lane), st=T(sp.start), en=sp.end?T(sp.end):UPD; if(en<a||st>b)return;
   const y=top+i*LH+LH/2, c=css(DATA.lanes[i].color), dim=sel&&!sel.lanes.includes(sp.lane)?.2:1;
-  const op = sp.kind==="official"?.9: sp.kind==="reported"?.55:.3;
-  s+=`<rect class="hv" data-tip="${esc(sp.label)}<br><span style='opacity:.7'>${fmt(st)} → ${sp.end?fmt(en):'ongoing'} · ${sp.kind}</span>" x="${X(st)}" y="${y-7}" width="${Math.max(X(en)-X(st),3)}" height="14" rx="4" fill="${c}" opacity="${op*dim}"${sp.kind==="estimated"?` stroke="${c}" stroke-dasharray="3 2"`:''}/>`;});
- DATA.events.forEach(e=>{const t=T(e.t); if(!inR(t))return; const i=laneOf(e.lane), y=top+i*LH+LH/2, c=css(DATA.lanes[i].color), dim=sel&&!sel.lanes.includes(e.lane)?.2:1;
-  const tip=`${esc(e.label)}<br><span style='opacity:.7'>${fmt(t)} · ${e.kind} · ${e.src}</span>`;
-  s+= e.kind==="estimated" ? `<circle class="hv" data-tip="${tip}" cx="${X(t)}" cy="${y}" r="5" fill="${css('--card')}" stroke="${c}" stroke-width="2" opacity="${dim}"/>`
-   : `<circle class="hv" data-tip="${tip}" cx="${X(t)}" cy="${y}" r="5.5" fill="${c}" opacity="${(e.kind==='official'?1:.6)*dim}" stroke="${css('--card')}" stroke-width="1.5"/>`;});
+  const op = sp.kind==="official"?.9: sp.kind==="reported"?.55:.3, w=Math.max(X(en)-X(st),3);
+  s+=`<g class="hv" data-k="s" data-i="${k}" data-tip="${esc(sp.label)}<br><span style='opacity:.7'>${fmt(st)} → ${sp.end?fmt(en):'ongoing'} · ${sp.kind}</span>"><rect x="${X(st)}" y="${y-13}" width="${w}" height="26" fill="transparent"/><rect x="${X(st)}" y="${y-7}" width="${w}" height="14" rx="4" fill="${c}" opacity="${op*dim}"${sp.kind==="estimated"?` stroke="${c}" stroke-dasharray="3 2"`:''}/></g>`;});
+ DATA.events.forEach((e,k)=>{const t=T(e.t); if(!inR(t))return; const i=laneOf(e.lane), y=top+i*LH+LH/2, c=css(DATA.lanes[i].color), dim=sel&&!sel.lanes.includes(e.lane)?.2:1;
+  const tip=`${esc(e.label)}<br><span style='opacity:.7'>${fmt(t)} · ${e.kind} · ${esc(e.src)}</span>`;
+  const dot = e.kind==="estimated" ? `<circle cx="${X(t)}" cy="${y}" r="5" fill="${css('--card')}" stroke="${c}" stroke-width="2" opacity="${dim}"/>`
+   : `<circle cx="${X(t)}" cy="${y}" r="5.5" fill="${c}" opacity="${(e.kind==='official'?1:.6)*dim}" stroke="${css('--card')}" stroke-width="1.5"/>`;
+  s+=`<g class="hv" data-k="e" data-i="${k}" data-tip="${tip}"><circle cx="${X(t)}" cy="${y}" r="${n?15:11}" fill="transparent"/>${dot}</g>`;});
  const placed=[];
  DATA.intersections.forEach(ix=>{const t=T(ix.t); if(!inR(t))return; const ys=ix.lanes.map(id=>top+laneOf(id)*LH+LH/2), y1=Math.max(...ys), x=X(t);
-  const y0=Math.min(...ys); let bump=0; while(placed.some(p=>Math.abs(p.x-(x+bump))<22&&p.y===y0)) bump+=22; placed.push({x:x+bump,y:y0}); const bx=x+bump;
+  const y0=Math.min(...ys); let bump=0; while(placed.some(p=>Math.abs(p.x-(x+bump))<24&&p.y===y0)) bump+=24; placed.push({x:x+bump,y:y0}); const bx=x+bump;
   const c=css(STATUS[ix.status].c), on=!sel||sel===ix, op=on?1:.25;
   s+=`<line x1="${x}" y1="${y0}" x2="${x}" y2="${y1}" stroke="${c}" stroke-width="${sel===ix?2.5:1.6}" stroke-dasharray="4 3" opacity="${op}"/>`;
   ys.forEach(y=>s+=`<circle cx="${x}" cy="${y}" r="9" fill="none" stroke="${c}" stroke-width="1.6" opacity="${op}"/>`);
   if(bump) s+=`<line x1="${x}" y1="${y0-9}" x2="${bx}" y2="${y0-17}" stroke="${c}" stroke-width="1.2" opacity="${op}"/>`;
-  s+=`<g class="ixb" data-n="${ix.n}" style="cursor:pointer" opacity="${op}"><circle cx="${bx}" cy="${y0-17}" r="10" fill="${c}"/><text x="${bx}" y="${y0-13}" font-size="11.5" font-weight="700" text-anchor="middle" fill="#fff">${ix.n}</text></g>`;});
+  s+=`<g class="ixb" data-n="${ix.n}" role="button" tabindex="0" aria-label="Intersection ${ix.n}: ${esc(ix.title)}" style="cursor:pointer" opacity="${op}"><circle cx="${bx}" cy="${y0-17}" r="${n?15:12}" fill="transparent"/><circle cx="${bx}" cy="${y0-17}" r="${n?11:10}" fill="${c}"/><text x="${bx}" y="${y0-13}" font-size="11.5" font-weight="700" text-anchor="middle" fill="#fff">${ix.n}</text></g>`;});
  s+=`</svg>`;
- [...box.querySelectorAll("svg")].forEach(n=>n.remove()); box.insertAdjacentHTML("beforeend",s);
- const tip=document.getElementById("tip");
- box.querySelectorAll(".hv").forEach(n=>{n.addEventListener("mousemove",ev=>{const r=box.getBoundingClientRect();tip.innerHTML=n.dataset.tip;tip.style.opacity=1;
-  let lx=ev.clientX-r.left+12; if(lx>r.width-290)lx=ev.clientX-r.left-292; tip.style.left=lx+"px";tip.style.top=(ev.clientY-r.top+12)+"px";});
-  n.addEventListener("mouseleave",()=>tip.style.opacity=0);});
- box.querySelectorAll(".ixb").forEach(g=>g.addEventListener("click",()=>select(+g.dataset.n)));
+ const prev=cs.querySelector(".pl"), keep=prev?prev.scrollLeft:null;
+ cs.innerHTML = n ? `<div class="split">${lbl}</svg><div class="pl">${s}</div></div>` : s;
+ if(n&&keep!==null) cs.querySelector(".pl").scrollLeft=keep;
+ const tip=document.getElementById("tip"), fine=matchMedia("(hover:hover)").matches;
+ cs.querySelectorAll(".hv").forEach(g=>{
+  if(fine){g.addEventListener("mousemove",ev=>{const r=box.getBoundingClientRect();tip.innerHTML=g.dataset.tip;tip.style.opacity=1;
+   let lx=ev.clientX-r.left+12; if(lx>r.width-290)lx=ev.clientX-r.left-292; tip.style.left=lx+"px";tip.style.top=(ev.clientY-r.top+12)+"px";});
+   g.addEventListener("mouseleave",()=>tip.style.opacity=0);}
+  g.style.cursor="pointer";
+  g.addEventListener("click",()=>{tip.style.opacity=0;openItem(g.dataset.k,+g.dataset.i);});});
+ cs.querySelectorAll(".ixb").forEach(g=>{g.addEventListener("click",()=>openIx(+g.dataset.n));
+  g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();openIx(+g.dataset.n);}});});
 }
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
-function select(n){const ix=DATA.intersections.find(i=>i.n===n); sel = sel===ix?null:ix;
- if(sel){const t=T(sel.t), [a,b]=RANGES[range].map(T); if(t<a||t>b) setRange("wide");}
- draw(); tables();}
+
+function sheet(html){const s=document.getElementById("sheet");document.getElementById("sheetbody").innerHTML=html;s.classList.add("open");s.setAttribute("aria-hidden","false");s.scrollTop=0;document.getElementById("sheetclose").focus({preventScroll:true});}
+function closeSheet(){const s=document.getElementById("sheet");s.classList.remove("open");s.setAttribute("aria-hidden","true");
+ if(location.hash.startsWith("#ix-")) history.replaceState(null,"",location.pathname+location.search);}
+function ixBtn(ix){const st=STATUS[ix.status];return `<button class="go" data-ix="${ix.n}"><span class="num" style="background:var(${st.c})">${ix.n}</span><span>${ix.title}</span></button>`}
+function evBtn(i){const e=DATA.events[i];return `<button class="go" data-ev="${i}"><span class="k t">${fmt(T(e.t))}</span><span>${e.label}</span></button>`}
+function openItem(k,i){
+ const e = k==="e"?DATA.events[i]:DATA.spans[i];
+ const when = k==="e"? fmt(T(e.t))+" ET" : fmt(T(e.start))+" → "+(e.end?fmt(T(e.end))+" ET":"ongoing");
+ const src = e.url? `<p><a class="src" href="${e.url}" target="_blank" rel="noopener">Open source: ${esc(e.src)} ↗</a></p>` : `<p class="k">Sustained trouble drawn from reports; see the event log for sources.</p>`;
+ const rel=DATA.intersections.filter(ix=>ix.lanes.includes(e.lane));
+ const others=DATA.events.map((x,j)=>({x,j})).filter(o=>o.x.lane===e.lane&&!(k==="e"&&o.j===i)).sort((p,q)=>T(p.x.t)-T(q.x.t));
+ sheet(`<div class="k">${nm(e.lane)} · ${e.kind}${k==="s"?" · span":""}</div><h3>${e.label}</h3><p class="k">${when}</p>${src}
+ ${rel.length?`<h4>Intersections on this thread</h4>${rel.map(ixBtn).join("")}`:`<h4>Intersections</h4><p class="k">None involve this thread.</p>`}
+ ${others.length?`<h4>Other events on ${nm(e.lane)}</h4>${others.map(o=>evBtn(o.j)).join("")}`:""}`);
+}
+function openIx(n,setHash=true){
+ const ix=DATA.intersections.find(x=>x.n===n); if(!ix) return; const st=STATUS[ix.status];
+ sel=ix; const t=T(ix.t), [a,b]=RANGES[range].map(T); if(t<a||t>b) setRange(t<T(RANGES.wide[0])?"week":"wide"); draw(); tables();
+ const evs=DATA.events.map((e,i)=>({e,i})).filter(o=>ix.lanes.includes(o.e.lane)).sort((p,q)=>Math.abs(T(p.e.t)-t)-Math.abs(T(q.e.t)-t)).slice(0,6).sort((p,q)=>T(p.e.t)-T(q.e.t));
+ sheet(`<div class="k">Intersection ${ix.n} · ${fmt(t)} ET</div><h3>${ix.title}</h3>
+ <p><span class="pill" style="color:var(${st.c})">${st.label}</span> <span class="k">${ix.lanes.map(nm).join(" + ")}</span></p>
+ <h4>SMART lens: ${LENS[ix.lens]||'—'}</h4><p>${ix.lensNote||''}</p>
+ <h4>What it rests on</h4><p>${ix.note}</p>
+ <h4>Nearest events on these threads</h4>${evs.map(o=>evBtn(o.i)).join("")}
+ <div class="acts"><button data-act="chart">Show on timeline</button><button data-act="row" data-n="${ix.n}">Show in table</button><button data-act="copy" data-n="${ix.n}">Copy link</button></div>`);
+ if(setHash) history.replaceState(null,"","#ix-"+ix.n);
+}
+document.getElementById("sheetbody").addEventListener("click",ev=>{
+ const b=ev.target.closest("button"); if(!b) return;
+ if(b.dataset.ix) openIx(+b.dataset.ix);
+ else if(b.dataset.ev) openItem("e",+b.dataset.ev);
+ else if(b.dataset.act==="chart"){closeSheet();document.getElementById("chart").scrollIntoView({behavior:"smooth",block:"start"});}
+ else if(b.dataset.act==="row"){closeSheet();const r=document.getElementById("ix-"+b.dataset.n);r&&r.scrollIntoView({behavior:"smooth",block:"center"});}
+ else if(b.dataset.act==="copy"){const u=location.href.split("#")[0]+"#ix-"+b.dataset.n;
+  try{navigator.clipboard.writeText(u).then(()=>b.textContent="Copied",()=>b.textContent=u);}catch(e){b.textContent=u;}}
+});
+document.getElementById("sheetclose").onclick=closeSheet;
+addEventListener("keydown",ev=>{if(ev.key==="Escape")closeSheet();});
+
 function setRange(r){range=r;["today","wide","week"].forEach(k=>document.getElementById("r-"+k).classList.toggle("on",r===k));draw();}
 function tables(){
- const nm=id=>DATA.lanes[laneOf(id)].name;
  document.querySelector("#ix tbody").innerHTML=DATA.intersections.map(ix=>{const st=STATUS[ix.status];
-  return `<tr class="ix${sel===ix?' sel':''}" data-n="${ix.n}"><td><span class="num" style="background:var(${st.c})">${ix.n}</span></td><td><b>${ix.title}</b><div class="k">${fmt(T(ix.t))}</div></td><td>${ix.lanes.map(nm).join(" + ")}</td><td><span class="pill" style="color:var(${st.c})">${st.label}</span></td><td><b>${({fits:'Fits',cuts:'Cuts against',neutral:'Neutral',echo:'Echoes','—':'—'})[ix.lens]||'—'}</b><div class="k">${ix.lensNote||''}</div></td><td>${ix.note}</td></tr>`}).join("");
- document.querySelectorAll("#ix tr.ix").forEach(r=>r.addEventListener("click",()=>select(+r.dataset.n)));
+  return `<tr class="ix${sel===ix?' sel':''}" id="ix-${ix.n}" data-n="${ix.n}" tabindex="0"><td data-l="#"><span class="num" style="background:var(${st.c})">${ix.n}</span></td><td data-l="Where threads meet"><b>${ix.title}</b><div class="k">${fmt(T(ix.t))}</div></td><td data-l="Threads">${ix.lanes.map(nm).join(" + ")}</td><td data-l="Status"><span class="pill" style="color:var(${st.c})">${st.label}</span></td><td data-l="SMART lens"><b>${LENS[ix.lens]||'—'}</b><div class="k">${ix.lensNote||''}</div></td><td data-l="Why / what it rests on" class="long">${ix.note}</td><td class="more">Details →</td></tr>`}).join("");
+ document.querySelectorAll("#ix tr.ix").forEach(r=>{r.addEventListener("click",ev=>{if(ev.target.closest("a"))return;openIx(+r.dataset.n);});
+  r.addEventListener("keydown",ev=>{if(ev.key==="Enter")openIx(+r.dataset.n);});});
  document.getElementById("watch").innerHTML=DATA.watch.map(w=>`<li>${w}</li>`).join("");
- document.querySelector("#seam tbody").innerHTML=DATA.seam.map(r=>`<tr><td><b>${r.p}</b></td><td>${r.role}</td><td>${r.why}</td><td><a href="${r.url}">${r.src}</a></td></tr>`).join("");
+ document.querySelector("#seam tbody").innerHTML=DATA.seam.map(r=>`<tr><td data-l="Party"><b>${r.p}</b></td><td data-l="Role on the network">${r.role}</td><td data-l="Why it matters for Nov 13">${r.why}</td><td data-l="Source"><a href="${r.url}">${r.src}</a></td></tr>`).join("");
  document.getElementById("seamnotes").innerHTML=DATA.seamNotes.map(w=>`<li>${w}</li>`).join("");
  document.getElementById("context").innerHTML=DATA.context.map(w=>`<li>${w}</li>`).join("");
- const rows=[...DATA.events.map(e=>({t:T(e.t),lane:e.lane,label:e.label,kind:e.kind,src:e.src,url:e.url}))].sort((x,y)=>x.t-y.t);
- document.querySelector("#log tbody").innerHTML=rows.map(r=>`<tr><td style="white-space:nowrap">${fmt(r.t)}</td><td>${nm(r.lane)}</td><td>${r.label}</td><td>${r.kind}</td><td><a href="${r.url}">${r.src}</a></td></tr>`).join("");
+ const rows=DATA.events.map((e,i)=>({i,t:T(e.t),lane:e.lane,label:e.label,kind:e.kind,src:e.src,url:e.url})).sort((x,y)=>x.t-y.t);
+ document.querySelector("#log tbody").innerHTML=rows.map(r=>`<tr class="ev" data-i="${r.i}" tabindex="0"><td data-l="Time (ET)" style="white-space:nowrap">${fmt(r.t)}</td><td data-l="Thread">${nm(r.lane)}</td><td data-l="Event">${r.label}</td><td data-l="Type">${r.kind}</td><td data-l="Source"><a href="${r.url}" target="_blank" rel="noopener">${r.src}</a></td></tr>`).join("");
+ document.querySelectorAll("#log tr.ev").forEach(r=>{r.addEventListener("click",ev=>{if(ev.target.closest("a"))return;openItem("e",+r.dataset.i);});
+  r.addEventListener("keydown",ev=>{if(ev.key==="Enter")openItem("e",+r.dataset.i);});});
 }
 document.getElementById("r-today").onclick=()=>setRange("today");
 document.getElementById("r-wide").onclick=()=>setRange("wide");
 document.getElementById("r-week").onclick=()=>setRange("week");
-document.getElementById("r-clear").onclick=()=>{sel=null;draw();tables();};
-addEventListener("resize",draw);
+document.getElementById("r-clear").onclick=()=>{sel=null;closeSheet();draw();tables();};
+let rz, lastW=innerWidth; addEventListener("resize",()=>{if(innerWidth===lastW)return; lastW=innerWidth; clearTimeout(rz);rz=setTimeout(draw,120);});
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",draw);
-draw(); tables();
+function fromHash(){const m=location.hash.match(/^#ix-(\d+)$/); if(m) openIx(+m[1],false);}
+addEventListener("hashchange",fromHash);
+draw(); tables(); fromHash();
+
 </script>
 </body>
 </html>
