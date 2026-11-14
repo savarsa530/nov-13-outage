@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nov 13 outage threads</title>
+<style>
+:root{--bg:#faf9f6;--card:#fff;--ink:#1b1b1a;--ink2:#55534e;--muted:#8a8780;--line:#e4e2db;--grid:#eeece6;
+--faa:#c2412d;--nws:#2a78d6;--net:#1b8f6a;--soft:#7a6fd0;--ms:#8a8780;--demand:#c98500;
+--open:#2a78d6;--strong:#c2412d;--coin:#8a8780;--denied:#7a6fd0;--expl:#1b8f6a}
+@media (prefers-color-scheme:dark){:root{--bg:#161615;--card:#1f1f1d;--ink:#f0efec;--ink2:#c3c2b7;--muted:#8a8780;--line:#34332f;--grid:#2a2a27;
+--faa:#e8664f;--nws:#4f9cf0;--net:#2fb487;--soft:#9a90ea;--ms:#a5a39b;--demand:#e0a020;--open:#4f9cf0;--strong:#e8664f;--coin:#a5a39b;--denied:#9a90ea;--expl:#2fb487}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:24px;font-weight:600;margin:0 0 4px}
+h2{font-size:17px;font-weight:600;margin:34px 0 10px}
+.sub{color:var(--ink2);margin:0 0 18px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 12px}
+button{font:inherit;font-size:13px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+button.on{border-color:var(--ink);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--ink2);margin-left:auto}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 14px 6px;position:relative}
+#chart svg{display:block;width:100%;height:auto}
+#tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;padding:7px 10px;border-radius:8px;max-width:280px;opacity:0;transition:opacity .1s;z-index:5}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-weight:600;color:var(--ink2);border-bottom:1px solid var(--line);padding:8px 8px}
+td{border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top}
+tr.ix{cursor:pointer} tr.ix:hover td{background:var(--grid)} tr.sel td{background:var(--grid)}
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.num{display:inline-flex;width:22px;height:22px;border-radius:50%;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.k{font-size:12px;color:var(--muted)}
+a{color:var(--nws)}
+ul{padding-left:20px;margin:6px 0} li{margin:4px 0}
+.note{font-size:13px;color:var(--ink2);margin-top:10px}
+.wrap{overflow-x:auto}
+</style>
+</head>
+<body>
+<main>
+<h1>Nov 13 outage threads</h1>
+<p class="sub" id="updated"></p>
+
+<div class="bar">
+  <button id="r-today" class="on">Today 2:30–7:30 pm</button>
+  <button id="r-wide">Since Nov 12 noon</button>
+  <button id="r-week">Since Sep 15 (SMART launch)</button>
+  <button id="r-clear">Clear selection</button>
+  <div class="legend">
+    <span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="var(--ink)"/></svg>Official</span>
+    <span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="var(--ink)" opacity=".45"/></svg>Reported</span>
+    <span><svg width="12" height="12"><circle cx="6" cy="6" r="4.2" fill="none" stroke="var(--ink)" stroke-width="1.6"/></svg>Estimated (Downdetector read by eye)</span>
+    <span><svg width="14" height="12"><line x1="7" y1="0" x2="7" y2="12" stroke="var(--ink)" stroke-dasharray="3 2"/></svg>Intersection</span>
+  </div>
+</div>
+
+<div class="card" id="chart"><div id="tip"></div></div>
+<p class="note">Click an intersection number on the chart or a row below to highlight the threads it connects. Bars show sustained trouble; dots show single moments.</p>
+
+<h2>Intersections</h2>
+<p class="note" style="margin-top:0">SMART (#7) is held as a working note, not a conclusion. Every intersection is checked against it: does it fit, cut against, or say nothing? A theory that is too clean has to keep earning it, and the "cuts against" column is where it can lose.</p>
+<div class="wrap"><table id="ix"><thead><tr><th>#</th><th>Where threads meet</th><th>Threads</th><th>Status</th><th>SMART lens</th><th>Why / what it rests on</th></tr></thead><tbody></tbody></table></div>
+
+<h2>What would change the picture</h2>
+<ul id="watch"></ul>
+
+<h2>Contractor and political money (context for #7)</h2>
+<p class="note" style="margin-top:0">Public records and reporting only. None of this shows the contract was improper or connects to the outage. It records who is tied to whom.</p>
+<ul id="context"></ul>
+
+<h2>Event log</h2>
+<div class="wrap"><table id="log"><thead><tr><th>Time (ET)</th><th>Thread</th><th>Event</th><th>Type</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+</main>
+
+<script>
+const DATA = {
+updated: "2026-11-13T19:05:00-05:00",
+lanes: [
+ {id:"smart", name:"SMART AI rollout", color:"--soft"},
+ {id:"faa", name:"FAA air traffic", color:"--faa"},
+ {id:"nws", name:"Natl Weather Service", color:"--nws"},
+ {id:"gf", name:"Gateway Fiber (Midwest ISP)", color:"--net"},
+ {id:"vz", name:"Verizon", color:"--net"},
+ {id:"att", name:"AT&T", color:"--net"},
+ {id:"wd", name:"Workday", color:"--soft"},
+ {id:"ms", name:"Microsoft 365", color:"--ms"},
+ {id:"911", name:"911 (user reports)", color:"--ms"},
+ {id:"dem", name:"Travel demand", color:"--demand"}
+],
+spans: [
+ {lane:"ms", start:"2026-11-12T12:30", end:null, kind:"reported", label:"Microsoft 365 / Outlook outage, recovering but ongoing"},
+ {lane:"911", start:"2026-11-12T20:34", end:"2026-11-13T10:30", kind:"reported", label:"911 report wave (Downdetector), peak 298 at 5:21 am"},
+ {lane:"att", start:"2026-11-13T06:00", end:"2026-11-13T10:15", kind:"estimated", label:"AT&T morning spike, peak ~9 am"},
+ {lane:"faa", start:"2026-11-13T15:54", end:null, kind:"official", label:"National ground stop in effect (est. end 11:30 pm)"},
+ {lane:"wd", start:"2026-11-13T15:45", end:"2026-11-13T16:55", kind:"reported", label:"Workday small rise (Downdetector: since 3:45)"},
+ {lane:"wd", start:"2026-11-13T16:55", end:null, kind:"estimated", label:"Workday large spike, 1,000+ reports"},
+ {lane:"911", start:"2026-11-13T16:00", end:null, kind:"estimated", label:"911 afternoon climb to ~420"},
+ {lane:"nws", start:"2026-11-13T16:29", end:null, kind:"reported", label:"NWS nationwide internet/communications issues"},
+ {lane:"gf", start:"2026-11-13T16:30", end:null, kind:"reported", label:"Gateway Fiber spike (Downdetector: since 4:30)"},
+ {lane:"vz", start:"2026-11-13T16:40", end:null, kind:"estimated", label:"Verizon climbing"},
+ {lane:"dem", start:"2026-11-13T15:58", end:null, kind:"estimated", label:"Airline apps spiking"},
+ {lane:"dem", start:"2026-11-13T16:45", end:null, kind:"estimated", label:"Amtrak and Bank of America spiking"}
+],
+events: [
+ {lane:"smart", t:"2026-09-21T12:00", kind:"official", label:"SMART launches in DC-area airspace (later Atlanta, Jacksonville, Miami)", src:"Quartz", url:"https://qz.com/faa-smart-ai-air-traffic-management-washington-airports-092226"},
+ {lane:"smart", t:"2026-11-10T12:00", kind:"official", label:"FAA: SMART active at all 22 ARTCCs (cloud-based, ~200 data streams)", src:"AVweb / FLYING", url:"https://avweb.com/aviation-news/faa-expands-ai-assisted-traffic-management/"},
+ {lane:"smart", t:"2026-11-13T17:15", kind:"reported", label:"Mullin: administration examining FAA's nationwide AI rollout (time approx.)", src:"Fox News live", url:"https://www.foxnews.com/live-news/faa-issues-nationwide-ground-stop-cites-communications-issue"},
+ {lane:"faa", t:"2026-11-13T15:02", kind:"reported", label:"Frequency problems heard at O'Hare shortly after 3 pm", src:"SOFREP / KCRA", url:"https://sofrep.com/news/faa-grounds-every-u-s-departure-after-nationwide-telecommunications-outage"},
+ {lane:"faa", t:"2026-11-13T15:15", kind:"reported", label:"Rolling frequency losses: Boston Center, New York Center, Chicago Center, NY Approach; 'lost all frequencies and automation for handoffs and strips'", src:"View from the Wing / Yahoo", url:"https://viewfromthewing.com/faa-ground-stop-every-u-s-airport-departure-halted-as-air-traffic-control-communications-fail/"},
+ {lane:"faa", t:"2026-11-13T15:39", kind:"reported", label:"O'Hare and Midway stops for equipment outage, held until at least 4:30 ET", src:"Liberty One News", url:"https://libertyonenews.com/faa-grounds-all-us-flights-nationwide-after-air-traffic-radio-failure/"},
+ {lane:"faa", t:"2026-11-13T15:24", kind:"reported", label:"Last departure from Kansas City Intl (2:24 CT)", src:"KMBC", url:"https://www.kmbc.com/article/kci-kansas-city-nationwide-faa-issued-ground-stop/74427638"},
+ {lane:"faa", t:"2026-11-13T15:30", kind:"reported", label:"Kansas City Center ground stop for intermittent equipment outages; spreads to other centers 'in quick succession'", src:"Paddle Your Own Kanoo / HNGN", url:"https://www.hngn.com/articles/273835/20261113/faa-orders-nationwide-ground-stop-after-air-traffic-comms-issue.htm"},
+ {lane:"faa", t:"2026-11-13T16:45", kind:"reported", label:"Airline told The Air Current: Command Center says outage affecting 10 en route centers 'and growing' (time approx.)", src:"TheStreet", url:"https://www.thestreet.com/travel/faa-issues-nationwide-ground-stop-due-to-communication-issues"},
+ {lane:"faa", t:"2026-11-13T17:42", kind:"reported", label:"Source: outages include ATC radars as well as radio frequencies", src:"CNN", url:"https://www.cnn.com/2026/11/13/us/live-news/flights-ground-stop-faa"},
+ {lane:"smart", t:"2026-11-13T17:48", kind:"official", label:"ASI on X: ground stop 'not based on or a result of the SMART system, any product of ASI or our integration with FAA and ATC'", src:"The War Zone / Washington Times", url:"https://www.twz.com/air/faa-orders-ground-stop-for-all-flights-across-the-u-s"},
+ {lane:"faa", t:"2026-11-13T18:00", kind:"reported", label:"Bloomberg: FBI doesn't believe it was a cyberattack or crime; one line of inquiry is whether a software update caused it (time approx.)", src:"Startup Fortune / Bloomberg", url:"https://startupfortune.com/fbi-probes-whether-a-software-update-caused-the-faa-ground-stop/"},
+ {lane:"smart", t:"2026-11-13T17:33", kind:"official", label:"Mullin on SMART: 'We're taking a look' at that system also", src:"Washington Times", url:"https://www.washingtontimes.com/news/2026/nov/13/faa-grounds-flights-across-us-due-telecommunications-outage/"},
+ {lane:"ms", t:"2026-11-12T12:30", kind:"reported", label:"Microsoft outage begins: server problems in the Americas overload remaining infrastructure and cascade", src:"Northeastern", url:"https://news.northeastern.edu/2026/11/13/global-microsoft-outage-cause/"},
+ {lane:"ms", t:"2026-11-13T12:00", kind:"reported", label:"Microsoft: 'signs of sustained recovery', email queues approaching normal", src:"TIME", url:"https://time.com/article/2026/11/13/microsoft-outage-worldwide-disruption-teams-outlook-emails/"},
+ {lane:"faa", t:"2026-09-21T09:45", kind:"official", label:"Sept 21 Northeast halt: Philadelphia TRACON primary circuit fails; Verizon backup fiber already cut by a rail crew in NJ. Duffy first blamed Amtrak; Amtrak and NJ Transit corrected it.", src:"AeroCorner", url:"https://aerocorner.com/news/philadelphia-tracon-outage-newark-ground-stop/"},
+ {lane:"faa", t:"2026-11-13T17:56", kind:"reported", label:"Flightradar24: some outbound international traffic airborne", src:"CNBC", url:"https://www.cnbc.com/2026/11/13/faa-ground-stop.html"},
+ {lane:"faa", t:"2026-11-13T18:05", kind:"official", label:"FAA: ground stop remains, but 'as enroute facilities recover, flights will be allowed to depart' via the Command Center", src:"ABC7 / CNBC", url:"https://abc7.com/live-updates/faa-ground-stop-live-updates-what-know-nationwide-flights-are-grounded/20038887/"},
+ {lane:"faa", t:"2026-11-13T18:57", kind:"reported", label:"Hawaiian/Alaska Airlines: all West Coast flights will resume", src:"ABC News live", url:"https://abcnews.com/US/live-updates/faa-ground-stop-live-updates-hundreds-flights-canceled/?id=138125140"},
+ {lane:"faa", t:"2026-11-13T15:10", kind:"reported", label:"O'Hare ground stop: equipment outage / comms", src:"Yahoo", url:"https://www.yahoo.com/news/us/articles/faa-orders-nationwide-ground-stop-212733648.html"},
+ {lane:"faa", t:"2026-11-13T15:36", kind:"reported", label:"Controller: frequency issue at an East Coast airport, then two more towers", src:"Scripps News", url:"https://www.scrippsnews.com/us-news/faa-issues-nationwide-ground-stop-on-us-air-traffic"},
+ {lane:"faa", t:"2026-11-13T15:54", kind:"official", label:"Advisory 111: National Ground Stop", src:"Clash Report / ATCSCC", url:"https://clashreport.com/world/articles/faa-orders-nationwide-ground-stop-citing-extraordinary-circumstances-rj94ktbb7uf"},
+ {lane:"faa", t:"2026-11-13T16:16", kind:"official", label:"Duffy: communication issue at all ARTCCs", src:"Clash Report", url:"https://clashreport.com/world/articles/faa-orders-nationwide-ground-stop-citing-extraordinary-circumstances-rj94ktbb7uf"},
+ {lane:"faa", t:"2026-11-13T16:24", kind:"reported", label:"American Airlines: telecom issue at many ATC facilities", src:"Clash Report", url:"https://clashreport.com/world/articles/faa-orders-nationwide-ground-stop-citing-extraordinary-circumstances-rj94ktbb7uf"},
+ {lane:"faa", t:"2026-11-13T17:00", kind:"official", label:"Mullin: 'just a telecommunications outage', not ruling anything out", src:"CBS News", url:"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/"},
+ {lane:"nws", t:"2026-11-13T16:29", kind:"reported", label:"NWS notice: nationwide radar website / communications outage (time approx.)", src:"News9", url:"https://www.news9.com/oklahoma-city-news/national-weather-service-reports-nationwide-radar-website-outage"},
+ {lane:"ms", t:"2026-11-13T15:55", kind:"official", label:"Microsoft cause: issue from network capacity upgrade surfaced after a recent network change", src:"Macworld / TIME", url:"https://time.com/article/2026/11/13/microsoft-outage-worldwide-disruption-teams-outlook-emails/"},
+ {lane:"911", t:"2026-11-12T20:34", kind:"reported", label:"Downdetector: 911 problems since 8:34 pm", src:"WION", url:"https://www.wionews.com/world/911-also-down-users-report-problems-on-downdetector-1794542338620"},
+ {lane:"911", t:"2026-11-13T05:21", kind:"reported", label:"911 reports peak (298)", src:"Cybernews", url:"https://cybernews.com/news/911-line-down-outage/"},
+ {lane:"wd", t:"2026-11-13T15:24", kind:"estimated", label:"StatusGator detects Workday outage (listed 8:24 PM, read as UTC = 3:24 ET; timezone not confirmed)", src:"StatusGator", url:"https://statusgator.com/services/workday"},
+ {lane:"wd", t:"2026-11-13T15:45", kind:"reported", label:"Workday reports begin", src:"Downdetector", url:"https://downdetector.com/status/workday/"},
+ {lane:"gf", t:"2026-11-13T16:30", kind:"reported", label:"Gateway Fiber reports begin", src:"Downdetector", url:"https://downdetector.com/status/gateway-fiber/"},
+ {lane:"att", t:"2026-11-13T09:00", kind:"estimated", label:"AT&T peak (~480)", src:"Downdetector", url:"https://downdetector.com/status/att/"}
+],
+intersections: [
+ {n:8, lens:"cuts", lensNote:"Cause was confirmed as a construction crew cutting fiber, not SMART. Shows how a same-day overlap can be pure coincidence.", t:"2026-09-21T10:00", lanes:["smart","faa"], status:"explained", title:"SMART's DC launch day = Northeast comms failure (Sept 21)", note:"SMART went live around DC the same day Philadelphia TRACON lost comms. Cause confirmed: primary circuit failure plus a Verizon backup fiber cut by a rail crew. A useful control case for #7. Both circuits were Verizon's; Verizon is the incoming FAA telecom (FTI) contractor."},
+ {n:7, t:"2026-11-13T15:15", lanes:["smart","faa"], status:"lens", lens:"—", lensNote:"This is the lens.", title:"SMART pushed to all 22 centers three days before all centers lost comms", note:"Rollout Nov 10; failures hit Chicago, NY, Boston at nearly the same moment, which fits a change applied everywhere at once. SMART is advisory and carries no voice, so the plausible path is integration plumbing (new data connections and network config), not the AI. Centers added Nov 10 failed first; DC/Atlanta/Jacksonville/Miami had it for weeks. Narrowing: PBS/KCRA report SMART runs from one location near DC and only sends recommendations. ASI's 5:48 pm denial explicitly covers 'our integration with FAA and ATC', the exact path this note considers most plausible; it is an interested party's claim, not evidence either way. DHS says it's examining the rollout; FBI is looking at a software update. Builder: Air Space Intelligence (see contractor section)."},
+ {n:1, lens:"cuts", lensNote:"SMART consumes NWS weather data; it would not break NWS. Only fits if NWS trouble was a knock-on of the same network.", t:"2026-11-13T16:29", lanes:["faa","nws"], status:"strong", title:"Two federal agencies, two nationwide 'communications' failures", note:"FAA calls it a telecommunications outage; NWS reports nationwide internet/communications issues the same afternoon. Different departments (DOT vs Commerce) but shared systems exist, notably NEXRAD radar, run jointly by NWS, FAA and DoD. No official link yet."},
+ {n:2, lens:"neutral", lensNote:"Regional fiber overlap neither needs nor excludes SMART.", t:"2026-11-13T16:30", lanes:["faa","gf"], status:"open", title:"Middle-of-the-country overlap", note:"A pilot said the FAA failure began at Kansas City Center; Gateway Fiber serves St. Louis and Minneapolis. Suggests a shared regional carrier/fiber path, but Gateway's spike trails the FAA by ~80 min."},
+ {n:3, lens:"neutral", lensNote:"An early Workday rise has no plausible SMART path.", t:"2026-11-13T15:45", lanes:["wd","faa"], status:"open", title:"Workday rises before the national order", note:"No known link between Workday and ASI or the FAA. StatusGator may put Workday trouble as early as 3:24 ET (if its times are UTC), minutes after Chicago's first problems. Workday also has a weekly Friday early-morning outage pattern and was hit by a Cloudflare failure in February, so shared cloud/network infrastructure is the likelier tie. Downdetector reports start 3:45, after the first local ATC trouble (3:10) but before Advisory 111 (3:54). Only public spike that leads the order. Weak on its own."},
+ {n:4, lens:"echo", lensNote:"Same failure pattern (a network change surfacing days later), different system. Rhymes with the SMART theory but is not evidence for it.", t:"2026-11-13T15:55", lanes:["ms","faa"], status:"coincidence", title:"Microsoft names its cause one minute after the ground stop", note:"Microsoft blamed a network change at ~3:55 pm; DHS says the Microsoft outage and the FAA outage are not connected. Timing is striking; the FAA's ATC network is private and not on Microsoft's cloud."},
+ {n:5, lens:"neutral", lensNote:"Predates SMART-related events; separate.", t:"2026-11-12T20:34", lanes:["911","ms"], status:"denied", title:"911 reports during the Microsoft outage", note:"911 reports started the night of the Microsoft outage. Authorities say Microsoft shouldn't affect 911 lines; Cybernews found the timing doesn't line up. No confirmed nationwide 911 failure."},
+ {n:6, lens:"neutral", lensNote:"Demand explains it either way.", t:"2026-11-13T16:45", lanes:["dem","faa"], status:"explained", title:"Airlines, Amtrak, Bank of America after the stop", note:"Rebooking surges, stranded travelers grabbing trains, card and refund activity. Spikes trail the order, which is what demand predicts."}
+],
+context: [
+ "<b>Builder:</b> Air Space Intelligence (ASI), Boston. Founders Phillip Buckendorf (CEO), Kris Dorosz (CTO), Lucas Kukielka. FAA contract for FMDS + SMART awarded June 22, 2026: 12 years, $875.95M, 12 bidders, beat Palantir and Thales. <a href=\"https://orangeslices.ai/transportation-secretary-sean-p-duffy-selects-air-space-intelligence-to-deploy-state-of-the-art-air-traffic-control-software-revolutionize-our-skies/\">Award record</a>",
+ "<b>ASI's corporate PAC:</b> reportedly gave to eight Republicans, including $2,500 to Michael Alfonso (Sec. Duffy's son-in-law, WI-7) in March 2026, about three months before the award. Reported via Alfonso's Q1 filing; no evidence it affected the award. <a href=\"https://nohatehottakes.substack.com/p/a-small-ai-startup-1-billion-in-federal\">Substack summary citing FEC</a> · <a href=\"https://avbrief.com/faa-wants-piece-of-company-behind-ai-boost-for-atc/\">AvBrief</a> · <a href=\"https://pbswisconsin.org/news-item/duffy-funneled-1-million-to-son-in-laws-republican-primary-campaign-for-congress/\">Alfonso is Duffy's son-in-law</a>",
+ "<b>Founders personally:</b> no individual federal donations found for Buckendorf, Dorosz or Kukielka in my searches. Not a full FEC export; absence is not proof.",
+ "<b>Lead investor:</b> Andreessen Horowitz led ASI's Dec 2023 round (David Ulevitch, board observer). Marc Andreessen and Ben Horowitz each gave $2.5M to the pro-Trump super PAC Right for America in 2024 per FEC filings; Horowitz later gave $2.5M to a pro-Harris super PAC. <a href=\"https://news.bloomberglaw.com/private-equity/silicon-valleys-andreessen-horowitz-give-millions-to-trump-pac\">Bloomberg</a> · <a href=\"https://www.citizen.org/article/big-tech-embraces-trump-report/\">Public Citizen</a>",
+ "<b>Public alignment:</b> Buckendorf credited \"President Trump, Secretary Duffy and Administrator Bedford\" in the award announcement and later praised the administration at a Breitbart AI event. Speech, not donations. <a href=\"https://www.transportation.gov/briefing-room/modern-skies-trumps-transportation-secretary-sean-p-duffy-selects-air-space\">DOT release</a>",
+ "<b>Ownership stake:</b> Politico reported the FAA is negotiating to buy shares in ASI, which would make the FAA ASI's customer, safety regulator and part-owner. 20+ members of Congress asked the FAA to pause SMART's trial. <a href=\"https://avbrief.com/faa-wants-piece-of-company-behind-ai-boost-for-atc/\">AvBrief / Politico</a>",
+ "<b>Verizon:</b> both failed circuits in the Sept 21 Northeast halt were Verizon's, and Verizon holds the $2.4B contract to replace the FAA's telecom network (FTI) from L3Harris. Who carries today's failed circuits is not public. <a href=\"https://aerocorner.com/news/philadelphia-tracon-outage-newark-ground-stop/\">AeroCorner</a>",
+ "<b>Concentration:</b> ASI's Flyways is used by Alaska, Delta and United, and ASI also builds the FAA's flow-management system. One vendor on both sides of the system."
+],
+watch: [
+ "Recovery order, center by center. West Coast flights are resuming first (~7 pm). West Coast centers got SMART on Nov 10, not in September. If they recover first while centers with weeks of SMART lag, that cuts against the theory that the Nov 10 additions broke; the reverse supports it.",
+ "Late-wave Downdetector spikes, all after the 3:54 order: FCC (near zero until ~5 pm, steep after ~6 pm, ~140 reports, mostly app and forms), Starlink (from 4:46 pm), Microsoft Teams (new reports from 6:13 pm), Target, Costco. Pattern fits attention and demand; Starlink and a Teams relapse are worth a second look if they grow.",
+ "Iran context: the U.S. is weighing resuming major operations against Iran, and Iran has threatened U.S. bases in Europe. This week: aircraft moved out of RAF Mildenhall over a reported Iran threat (Nov 9-10), a drone response at RAF Lakenheath (Nov 13), and a U.S. Army officer at a NATO unit in England arrested on suspicion of spying for Russia. Officials say no sign of a nefarious cause; the FBI is looking at a software update. Any foreign attribution later gets tested against that baseline.",
+ "Abroad: NAV CANADA says Canadian air traffic systems are working normally; its delays come only from the U.S. stop. No other country has reported a matching ATC failure in what I found.",
+ "Equity-stake deadline: the FAA's term sheet for a warrant in ASI lapses at the end of 2026, seven weeks out. Watch whether it closes, collapses, or is renegotiated after today (bigger stake, lower set price, or framed as 'accountability'). Renegotiated terms after a failure would support a crisis-as-leverage read; a dropped or paused deal would cut against it.",
+ "Where does SMART run? FAA cloud was ~95% AWS / 5% Azure in 2024 market research; SMART's production host is not public. If SMART or its data feeds depend on Azure, #4 (Microsoft) moves from echo to a real dependency, and the Microsoft recovery backlog flushing Friday afternoon becomes a candidate trigger.",
+ "Which software update is the FBI looking at? If named: was it pushed to every center at once, and is it SMART, the voice/radio systems, or the telecom network? A SMART-related update would move #7 to strong; a radio or network update would weaken it.",
+ "No public reporting yet names a Kansas City data center. Kansas City Center (Olathe, KS) is the ATC facility. Any report naming a specific data center or carrier facility there would be new.",
+ "Does service come back at the same time SMART is paused, disconnected or rolled back at the centers? Restoration lining up with a SMART rollback would be the clearest tell, even if no one says so.",
+ "Whether any failed center had SMART-related network or integration changes this week. Also whether DC, Atlanta, Jacksonville and Miami (SMART since September) failed later or less severely than centers added Nov 10.",
+ "Whether the FAA's voice circuits share network paths with data feeds. If voice is fully isolated, the SMART-plumbing theory weakens sharply.",
+ "Where did it start? Chicago signs come first in public audio (~3:02, O'Hare stop 3:10). Kansas City Center's own ground stop is reported ~3:30, with spread 'in quick succession'. NY and Boston frequency losses ~3:15. Unresolved; the FAA hasn't said.",
+ "A carrier (AT&T, Verizon, Lumen, Zayo) posts an incident, especially Midwest or Kansas City. That would make #1 and #2 a shared root cause.",
+ "The NWS gives a start time. Before ~4:00 pm strengthens #1; well after suggests a separate failure or knock-on.",
+ "The FAA names a root cause, and whether anything was cut over, migrated or reconfigured recently (FTI handover from L3Harris to Verizon is in progress).",
+ "Microsoft's full post-incident report names the network or region it changed. Any overlap with a carrier in #1 reopens #4.",
+ "Different causes from the FAA and NWS would downgrade #1 to coincidence plus shared timing.",
+ "Shutdown: unresolved. A headline referenced one; a separate search found only earlier shutdowns and nothing showing a current funding lapse. Not confirmed, not ruled out."
+]
+};
+
+const STATUS = {
+ lens:{label:"Working lens (note)", c:"--strong"}, review:{label:"Under official review", c:"--strong"}, strong:{label:"Strong lead", c:"--strong"}, open:{label:"Open", c:"--open"},
+ coincidence:{label:"Likely coincidence", c:"--coin"}, denied:{label:"Officially denied", c:"--denied"},
+ explained:{label:"Explained (likely)", c:"--expl"}, confirmed:{label:"Confirmed", c:"--strong"}, ruledout:{label:"Ruled out", c:"--coin"}
+};
+const RANGES = {today:["2026-11-13T14:30","2026-11-13T19:30"], wide:["2026-11-12T12:00","2026-11-13T18:00"], week:["2026-09-15T00:00","2026-11-14T00:00"]};
+let range="today", sel=null;
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const T = s => new Date(s.length<=16 ? s+":00-05:00" : s).getTime();
+const fmt = ms => new Date(ms).toLocaleString("en-US",{timeZone:"America/New_York",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
+const fmtT = ms => new Date(ms).toLocaleTimeString("en-US",{timeZone:"America/New_York",hour:"numeric",minute:"2-digit"});
+const laneOf = id => DATA.lanes.findIndex(l=>l.id===id);
+const UPD = T(DATA.updated);
+document.getElementById("updated").textContent = "Last updated "+fmt(UPD)+" ET · times Eastern · intersections are hypotheses until a source confirms them";
+
+function draw(){
+ const box=document.getElementById("chart"), W=Math.max(box.clientWidth-28,640);
+ const L=180, R=24, top=34, LH=40, H=top+DATA.lanes.length*LH+34;
+ const [a,b]=RANGES[range].map(T), X=t=>L+(Math.min(Math.max(t,a),b)-a)/(b-a)*(W-L-R);
+ const inR=t=>t>=a&&t<=b;
+ let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Swimlane timeline of outage threads with intersections">`;
+ const step = range==="today" ? 30*60e3 : range==="wide" ? 3*3600e3 : 7*24*3600e3;
+ for(let t=Math.ceil(a/step)*step;t<=b;t+=step){const x=X(t);
+  s+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${H-28}" stroke="${css('--grid')}"/>`;
+  s+=`<text x="${x}" y="${H-10}" font-size="11.5" text-anchor="middle" fill="${css('--muted')}">${range==="today"?fmtT(t):fmt(t)}</text>`;}
+ DATA.lanes.forEach((l,i)=>{const y=top+i*LH+LH/2, dim=sel&&!sel.lanes.includes(l.id);
+  s+=`<text x="8" y="${y+4}" font-size="13" fill="${css('--ink')}" opacity="${dim?.3:1}" font-weight="${sel&&!dim?600:400}">${l.name}</text>`;
+  s+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="${css('--line')}"/>`;});
+ if(inR(UPD)){const x=X(UPD);s+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${H-28}" stroke="${css('--ink2')}" stroke-width="1"/><text x="${x-4}" y="${top-12}" font-size="11" text-anchor="end" fill="${css('--ink2')}">last update</text>`;}
+ DATA.spans.forEach((sp,k)=>{const i=laneOf(sp.lane), st=T(sp.start), en=sp.end?T(sp.end):UPD; if(en<a||st>b)return;
+  const y=top+i*LH+LH/2, c=css(DATA.lanes[i].color), dim=sel&&!sel.lanes.includes(sp.lane)?.2:1;
+  const op = sp.kind==="official"?.9: sp.kind==="reported"?.55:.3;
+  s+=`<rect class="hv" data-tip="${esc(sp.label)}<br><span style='opacity:.7'>${fmt(st)} → ${sp.end?fmt(en):'ongoing'} · ${sp.kind}</span>" x="${X(st)}" y="${y-7}" width="${Math.max(X(en)-X(st),3)}" height="14" rx="4" fill="${c}" opacity="${op*dim}"${sp.kind==="estimated"?` stroke="${c}" stroke-dasharray="3 2"`:''}/>`;});
+ DATA.events.forEach(e=>{const t=T(e.t); if(!inR(t))return; const i=laneOf(e.lane), y=top+i*LH+LH/2, c=css(DATA.lanes[i].color), dim=sel&&!sel.lanes.includes(e.lane)?.2:1;
+  const tip=`${esc(e.label)}<br><span style='opacity:.7'>${fmt(t)} · ${e.kind} · ${e.src}</span>`;
+  s+= e.kind==="estimated" ? `<circle class="hv" data-tip="${tip}" cx="${X(t)}" cy="${y}" r="5" fill="${css('--card')}" stroke="${c}" stroke-width="2" opacity="${dim}"/>`
+   : `<circle class="hv" data-tip="${tip}" cx="${X(t)}" cy="${y}" r="5.5" fill="${c}" opacity="${(e.kind==='official'?1:.6)*dim}" stroke="${css('--card')}" stroke-width="1.5"/>`;});
+ const placed=[];
+ DATA.intersections.forEach(ix=>{const t=T(ix.t); if(!inR(t))return; const ys=ix.lanes.map(id=>top+laneOf(id)*LH+LH/2), y1=Math.max(...ys), x=X(t);
+  const y0=Math.min(...ys); let bump=0; while(placed.some(p=>Math.abs(p.x-(x+bump))<22&&p.y===y0)) bump+=22; placed.push({x:x+bump,y:y0}); const bx=x+bump;
+  const c=css(STATUS[ix.status].c), on=!sel||sel===ix, op=on?1:.25;
+  s+=`<line x1="${x}" y1="${y0}" x2="${x}" y2="${y1}" stroke="${c}" stroke-width="${sel===ix?2.5:1.6}" stroke-dasharray="4 3" opacity="${op}"/>`;
+  ys.forEach(y=>s+=`<circle cx="${x}" cy="${y}" r="9" fill="none" stroke="${c}" stroke-width="1.6" opacity="${op}"/>`);
+  if(bump) s+=`<line x1="${x}" y1="${y0-9}" x2="${bx}" y2="${y0-17}" stroke="${c}" stroke-width="1.2" opacity="${op}"/>`;
+  s+=`<g class="ixb" data-n="${ix.n}" style="cursor:pointer" opacity="${op}"><circle cx="${bx}" cy="${y0-17}" r="10" fill="${c}"/><text x="${bx}" y="${y0-13}" font-size="11.5" font-weight="700" text-anchor="middle" fill="#fff">${ix.n}</text></g>`;});
+ s+=`</svg>`;
+ [...box.querySelectorAll("svg")].forEach(n=>n.remove()); box.insertAdjacentHTML("beforeend",s);
+ const tip=document.getElementById("tip");
+ box.querySelectorAll(".hv").forEach(n=>{n.addEventListener("mousemove",ev=>{const r=box.getBoundingClientRect();tip.innerHTML=n.dataset.tip;tip.style.opacity=1;
+  let lx=ev.clientX-r.left+12; if(lx>r.width-290)lx=ev.clientX-r.left-292; tip.style.left=lx+"px";tip.style.top=(ev.clientY-r.top+12)+"px";});
+  n.addEventListener("mouseleave",()=>tip.style.opacity=0);});
+ box.querySelectorAll(".ixb").forEach(g=>g.addEventListener("click",()=>select(+g.dataset.n)));
+}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
+function select(n){const ix=DATA.intersections.find(i=>i.n===n); sel = sel===ix?null:ix;
+ if(sel){const t=T(sel.t), [a,b]=RANGES[range].map(T); if(t<a||t>b) setRange("wide");}
+ draw(); tables();}
+function setRange(r){range=r;["today","wide","week"].forEach(k=>document.getElementById("r-"+k).classList.toggle("on",r===k));draw();}
+function tables(){
+ const nm=id=>DATA.lanes[laneOf(id)].name;
+ document.querySelector("#ix tbody").innerHTML=DATA.intersections.map(ix=>{const st=STATUS[ix.status];
+  return `<tr class="ix${sel===ix?' sel':''}" data-n="${ix.n}"><td><span class="num" style="background:var(${st.c})">${ix.n}</span></td><td><b>${ix.title}</b><div class="k">${fmt(T(ix.t))}</div></td><td>${ix.lanes.map(nm).join(" + ")}</td><td><span class="pill" style="color:var(${st.c})">${st.label}</span></td><td><b>${({fits:'Fits',cuts:'Cuts against',neutral:'Neutral',echo:'Echoes','—':'—'})[ix.lens]||'—'}</b><div class="k">${ix.lensNote||''}</div></td><td>${ix.note}</td></tr>`}).join("");
+ document.querySelectorAll("#ix tr.ix").forEach(r=>r.addEventListener("click",()=>select(+r.dataset.n)));
+ document.getElementById("watch").innerHTML=DATA.watch.map(w=>`<li>${w}</li>`).join("");
+ document.getElementById("context").innerHTML=DATA.context.map(w=>`<li>${w}</li>`).join("");
+ const rows=[...DATA.events.map(e=>({t:T(e.t),lane:e.lane,label:e.label,kind:e.kind,src:e.src,url:e.url}))].sort((x,y)=>x.t-y.t);
+ document.querySelector("#log tbody").innerHTML=rows.map(r=>`<tr><td style="white-space:nowrap">${fmt(r.t)}</td><td>${nm(r.lane)}</td><td>${r.label}</td><td>${r.kind}</td><td><a href="${r.url}">${r.src}</a></td></tr>`).join("");
+}
+document.getElementById("r-today").onclick=()=>setRange("today");
+document.getElementById("r-wide").onclick=()=>setRange("wide");
+document.getElementById("r-week").onclick=()=>setRange("week");
+document.getElementById("r-clear").onclick=()=>{sel=null;draw();tables();};
+addEventListener("resize",draw);
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",draw);
+draw(); tables();
+</script>
+</body>
+</html>
