@@ -161,6 +161,18 @@ table.eg td.fact .src{display:block}
  table.cards td{display:block;border:0;padding:3px 0}
  table.cards td[data-l]::before{content:attr(data-l);display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:4px}
 }
+/* v2.0: confidence tiers, load path, registers */
+.tier{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;margin:1px 4px 1px 0}
+.pend{display:inline-block;font-size:11px;color:var(--muted);border:1px dashed var(--muted);border-radius:999px;padding:0 7px;white-space:nowrap;margin:1px 0}
+pre.lp{font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:0;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:pre;color:var(--ink)}
+pre.lp .hy{color:var(--soft)}
+.quar{border:1px dashed var(--muted);border-radius:12px;padding:12px 14px;margin:12px 0;font-size:13.5px;background:var(--silbg)}
+.quar b{color:var(--ink2)}
+.frame{border-left:3px solid var(--soft);padding:2px 0 2px 12px;margin:10px 0;font-size:14px;max-width:80ch}
+.oqg{margin:14px 0 4px;font-size:14px}
+ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
+#principles .fold-body{padding:8px 14px 10px}
+#principles td:first-child{font-weight:600;white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -176,12 +188,18 @@ table.eg td.fact .src{display:block}
  <div class="fold-body wrap"><table class="noterm"><tbody></tbody></table></div>
 </details>
 
+<details class="fold" id="principles">
+ <summary>How claims are tagged (v2.0)</summary>
+ <div class="fold-body"><div id="tiers" class="noterm"></div><div class="wrap"><table class="noterm"><tbody id="princ"></tbody></table></div></div>
+</details>
+
 <h2>Timeline</h2>
 <div class="bar">
   <button id="r-night" class="on">Fri noon → Sat 7 am</button>
   <button id="r-today">Fri 12:30–8:30 pm</button>
   <button id="r-wide">Nov 12 noon → Nov 15</button>
   <button id="r-week">Since Sep 15 (SMART launch)</button>
+  <button id="r-prog">Oct 2025 → Jan 2027 (program and funding)</button>
   <button id="r-faa" class="on">Fold FAA detail</button>
   <button id="r-all">Show all lanes</button>
   <button id="r-clear">Clear selection</button>
@@ -201,6 +219,15 @@ table.eg td.fact .src{display:block}
  <div class="fold-body wrap"><p class="note">Advisory = when the FAA Command Center sent it. Official statement = a time an official said aloud. Reported = a time a news outlet gave. Derived = this page's own arithmetic.</p><table id="tp" class="cards noterm"><thead><tr><th>Time (ET)</th><th>What</th><th>Who or source</th><th>Kind</th></tr></thead><tbody></tbody></table></div>
 </details>
 
+<h2 id="loadpath-h">Load-path model</h2>
+<p class="note">Where data and load travel, and where the public record stops. Topology isn't causation: the drawing shows what connects to what, not which system generated the surge. Tags in brackets are the v2.0 spec's tiers; the hypothesized path at the bottom is unproven.</p>
+<pre class="lp noterm" id="lpdiagram"></pre>
+<ul id="lpnotes"></ul>
+<details class="fold" id="lpchanges">
+ <summary>What changed from the earlier picture</summary>
+ <div class="fold-body wrap"><table class="cards noterm"><thead><tr><th>Element</th><th>Before</th><th>Now</th></tr></thead><tbody id="lpchg"></tbody></table></div>
+</details>
+
 <h2>How the facts fit each explanation</h2>
 <p class="note">How could one update cross FTI's two separate backbone cores? Each key fact is checked against each way. Tap a cell for the reasoning. The verdicts are this page's reading, not reporting.</p>
 <div class="card wrap" id="grid"></div>
@@ -208,11 +235,17 @@ table.eg td.fact .src{display:block}
 <h2 id="claims-h">Claims on the record</h2>
 <p class="note">What has been said, by whom, and how much detail came with it. A claim here is a statement put out as fact without ample evidence behind it yet; it stays here while open questions about it haven't been addressed. Saturday times are derived from the briefing stream (start ~10:30 plus stream time). Open questions below are what nobody has said yet.</p>
 <div class="wrap"><table id="claims" class="cards noterm"><thead><tr><th>Claim</th><th>Who</th><th>On record</th><th>How specific</th><th>Direction</th><th>First said</th></tr></thead><tbody></tbody></table></div>
+<h3 id="cve-h">Claims vs. evidence</h3>
+<p class="note">Each claim set against what the public record actually supports. When a denial is quoted, the right column says what it denies: the command path or the network path.</p>
+<div class="wrap"><table id="cve" class="cards noterm"><thead><tr><th>Claim</th><th>Source</th><th>Status</th><th>What the record supports</th></tr></thead><tbody></tbody></table></div>
 <p class="note">Claims that rule things out are firmer than claims that assign cause. Early in an incident that can be innocent: ruling things out is fast, and assigning cause takes an investigation. Recheck when the FAA publishes preliminary findings.</p>
 
 <h2>Open questions</h2>
 <p class="note">No single answer settles it. Each one adds information about the broader issue. Ticked as news lands.</p>
 <div class="card pins" id="pins"></div>
+<h3 id="oqr-h">Open questions register</h3>
+<p class="note">The questions grouped by thread, with what each would settle and the record that would answer it.</p>
+<div id="oqr"></div>
 
 <h2>Intersections</h2>
 <p class="note">Still open, strongest first. Each card shows what supports it, what cuts against it and what would tell us more. Intersections are hypotheses until a source confirms them.</p>
@@ -221,6 +254,11 @@ table.eg td.fact .src{display:block}
  <summary></summary>
  <div class="fold-body" id="striplist"></div>
 </details>
+
+<h2 id="nws-h">National Weather Service adjacency</h2>
+<p class="note">Linked from intersection <a href="#ix-1">#1</a>. NWS shares transport and radar with the FAA, which makes it a co-tenant on the same infrastructure, not an independent failure domain.</p>
+<div class="wrap"><table id="nwst" class="cards noterm"><thead><tr><th>Tier</th><th>What</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+<p class="frame" id="nwsframe"></p>
 
 <h2>Who touches the network (the seam)</h2>
 <p class="note">Three companies are working on one live system at the same time. L3Harris runs FTI today, Verizon provides core functions, and AT&amp;T is planning the move off it to FENS. Nobody has replaced L3Harris yet. Wherever responsibility gets handed between them is where something can go wrong unnoticed.</p>
@@ -250,11 +288,29 @@ table.eg td.fact .src{display:block}
 <div class="wrap"><table id="common" class="cards"><thead><tr><th>Candidate</th><th>At all 22?</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 <ul id="commonnotes"></ul>
 
-<h2>Contractor and political money (context for #7)</h2>
-<p class="note">Public records and reporting only. None of this shows the contract was improper or connects to the outage. It records who is tied to whom.</p>
+<h2 id="money-h">Contractor and political money (transparency context, not causation)</h2>
+<p class="note">Public records and reporting only. None of this shows the contract was improper or connects to the outage. It records who is tied to whom, and it stays out of the causal chain above.</p>
 <ul id="context"></ul>
+<h3>Contract holders</h3>
+<div class="wrap"><table id="holders" class="cards noterm"><thead><tr><th>Entity</th><th>Role</th><th>Value</th><th>Ownership</th><th>Key holders</th></tr></thead><tbody></tbody></table></div>
+<h3>Political spending</h3>
+<div class="wrap"><table id="spend" class="cards noterm"><thead><tr><th>Donor</th><th>Recipient</th><th>Amount</th><th>Timing</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+<p class="frame" id="spendframe"></p>
+<h3>Lobbying adjacency</h3>
+<div class="wrap"><table id="lobby" class="cards noterm"><thead><tr><th>Entity</th><th>Detail</th><th>Tier</th></tr></thead><tbody></tbody></table></div>
+<div class="quar noterm" id="quar"></div>
+
+<h2 id="fund-h">Funding sequence and congressional control</h2>
+<p class="note">The sequence and the oversight actions as documented. This section records what officials did and demanded; it doesn't characterize their motives.</p>
+<ol class="seq" id="fundseq"></ol>
+<h3>Oversight actions on the record</h3>
+<ul id="oversight"></ul>
+<h3>What raises or lowers the odds the request is enacted</h3>
+<div class="wrap"><table id="fundrisk" class="cards noterm"><thead><tr><th>Factor</th><th>Effect on funding probability</th></tr></thead><tbody></tbody></table></div>
+<p class="frame" id="fundframe"></p>
 
 <h2>Event log</h2>
+<p class="note">Updated Sat 10:45 pm (v2.0): added the load-path model, confidence tiers, claims vs. evidence, the open questions register, NWS adjacency, the ownership and lobbying map, and the funding sequence. Two dates in the v2.0 spec differ from this page's sources and are shown both ways: the $30.1B request (spec Nov 12; linked reports Nov 13) and ASI's denial (spec 5:34 pm; the post as reported 5:48 pm). Lines marked "source not linked yet" come from the spec and still need a link here.</p>
 <p class="note">Corrected Sat 4 pm: the ground stop bar now ends at 8:19 pm, the lift advisory's send time (was 8:15, CNBC). Intersection #7 said every center lost comms; Bedford says instability at 17 of 22 and none went dark. Mullin's "patches" line no longer says "security," which his words didn't. The Salt Lake City precedent was dated 2007; it was Nov 19, 2009. q7 is open again until independently confirmed. Saturday times are derived from the briefing stream.</p>
 <p class="note">Corrected Sat 6:45 am: the ground stop bar now ends at 8:15 pm. Earlier versions showed it still in effect.</p>
 <div class="wrap"><table id="log" class="cards noterm"><thead><tr><th>Time (ET)</th><th>Thread</th><th>Event</th><th>Type</th><th>Source</th></tr></thead><tbody></tbody></table></div>
@@ -314,21 +370,21 @@ const S = {
 };
 
 const DATA = {
-updated: "2026-11-14T16:00:00-05:00",
+updated: "2026-11-14T22:45:00-05:00",
 /* Spans with no end were last checked here; they are drawn up to this time, not to the latest update. */
 spansChecked: "2026-11-13T20:10",
 
 /* When this box changes, move the old text into the event log as a dated line, so the page keeps a record of how its read shifted. */
 bestRead: {
- asOf: "2026-11-14T16:00",
+ asOf: "2026-11-14T22:45",
  confidence: "moderate",
- basis: "Officials' statements at the Friday and Saturday briefings, plus anonymous sourcing; no root cause from the FAA",
- text: "Officials' Saturday account: a router being replaced during copper-to-fiber work at a remote site flooded the network with about 1,000 connection attempts every 4–5 seconds, and systems came back once that work was isolated. Duffy said the line was \"such an old wire that it was being discontinued\" and that L3Harris \"actually owns that network.\" Bedford called the work sustainment, not modernization, and said the fault (installation, configuration or a bad router) is undetermined. Friday's accounts were neither confirmed nor withdrawn: Mullin said the FAA was \"putting patches into the system… new equipment and new technology\"; CBS sources said an FTI update caused a reboot. Nobody has named who was retiring the line.",
- confidenceWhy: "The detailed account is the officials' own and isn't settled: Duffy said \"a single location,\" Guy \"two places,\" and Bedford that the fault is undetermined, with a root cause analysis promised but not dated. Scope is Bedford's count, instability at 17 of 22 en route facilities, none named and none going dark.",
+ basis: "Officials' Friday and Saturday briefings, FAA and ASI statements, and reporting; no FAA root cause and no packet-level attribution",
+ text: "The Nov 13 ground stop reads best as a transport-layer failure at the FTI/FMDS session boundary during a copper-to-fiber cutover: officials say a newly installed router flooded other routers with about 1,000 connection attempts every 4–5 seconds. SMART is a cloud-based, advisory-only data consumer with no command authority, but it does hold persistent read sessions on that same boundary. The record confirms the topology and the failure signature; it has no packet-level attribution showing whether SMART's ingestion or the L3Harris work was the dominant source of the surge. Peraton is prime integrator for the FAA's modernization program, with reported pre-award risk flags and mid-2026 performance concerns; Bedford said Saturday the Nov 13 work was sustainment and \"not part of\" that program, so whether Peraton's change control covered it is an open question. The NWS disruption fits a co-tenant hit by the same transport failure better than an independent source. The funding sequence ($30.1B request, ground stop, $50B escalation) and the political money around ASI are documented, and belong in the accountability section, not the causal chain. The GAO audit requested in October and the midterm change in congressional control are the two institutional variables most likely to decide what becomes public and what gets funded.",
+ confidenceWhy: "The mechanism is the officials' own and isn't settled: Duffy said \"a single location,\" Guy \"two places,\" and Bedford that the fault (installation, configuration or a bad router) is undetermined, with a root cause analysis promised but not dated. Scope is Bedford's count, instability at 17 of 22 en route facilities, none named.",
  flipLink: "Anchorage and Honolulu stayed up",
  flip: "Then the shared cause is more likely ERAM, which runs only in the lower 48.",
  flipQ: "q1",
- srcs: [S.dotbrief, S.cbs, S.mcid, S.sw]
+ srcs: [S.dotbrief, S.cbs, S.avweb, S.twz]
 },
 
 terms: [
@@ -346,8 +402,16 @@ terms: [
  {id:"eram", term:"ERAM", match:["ERAM"], def:"The computer system at the 20 lower-48 centers that processes flight plans and radar tracks."},
  {id:"vscs", term:"VSCS", match:["VSCS"], def:"The voice switch inside a center that connects controllers to their radios and phones."},
  {id:"optical", term:"Optical layer (DWDM)", match:["optical/DWDM layer","optical layer","DWDM"], card:"ex-cores", def:"Equipment that sends many signals down one fiber as different colors of light."},
- {id:"rebuild", term:"Copper-to-fiber rebuild", match:["copper-to-fiber rebuild"], def:"L3Harris's ongoing swap of old copper lines for fiber, about 70% of sites as of Nov 2. Saturday: Duffy said 69%, then Bedford \"over 70%.\""},
+ {id:"rebuild", term:"Copper-to-fiber rebuild", match:["copper-to-fiber rebuild"], def:"L3Harris's ongoing swap of old copper lines for fiber, about 70% of sites as of Nov 2. Saturday: Duffy said 69%, then Bedford \"over 70%.\" The routers being replaced are about 25 years old, originally due for replacement around 2006. Root cause undetermined."},
  {id:"smart", term:"SMART", match:["SMART"], def:"The AI-assisted traffic management tool the FAA expanded to all airspace as of Nov 10. Advisory and cloud-based."},
+ {id:"fmds", term:"FMDS", match:["FMDS"], def:"Flow Management Data and Services: the aggregation layer feeding a common airspace model. The boundary SMART reads through. ASI builds it under the June 2026 contract."},
+ {id:"sessb", term:"Session boundary", match:["session boundary"], def:"The FMDS data-services API and feed endpoints where ingestion sessions are set up, kept alive and retried. Where cloud sessions converge, and where a connection flood would show."},
+ {id:"retry", term:"Multi-cloud retry domain", match:["multi-cloud retry domains","multi-cloud retry domain","retry domains","retry domain"], def:"An independent source of reconnections, such as AWS GovCloud or Azure GCC High. Two uncoordinated domains can multiply a surge at a shared boundary."},
+ {id:"cmdauth", term:"Command authority", match:["command authority"], def:"The ability to direct aircraft or separation. SMART does not have it: specialists review every recommendation and local leaders accept or decline."},
+ {id:"netdep", term:"Network dependency", match:["network dependency"], def:"Reliance on shared transport or ingestion paths. SMART does have it. \"Not plugged in\" to STARS or ERAM speaks to command authority, not this."},
+ {id:"structopp", term:"Structural opportunity", match:["structural opportunity"], def:"A position from which an action could be coordinated, like an integrator's change-control board. The right place to ask questions; not evidence of intent."},
+ {id:"tiers", term:"Three-tier confidence", match:["three-tier confidence","three-tier"], def:"Confirmed (official record, FEC, filings), Reported (credible press), Hypothesized (inference from structure or timing). Every substantive claim carries one."},
+ {id:"cotenant", term:"Co-tenant", match:["co-tenant"], def:"A separate agency, here NWS, sharing the same transport and radar infrastructure and exposed to the same failure."},
  {id:"dd", term:"Downdetector", match:["Downdetector"], def:"A site that counts user complaints about outages. Spikes show complaints, not causes."}
 ],
 
@@ -444,6 +508,16 @@ spans: [
 ],
 /* via:true = the cited outlet is passing on someone else's reporting. orig = original outlet or body if known. origUrl = filled in once traced. */
 events: [
+ {lane:"faa", sub:"cause", t:"2026-11-14T16:00", kind:"official", label:"Page's best read at 4 pm Sat (archived): officials say a router being replaced during copper-to-fiber work at a remote site flooded the network with ~1,000 connection attempts every 4–5 seconds; Bedford: sustainment, not modernization, fault undetermined; nobody had named who was retiring the line", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
+ {lane:"faa", sub:"context", t:"2025-10-15T12:00", kind:"reported", tier:"Reported", label:"FAA staff internally rated Peraton \"high risk\" of financial instability before the integrator award; FAA awarded after comparing it against Parsons and IBM (month only)", src:"Spec v2.0 (source not linked yet)"},
+ {lane:"faa", sub:"context", t:"2025-12-15T12:00", kind:"official", label:"Peraton named prime integrator for the $12.5B ATC overhaul (BNATCS). Spec v2.0 adds a $1.5B contract with a \"No Excuses\" fee tied to schedule, quality, cost and management metrics (month only; fee terms not in the linked source as far as checked)", src:"Washington Technology", url:"https://www.washingtontechnology.com/contracts/2026/08/faa-brings-t-network-modernization-program/415412/"},
+ {lane:"smart", t:"2026-03-15T12:00", kind:"official", label:"ASI's corporate PAC gives $2,500 to Michael Alfonso (Sec. Duffy's son-in-law, WI-7), in Alfonso's Q1 report, before the June award (month only). Transparency context, not causation", src:"Daily Beast / The Bulwark", url:"https://www.thedailybeast.com/maga-nepo-candidate-michael-alfonsos-big-campaign-payday-linked-to-famous-father-in-law/"},
+ {lane:"smart", t:"2026-06-22T12:00", kind:"official", label:"FAA awards ASI the FMDS + SMART contract: 12 years, $875.95M", src:"Award record", url:"https://orangeslices.ai/transportation-secretary-sean-p-duffy-selects-air-space-intelligence-to-deploy-state-of-the-art-air-traffic-control-software-revolutionize-our-skies/"},
+ {lane:"faa", sub:"context", t:"2026-08-15T12:00", kind:"reported", label:"FAA officials raise concerns about Peraton's subcontractor management and schedule slippage; no cure letter issued as of that reporting (month only)", src:"Spec v2.0 (source not linked yet)"},
+ {lane:"faa", sub:"context", t:"2026-09-28T12:00", kind:"official", label:"Modern Skies Act introduced (Sen. Schmitt) to authorize the ~$30B; no Democratic co-sponsors identified", src:"Spec v2.0 (source not linked yet)"},
+ {lane:"smart", t:"2026-10-13T12:00", kind:"official", label:"23 House Transportation Committee Democrats ask GAO to audit SMART (safety risk assessments, testing, certification, limited frontline input)", src:"AvBrief / Politico", url:"https://avbrief.com/faa-wants-piece-of-company-behind-ai-boost-for-atc/"},
+ {lane:"faa", sub:"context", t:"2026-11-03T21:00", kind:"reported", label:"Midterms: per spec v2.0, Democrats win control of Congress; the new session begins Jan 3, 2027, leaving a lame-duck window for the funding request", src:"Spec v2.0 (source not linked yet)"},
+ {lane:"faa", sub:"cause", t:"2026-11-13T23:30", kind:"reported", label:"Per spec v2.0, Duffy said the fault could be \"incompetence… user error or installer error from L3Harris, or a faulty router\"; root cause undetermined (time not matched to a briefing timestamp)", src:"Spec v2.0 (source not linked yet)"},
  {lane:"faa", sub:"cause", t:"2026-11-14T06:45", kind:"reported", label:"Page's best read at 6:45 am (archived): officials describe a new trigger on old hardware (Mullin's patches; Duffy's old hardware); CBS sources: an FTI update caused a reboot; nobody had named the update or who pushed it", src:"CBS News", url:"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/"},
  {lane:"faa", sub:"flights", t:"2026-11-14T06:00", kind:"reported", label:"CNBC early-Saturday count: 6,200+ delays, 3,400+ cancellations (differs from ABC7's; time approx.)", src:"CNBC", url:"https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html"},
  {lane:"faa", sub:"fail", t:"2026-11-13T15:00", kind:"official", label:"Bedford (Sat): the system \"started to exhibit some instability\"; \"over a course of about 45 minutes, we could not assess the cause\" (time derived from his ~3:45; Duffy said Fri \"at 3:36 p.m., we experienced instability\")", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
@@ -525,9 +599,11 @@ intersections: [
   supports:[
    {text:"The FAA calls it a telecommunications outage (Mullin, 5 pm).", src:[S.cbs]},
    {text:"The NWS reported nationwide radar website and communications issues around 4:29 pm, time approximate.", src:[S.news9]},
-   {text:"Shared systems exist, notably NEXRAD radar, run jointly by NWS, FAA and DoD. (No source on the page yet.)"}],
+   {text:"Shared systems exist: NEXRAD radar is run jointly by NWS, FAA and DoD; FTI program documents list NWS as a stakeholder; FAA–NWS data sharing runs through a defined NOAAnet interface. (Per spec v2.0; no source linked here yet.)"},
+   {text:"A NANOG thread that afternoon: \"Both the FAA and National Weather Service are reporting nation-wide telecommunication issues this afternoon,\" with reports pointing at an L3Harris-managed network update that triggered a reboot. Operator-list reporting, not official. (Per spec v2.0; no source linked here yet.) See the NWS section."}],
   against:[
    {text:"Different departments, DOT and Commerce."},
+   {text:"NWS denied a nationwide radar outage: the radar network was operating normally, and the trouble was regional weather radio problems. That narrows NWS's share to communications, consistent with a co-tenant hit by the same transport failure rather than a separate failure. (Per spec v2.0; no source linked here yet.)"},
    {text:"No official link yet."},
    {text:"The NWS notice comes about 90 minutes after the first FAA trouble around 3:02. Inferred from the two times on this page; the NWS start time itself is unknown."}],
   settles:[
@@ -652,7 +728,7 @@ explainers: [
 /* onRecord: named | anon | party (interested party). spec: specific | partial | none. dir: plain words. */
 claims: [
  {claim:"Not a cyberattack", who:"Mullin (DHS)", onRecord:"named", spec:"none", specNote:"no evidence described", dir:"Rules out", t:"Fri afternoon", src:[S.cbs]},
- {claim:"Not SMART", who:"ASI; then Duffy", onRecord:"party", also:"named", spec:"partial", specNote:"\"isn't plugged in to STARS and ERAM\"", dir:"Rules out", t:"Before any cause was named", src:[S.twz, S.mcid], q:"q9"},
+ {claim:"Not SMART", who:"ASI; then Duffy", onRecord:"party", also:"named", spec:"partial", specNote:"\"isn't plugged in to STARS and ERAM\"; both denials address command authority, not network dependency", dir:"Rules out the command path", t:"Before any cause was named", src:[S.twz, S.mcid], q:"q9"},
  {claim:"New IP switches didn't fail; the old hardware did", who:"Duffy", onRecord:"named", spec:"partial", specNote:"names a layer, not a device", dir:"Rules out the new layer", t:"Fri evening briefing", src:[S.mcid], q:"q7"},
  {claim:"Routers got overloaded and gave inconsistent data", who:"Duffy", onRecord:"named", spec:"partial", specNote:"a mechanism; no site, device or count", dir:"Assigns cause", t:"Fri evening briefing", src:[S.abcn]},
  {claim:"\"Putting patches into the system… new equipment and new technology\" overwhelmed the older system", who:"Mullin (DHS)", onRecord:"named", spec:"none", specNote:"no patch named", dir:"Assigns cause", t:"Fri briefing", src:[S.cbs], q:"q11"},
@@ -723,7 +799,7 @@ seam: [
  {p:"L3Harris", role:"Operates and maintains FTI, the current network linking 4,400+ FAA facilities, since 2002. Also running the copper-to-fiber rebuild: 70% of sites as of Nov 2.", why:"CBS reports the failing update was to FTI. It's both the operator and the one changing the network under live traffic.", src:"L3Harris", url:"https://www.l3harris.com/all-capabilities/faa-telecommunications-infrastructure-fti"},
  {p:"AT&T", role:"Lead contractor on FENS, the FTI replacement, since Aug 11, 2026. Initial $74.3M task order covers network design and transition planning from legacy services. Awarded under FAA waiver authority, without a new competition.", why:"Planning the transition, not yet running live traffic as far as public records show. Whether any AT&T work touched FTI this week is unknown.", src:"Washington Technology", url:"https://www.washingtontechnology.com/contracts/2026/08/faa-brings-t-network-modernization-program/415412/"},
  {p:"Verizon", role:"Won FENS in 2023 ($2.4B, 15 years); demoted in Aug 2026 to a supporting role that keeps core network functions. Also a local carrier: its fiber carried both failed Sept 21 circuits.", why:"Has a role in both the old network and the new one. Who carries the circuits that failed today is not public.", src:"AvWeb", url:"https://avweb.com/aviation-news/faa-att-74-3-million-new-atc-network/"},
- {p:"Peraton", role:"Prime integrator for the Brand New Air Traffic Control System (BNATCS), contract won Dec 2025.", why:"Sits above the telecom contractors; whether it coordinates change approvals across them is not public.", src:"Washington Technology", url:"https://www.washingtontechnology.com/contracts/2026/08/faa-brings-t-network-modernization-program/415412/"},
+ {p:"Peraton", role:"Prime integrator for the Brand New Air Traffic Control System (BNATCS), contract won Dec 2025. Per spec v2.0 (sources not linked yet): a $1.5B contract with a \"No Excuses\" fee tied to schedule, quality, cost and management metrics; scope covering cutover synchronization, change-control-board participation, subcontractor management and risk reduction; an Oct 2025 internal FAA \"high risk\" rating for financial instability, before award; and Aug 2026 concerns over subcontractor management and schedule, with no cure letter reported.", why:"A program overlay, not a node on the wire: it sits on the change-control and sequencing decisions that set when the wire gets modified. Bedford said Saturday the Nov 13 work was \"not part of\" the Peraton modernization effort, so whether its change control covered this sustainment work is an open question. Whether that is an oversight failure is an audit question.", src:"Washington Technology", url:"https://www.washingtontechnology.com/contracts/2026/08/faa-brings-t-network-modernization-program/415412/"},
  {p:"Local carriers", role:"Last-mile circuits into many facilities (Frontier in Dallas 2025, Verizon in NJ Sept 2026).", why:"Past outages hit here, at the boundary between L3Harris and the carriers.", src:"NBC News", url:"https://www.nbcnews.com/news/us-news/dallas-airports-restored-normal-operations-rcna232637"},
  {p:"ASI", role:"SMART, a cloud-based planning layer that sends recommendations over the network.", why:"Rides on the network rather than running it. ASI denies any role, including integration.", src:"Washington Times", url:"https://www.washingtontimes.com/news/2026/nov/13/faa-expanded-ai-air-traffic-tool-centers-days-nationwide-ground-stop/"}
 ],
@@ -748,6 +824,207 @@ context: [
 ]
 };
 
+/* v2.0 additions. tier: Confirmed | Reported | Hypothesized | Unverified. pend:true = from the v2.0 spec, no source linked on this page yet. */
+const TIER = {Confirmed:"--expl", Reported:"--demand", Hypothesized:"--soft", Unverified:"--muted", "Confirmed / Reported":"--demand", Partial:"--demand", Unproven:"--soft", "False as stated":"--strong", "Contradicted by architecture":"--strong", Unresolved:"--open", "Under audit":"--open", Unsupported:"--muted", "Chronologically true":"--expl"};
+const tierPill = t => `<span class="tier" style="color:var(${TIER[t]||"--muted"})">${esc(t)}</span>`;
+const PEND = `<span class="pend">source not linked yet</span>`;
+const V2 = {
+ tiers: [
+  ["Confirmed","Official record, FEC data or filings."],
+  ["Reported","Credible press, ideally more than one outlet."],
+  ["Hypothesized","Inference from structure or timing. Never stated as fact."],
+  ["Unverified","Circulating without filing support. Quarantined and kept out of the causal chain."]
+ ],
+ principles: [
+  ["Topology isn't causation","Confirmed architecture and a confirmed failure signature don't prove which system generated the load."],
+  ["Read-only isn't no load","Advisory or data-consumer status speaks to command authority, not network dependency. Both are stated."],
+  ["Structural opportunity isn't intent","A coordination chokepoint (an integrator, a change-control board) is where to ask; it isn't evidence of orchestration."],
+  ["Oversight actions, not motives","What officials did and demanded (audits, conditions, criticism) is recorded; their motives aren't characterized."],
+  ["Denial scope","A quoted denial comes with what it actually denies: the command path or the network path."],
+  ["Unverified claims quarantined","Claims without FEC or filing support are labeled and kept out of the causal chain."],
+  ["Source not linked yet","Some v2.0 lines don't have a link on this page yet. They carry the spec's tier plus that mark until one is added."]
+ ],
+ diagram: `EXTERNAL / OPERATIONAL SOURCES
+  flight/wx/capacity/staff ──► FMDS ingest
+  radar surveillance ───────► FTI
+  voice comms ─────────────► FTI
+
+ASI MULTI-CLOUD  [CONFIRMED in spec; source not linked yet]
+  AWS GovCloud ─────────┐
+  Azure Gov GCC High ───┼──► SMART app (~200 streams)
+  Sentinel / Defender ──┘
+
+        │ read / subscribe / poll
+        │ PERSISTENT SESSIONS
+        ▼
+FMDS DATA SERVICES / FEED ENDPOINTS
+        ◀──── SESSION BOUNDARY ────►
+        │
+        ▼
+FTI TRANSPORT LAYER  [CONFIRMED]
+  L3Harris copper→fiber cutover (~68–70% complete)
+  Legacy Cisco 600-series routers (~25 yrs old)
+  New digital router — reported source of 1,000+ conn / 4–5 sec
+
+        ├──► STARS / ERAM / legacy TFM
+        │         │
+        │         ▼
+        │    22 ARTCCs ──► Controllers
+        │
+        └──► NWS / NEXRAD shared path
+                  │
+                  ▼
+             NWS communications / weather radio
+
+PROGRAM LAYER  (overlay, not on the wire)
+  Peraton — Prime Integrator ($1.5B, "No Excuses")
+  Scope: cutover synchronization · change control ·
+         subcontractor mgmt · risk reduction
+  Bedford (Sat): Nov 13 work "not part of" this program
+
+HUMAN GATE  [CONFIRMED]
+  Command Center review ──► local accept/reject
+  (advisory only; no command authority)
+
+<span class="hy">HYPOTHESIZED LOAD PATH  [UNPROVEN]
+  SMART reconnect surge (AWS + Azure)
+    → FMDS/FTI session boundary
+    → legacy routers already stressed by cutover
+    → buffer/processor exhaustion
+    → corrupted radar + voice telemetry</span>`,
+ lpnotes: [
+  "<b>Session boundary:</b> the FMDS data-services API and feed endpoints. This is where cloud ingestion sessions converge, and where the failure signature (connection-attempt flooding) would be physically observed.",
+  "<b>Multi-cloud retry domain:</b> AWS GovCloud and Azure GCC High as independent reconnection sources. Two environments can double the surge at the shared boundary if their retry policies aren't coordinated. That ASI runs in both is from the v2.0 spec; this page previously said SMART's production host wasn't public, and no source is linked here yet.",
+  "<b>Peraton is a program layer, not a data path.</b> It doesn't sit on the wire; it sits on the change-control and sequencing decisions that set when the wire gets modified. Drawn as an overlay. Bedford said Saturday the Nov 13 work was sustainment, \"not part of\" the Peraton effort.",
+  "<b>NWS sits on the shared FTI/NEXRAD path, not as a separate system.</b> A co-tenant, not a retry source.",
+  "<b>Three layers of attribution:</b> the topology is confirmed, the failure signature is the officials' account, and causation (which source dominated the surge) is unproven. No packet-level attribution is public."
+ ],
+ lpchanges: [
+  ["SMART placement","Single box","Multi-cloud (AWS + Azure); two retry domains"],
+  ["Risk boundary","Vague SMART→FTI line","FMDS data-services API and feed endpoints as an explicit session boundary"],
+  ["Cutover role","Background","Active session-state disruption"],
+  ["NWS","Adjacent dot","Shared FTI/NEXRAD path; victim, not source"],
+  ["Peraton","Absent from the diagram","Program overlay at the change-control layer"],
+  ["Attribution","Binary: SMART did or didn't","Three tiers: topology, signature, unproven causation"]
+ ],
+ cve: [
+  {c:"\"SMART isn't plugged in\"", who:"Duffy", st:"Partial", rec:"Rules out the STARS/ERAM command path; says nothing about network dependency.", src:[S.mcid, S.dotbrief]},
+  {c:"\"Not based on or a result of the SMART system… or our integration with FAA and ATC\"", who:"ASI", st:"Partial", rec:"An interested party's denial of command and integration roles; doesn't address data-plane load on FMDS/FTI.", src:[S.twz]},
+  {c:"SMART caused the ground stop", who:"Critics; timing inference", st:"Unproven", rec:"No packet-level attribution is public."},
+  {c:"SMART could not have contributed", who:"Implicit in denials", st:"Unproven", rec:"Same gap in the other direction: no attribution rules its sessions in or out."},
+  {c:"The L3Harris router or install caused it", who:"Duffy; officials", st:"Partial", rec:"Mechanism named (1,000+ connection attempts every 4–5 seconds); fault undetermined.", src:[S.dotbrief]},
+  {c:"NWS had a nationwide radar outage", who:"Social posts; early reports", st:"False as stated", rec:"NWS denied it; the issue was regional weather radio.", pend:true},
+  {c:"NWS is unrelated", who:"Implicit in denials", st:"Contradicted by architecture", rec:"Shared FTI/NEXRAD paths; NANOG reported both the same afternoon.", pend:true},
+  {c:"The $50B is an emergency response", who:"Duffy", st:"Chronologically true", rec:"The escalation came after the stop; the $30.1B request came before it.", src:[S.aerot]},
+  {c:"ASI's PAC donation had no bearing", who:"Not addressed publicly", st:"Unresolved", rec:"$2,500 to Duffy's son-in-law in March 2026; contract awarded June 2026. No evidence it affected the award."},
+  {c:"Peraton's oversight failed", who:"Critics", st:"Under audit", rec:"Pre-award risk flag; Aug 2026 performance concerns; no cure letter. Bedford: the Nov 13 work wasn't part of Peraton's program.", pend:true},
+  {c:"The outage was orchestrated for funding", who:"Speculation", st:"Unsupported", rec:"The timing invites the question; no artifact shows intent."},
+  {c:"ASI founders gave $5.8M to Trump", who:"Commentary", st:"Unverified", rec:"Not confirmed in the FEC data reviewed. Quarantined (see the money section)."}
+ ],
+ oqr: [
+  {g:"Software thread: the \"patch\" that never lands", id:"oq-sw", q:"q11", rows:[
+   ["Was the L3Harris update firmware, configuration or routing policy?","Decides whether it reset sessions network-wide.","L3Harris change record, maintenance window"],
+   ["What did \"patches\" refer to: FAA apps, network gear, or both?","Separates an application change from a transport change.","FAA change tickets, Mullin briefing transcript"],
+   ["Did router firmware or config enforce connection-rate limits?","Explains why 1,000+ attempts every 4–5 seconds overwhelmed buffers.","Cisco 600 config baseline, vendor advisories"],
+   ["Did SMART clients have backoff and circuit breakers in both clouds?","Directly tests the load-contribution hypothesis.","ASI ingestion config, session logs by tenant"],
+   ["Was retry policy coordinated across AWS and Azure?","Independent retry domains multiply a surge.","Architecture docs, SRE runbooks"]]},
+  {g:"Integrator and change control", id:"oq-int", q:"q6", rows:[
+   ["Did Peraton's change-control board approve overlapping L3Harris and SMART windows?","Tests integration failure versus coincidence.","Change board records, cutover schedule"],
+   ["Did Peraton's change control cover sustainment work like Nov 13's at all?","Bedford said the work wasn't part of the Peraton program; if it was outside, the oversight question moves to the FAA and L3Harris.","Contract scope, FAA change-approval procedure"],
+   ["Was the pre-award \"high risk\" flag mitigated before cutover?","Tests acquisition oversight.","FAA risk-mitigation plan, contract modifications"],
+   ["Do \"No Excuses\" fee metrics show schedule pressure before Nov 13?","Tests incentive-driven sequencing.","Fee-metric dashboards, program reviews"],
+   ["Is there any communication linking the outage window to funding or contract goals?","Tests orchestration. Asked because the timing invites it, not because anything points to it.","Emails, calendars, minutes (under audit)"]]},
+  {g:"Adjacency", id:"oq-adj", ix:1, rows:[
+   ["Did NWS traffic share the specific affected FTI router segments?","Co-tenant on the same failure versus a separate failure.","NWS network telemetry, FTI segment maps"],
+   ["Did NWS reconnects add to the surge?","Victim versus amplifier.","NWS session logs"],
+   ["Were radar feeds and voice on truly diverse primary and backup paths?","Tests the Inspector General's earlier path-diversity findings.","FTI diversity documentation, OIG follow-up"]]},
+  {g:"Funding and congressional risk", id:"oq-fund", rows:[
+   ["What is the lame-duck path for the $30.1B or $50B?","Decides whether the request survives.","Whip counts, committee markup, Johnson's package"],
+   ["Will Democrats condition or restructure the funding after Jan 3?","Changes program scope and timing.","Leadership statements, bill text"],
+   ["Does the GAO audit's scope include Nov 13 causation?","Decides whether attribution becomes public.","GAO engagement letter, scope memo"]]}
+ ],
+ nws: [
+  {tier:"Confirmed", t:"NWS and FAA share NEXRAD radar, jointly operated with DoD; FTI program documents list NWS as a stakeholder; FAA–NWS data sharing runs through a defined NOAAnet interface.", pend:true},
+  {tier:"Reported", t:"NWS posted a notice of nationwide radar website and communications issues around 4:29 pm, about 90 minutes after the first FAA trouble (~3:02). The 90 minutes is this page's arithmetic.", src:[S.news9]},
+  {tier:"Reported", t:"A NANOG operators' thread that afternoon: \"Both the FAA and National Weather Service are reporting nation-wide telecommunication issues this afternoon,\" with reports pointing at an L3Harris-managed network that ran an update which triggered a reboot.", pend:true},
+  {tier:"Confirmed", t:"NWS denied a nationwide radar outage. The radar network was operating normally; the issue was regional weather radio problems.", pend:true}
+ ],
+ nwsFrame: "NWS reads as a co-tenant on the FTI/NEXRAD path, not an independent failure domain. The public record fits NWS being a victim of the same transport disruption better than an independent retry source. Whether NWS traffic shared the specific affected router segments, and whether NWS reconnects amplified the surge, isn't established; both are in the open questions register.",
+ holders: [
+  ["ASI","SMART / FMDS (advisory)","$875M, 12 yr","Private, VC-backed","a16z (Series B lead, Series C participant), Spark, Citadel affiliates"],
+  ["L3Harris","FTI operator (since 2002)","—","Public","BlackRock ~10.2%, Vanguard ~7.1%"],
+  ["Peraton","Prime integrator, ATC overhaul","$1.5B (of $12.5B)","Private equity","Veritas Capital (Musallam, Evans principals; Dyal ~10% minority)"],
+  ["AT&T","FENS lead (replacing FTI, Aug 2026)","—","Public","BlackRock, Vanguard, State Street"],
+  ["Verizon","FENS supporting role","—","Public","BlackRock, Vanguard, State Street"],
+  ["RTX / Raytheon","Radar and automation","—","Public","State Street, BlackRock"],
+  ["Leidos","En route automation incumbent","—","Public","Vanguard, BlackRock"],
+  ["Indra","Radar","—","Public, state-linked","Spanish government (SEPI) ~28%"]
+ ],
+ spend: [
+  {d:"ASI PAC", r:"Michael Alfonso (Duffy's son-in-law)", a:"$2,500", t:"Mar 2026, before the contract", src:[{name:"Daily Beast / The Bulwark", url:"https://www.thedailybeast.com/maga-nepo-candidate-michael-alfonsos-big-campaign-payday-linked-to-famous-father-in-law/"}]},
+  {d:"Marc Andreessen", r:"Right for America (pro-Trump super PAC)", a:"$2.5M", t:"2024", src:[{name:"Bloomberg", url:"https://news.bloomberglaw.com/private-equity/silicon-valleys-andreessen-horowitz-give-millions-to-trump-pac"}]},
+  {d:"Ben Horowitz", r:"Right for America (pro-Trump super PAC)", a:"$2.5M", t:"2024", src:[{name:"Bloomberg", url:"https://news.bloomberglaw.com/private-equity/silicon-valleys-andreessen-horowitz-give-millions-to-trump-pac"}]},
+  {d:"Ben Horowitz", r:"Pro-Harris super PAC", a:"$2.5M", t:"2024, after Harris entered", src:[{name:"Bloomberg", url:"https://news.bloomberglaw.com/private-equity/silicon-valleys-andreessen-horowitz-give-millions-to-trump-pac"}]},
+  {d:"AT&T and Verizon", r:"2025 inaugural committee", a:"$1M each", t:"2025", pend:true},
+  {d:"Peraton PAC", r:"Federal candidates", a:"~$281K raised", t:"2025–26 cycle", pend:true}
+ ],
+ spendFrame: "a16z's giving on both sides reads as hedging at the investor level, not coordination with ASI's PAC. The ASI PAC donation is small, but close in time to the contract award and close in relationship to the overseeing official. Shown as transparency context, not causation. Per spec v2.0, a16z also took part in ASI's $325M Series C (Oct 2026, $3B valuation) after leading the $34M Series B (Dec 2023).",
+ lobby: [
+  ["BGR Government Affairs","Registered to lobby for Air Space Intelligence, Inc. on \"artificial intelligence defense software\" (Q3 2026 LD-1).","Confirmed"],
+  ["Duffy at BGR","Lobbied there in 2020, with consulting ties through 2024, on airline industry issues (Partnership for Open and Fair Skies), not the ASI account.","Confirmed"],
+  ["BGR's ASI team","Dan Greenwood (former Deputy Assistant to the President; NSC Senior Director for Legislative Affairs), Max Richards (legislative director for Sen. Schmitt; SASC), Alex Gallo (former HASC professional staff), Tristan Whitaker, Pete Landrum (former senior defense policy advisor to Sen. Sessions).","Confirmed"],
+  ["Revolving-door lane","White House, NSC and defense committees, not FAA-specific.","Hypothesized"]
+ ],
+ quar: "<b>Unverified, quarantined:</b> a claim that ASI's founders gave more than $5.8M to Trump's campaign or super PACs in 2024 is circulating in commentary. It isn't confirmed in the FEC data reviewed, and this page's own search found no individual federal donations by the three founders (not a full FEC export). It stays out of the causal chain and the funding analysis.",
+ fundseq: [
+  ["July 2025","Congress approves $12.5B for the ATC overhaul (One Big Beautiful Bill).", "Confirmed", [S.mcid]],
+  ["Sept 2026","About $30B more requested; the Modern Skies Act is introduced Sept 28 (Sen. Schmitt), with no Democratic co-sponsors identified.", "Confirmed", null, true],
+  ["Nov 12–13, 2026","The $30.1B formal request (Duffy and OMB Director Vought): $10.1B ATC modernization (incl. $7.2B common automation platform, $2B cloud), $2B towers, $18B airport projects (incl. $10B terminals). The v2.0 spec dates the letter Nov 12; the reports linked here put it on Nov 13, hours before the outage.", "Confirmed", [S.aerot]],
+  ["Nov 13, 2026","Ground stop, 3:54–8:19 pm. That evening the request is escalated to $50B, framed as an emergency.", "Confirmed", [{name:"Fox Business", url:"https://www.foxbusiness.com/politics/duffy-sounds-alarm-over-aging-faa-system-after-nationwide-air-travel-shutdown"}]],
+  ["Nov 14, 2026","Duffy at the Saturday briefing speaks of a \"$30 billion\" request with the full request going to the Hill Monday; the $50B isn't mentioned.", "Confirmed", [S.dotbrief]],
+  ["Nov 2026","Per the v2.0 spec, Democrats win control of Congress; the new session begins Jan 3, 2027.", "Confirmed", null, true],
+  ["Lame duck","The only path to enactment before control changes.", "Hypothesized", null]
+ ],
+ oversight: [
+  ["Oct 9, 2026","25 Democratic lawmakers ask the FAA to pause SMART in Washington-area airspace.", [{name:"AvBrief / Politico", url:"https://avbrief.com/faa-wants-piece-of-company-behind-ai-boost-for-atc/"}]],
+  ["Oct 13, 2026","23 House Transportation Committee Democrats ask GAO to audit SMART, citing safety risk assessments, testing, certification and limited frontline input.", [{name:"AvBrief / Politico", url:"https://avbrief.com/faa-wants-piece-of-company-behind-ai-boost-for-atc/"}]],
+  ["Before Nov 10","Congress raised testing, safety-assessment and cybersecurity concerns before the nationwide expansion; a 90-day evaluation was referenced, and the nationwide rollout came about 50 days after it began.", null, true],
+  ["Nov 13","Sen. Blumenthal calls for a \"prompt, penetrating investigation.\"", [{name:"NPR", url:"https://www.npr.org/2026/11/13/nx-s1-6040403/faa-nationwide-groundstop-airports"}]],
+  ["After Nov 13","Schumer called the $50B request \"alarming,\" criticized the funding priorities, and said the administration should \"work with Congress to put taxpayer dollars where they're actually needed.\"", null, true],
+  ["After Nov 13","Jeffries said the administration was blaming others \"instead of taking responsibility.\"", null, true],
+  ["After Nov 13","Speaker Johnson signaled FAA funding in a lame-duck \"aggressive legislative package.\"", null, true]
+ ],
+ fundrisk: [
+  ["Sept request made under Republican control","Moderate baseline risk"],
+  ["Democratic midterm win (Jan 2027)","Sharp increase; narrow window"],
+  ["No Democratic co-sponsors on the Modern Skies Act","High risk of blockage or amendment"],
+  ["Democratic oversight posture (GAO request; criticism)","High risk of conditioned or reduced funding"],
+  ["Johnson's lame-duck \"aggressive package\"","Time-pressured path; success not guaranteed"]
+ ],
+ fundFrame: "The September request was made under one political configuration; the Nov 13 outage happened under another. The change in congressional control is a first-order variable in whether the request is enacted, and it's the backdrop the escalation to $50B has to be read against. This section presents the sequence and the oversight actions as documented facts and doesn't characterize the motives of anyone involved."
+};
+function renderV2(){
+ const sl = a => a&&a.length ? srcLinks(a) : "";
+ $("tiers").innerHTML = `<p class="note" style="margin-top:4px">${V2.tiers.map(([t,d])=>`${tierPill(t)} ${esc(d)}`).join("<br>")}</p>`;
+ $("princ").innerHTML = V2.principles.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("");
+ $("lpdiagram").innerHTML = V2.diagram.replace(/&(?!amp;)/g,"&amp;").replace(/<(?!\/?span)/g,"&lt;");
+ $("lpnotes").innerHTML = V2.lpnotes.map(w=>`<li>${w}</li>`).join("");
+ $("lpchg").innerHTML = V2.lpchanges.map(r=>`<tr><td data-l="Element"><b>${esc(r[0])}</b></td><td data-l="Before">${esc(r[1])}</td><td data-l="Now">${esc(r[2])}</td></tr>`).join("");
+ document.querySelector("#cve tbody").innerHTML = V2.cve.map(r=>`<tr><td data-l="Claim"><b>${esc(r.c)}</b></td><td data-l="Source">${esc(r.who)}</td><td data-l="Status">${tierPill(r.st)}</td><td data-l="What the record supports">${esc(r.rec)}${sl(r.src)}${r.pend?" "+PEND:""}</td></tr>`).join("");
+ $("oqr").innerHTML = V2.oqr.map(g=>`<div class="oqg" id="${g.id}"><b>${esc(g.g)}</b>${g.q?` <a href="#${g.q}" class="src">related open question</a>`:""}${g.ix?` <a href="#ix-${g.ix}" class="src">intersection #${g.ix}</a>`:""}</div><div class="wrap"><table class="cards noterm"><thead><tr><th>Question</th><th>Why it matters</th><th>Evidence needed</th></tr></thead><tbody>${g.rows.map(r=>`<tr><td data-l="Question"><b>${esc(r[0])}</b></td><td data-l="Why it matters">${esc(r[1])}</td><td data-l="Evidence needed">${esc(r[2])}</td></tr>`).join("")}</tbody></table></div>`).join("");
+ document.querySelector("#nwst tbody").innerHTML = V2.nws.map(r=>`<tr><td data-l="Tier">${tierPill(r.tier)}</td><td data-l="What">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):PEND}</td></tr>`).join("");
+ $("nwsframe").textContent = V2.nwsFrame;
+ document.querySelector("#holders tbody").innerHTML = V2.holders.map(r=>`<tr><td data-l="Entity"><b>${esc(r[0])}</b></td><td data-l="Role">${esc(r[1])}</td><td data-l="Value">${esc(r[2])}</td><td data-l="Ownership">${esc(r[3])}</td><td data-l="Key holders">${esc(r[4])} ${PEND}</td></tr>`).join("");
+ document.querySelector("#spend tbody").innerHTML = V2.spend.map(r=>`<tr><td data-l="Donor"><b>${esc(r.d)}</b></td><td data-l="Recipient">${esc(r.r)}</td><td data-l="Amount">${esc(r.a)}</td><td data-l="Timing">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):PEND}</td></tr>`).join("");
+ $("spendframe").textContent = V2.spendFrame;
+ document.querySelector("#lobby tbody").innerHTML = V2.lobby.map(r=>`<tr><td data-l="Entity"><b>${esc(r[0])}</b></td><td data-l="Detail">${esc(r[1])}</td><td data-l="Tier">${tierPill(r[2])} ${r[2]==="Hypothesized"?"":PEND}</td></tr>`).join("");
+ $("quar").innerHTML = V2.quar;
+ $("fundseq").innerHTML = V2.fundseq.map(([t,w,tr,src,p])=>`<li><b>${esc(t)}:</b> ${esc(w)} ${tierPill(tr)}${sl(src)}${p?" "+PEND:""}</li>`).join("");
+ $("oversight").innerHTML = V2.oversight.map(([t,w,src,p])=>`<li><b>${esc(t)}:</b> ${esc(w)}${sl(src)}${p?" "+PEND:""}</li>`).join("");
+ document.querySelector("#fundrisk tbody").innerHTML = V2.fundrisk.map(r=>`<tr><td data-l="Factor"><b>${esc(r[0])}</b></td><td data-l="Effect">${esc(r[1])}</td></tr>`).join("");
+ $("fundframe").textContent = V2.fundFrame;
+}
+
 const STATUS = {
  strong:{label:"Strong lead", c:"--strong"}, open:{label:"Open", c:"--open"},
  coincidence:{label:"Likely coincidence", c:"--coin"}, denied:{label:"Officially denied", c:"--denied"},
@@ -758,7 +1035,7 @@ const VERD = {fits:"Fits", cuts:"Cuts", mixed:"Mixed", silent:"Silent", unknown:
 const QST = {open:{label:"Open", c:"--open"}, partly:{label:"Partly answered", c:"--demand"}, answered:{label:"Answered", c:"--expl"}};
 const CONF = {low:{label:"Low confidence", c:"--muted"}, moderate:{label:"Moderate confidence", c:"--demand"}, high:{label:"High confidence", c:"--expl"}};
 const MAXLINES = 3;
-const RANGES = {night:["2026-11-13T12:00","2026-11-14T07:00"], today:["2026-11-13T12:30","2026-11-13T20:30"], wide:["2026-11-12T12:00","2026-11-16T00:00"], week:["2026-09-15T00:00","2026-11-14T07:00"]};
+const RANGES = {night:["2026-11-13T12:00","2026-11-14T07:00"], today:["2026-11-13T12:30","2026-11-13T20:30"], wide:["2026-11-12T12:00","2026-11-16T00:00"], week:["2026-09-15T00:00","2026-11-14T07:00"], prog:["2025-10-01T00:00","2027-01-10T00:00"]};
 let range="night", sel=null, showAll=false, faaOpen=true;
 const $ = id => document.getElementById(id);
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -796,9 +1073,9 @@ function draw(){
  const [a,b]=RANGES[range].map(T), X=t=>L+(Math.min(Math.max(t,a),b)-a)/(b-a)*(W-L-R), inR=t=>t>=a&&t<=b;
  const fade=id=>{const o=R_[rowOf(id)].other&&!showAll?.4:1; if(!sel)return o; return sel.lanes.includes(id)?1:.15;};
  let s=`<svg viewBox="0 0 ${W} ${H}" style="width:${W>avail?W+"px":"100%"};max-width:none" role="img" aria-label="Swimlane timeline of outage threads. Tap any dot, bar or numbered badge for details.">`;
- const step = range==="today" ? (n?60:30)*60e3 : range==="night" ? (n?3:2)*3600e3 : range==="wide" ? (n?24:6)*3600e3 : 7*24*3600e3;
+ const step = range==="today" ? (n?60:30)*60e3 : range==="night" ? (n?3:2)*3600e3 : range==="wide" ? (n?24:6)*3600e3 : range==="prog" ? (n?60:30)*24*3600e3 : 7*24*3600e3;
  for(let t=Math.ceil(a/step)*step;t<=b;t+=step){const x=X(t);
-  s+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${H-28}" stroke="${css("--grid")}"/><text x="${x}" y="${H-10}" font-size="11.5" text-anchor="middle" fill="${css("--muted")}">${range==="today"||range==="night"?fmtT(t):fmt(t)}</text>`;}
+  s+=`<line x1="${x}" y1="${top-6}" x2="${x}" y2="${H-28}" stroke="${css("--grid")}"/><text x="${x}" y="${H-10}" font-size="11.5" text-anchor="middle" fill="${css("--muted")}">${range==="today"||range==="night"?fmtT(t):range==="prog"?new Date(t).toLocaleDateString("en-US",{timeZone:"America/New_York",month:"short",year:"2-digit"}):fmt(t)}</text>`;}
  let lbl=`<svg class="lbl" viewBox="0 0 98 ${H}" width="98" height="${H}" aria-hidden="true">`;
  R_.forEach((r,i)=>{const y=top+i*LH+LH/2, on=!sel||r.ids.some(id=>sel.lanes.includes(id.split(":")[0])), folded=r.other&&!showAll;
   const op=(folded?.6:1)*(on?1:.3), col=folded?css("--ink2"):css("--ink");
@@ -849,7 +1126,7 @@ function draw(){
   g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();openIx(+g.dataset.n);}});});
 }
 function toggleFaa(){faaOpen=!faaOpen; const b=$("r-faa"); b.classList.toggle("on",faaOpen); b.textContent=faaOpen?"Fold FAA detail":"Split FAA lane"; draw();}
-function setRange(r){range=r;["night","today","wide","week"].forEach(k=>$("r-"+k).classList.toggle("on",r===k));draw();}
+function setRange(r){range=r;["night","today","wide","week","prog"].forEach(k=>$("r-"+k).classList.toggle("on",r===k));draw();}
 
 /* ---------- key terms ---------- */
 const TERM_BY = {}; DATA.terms.forEach(t=>t.match.forEach(m=>TERM_BY[m.toLowerCase()]=t));
@@ -887,7 +1164,7 @@ function evBtn(i){const e=DATA.events[i];return `<button class="go" data-ev="${i
 function openItem(k,i){
  const e = k==="e"?DATA.events[i]:DATA.spans[i];
  const when = k==="e"? fmt(T(e.t))+" ET" : fmt(T(e.start))+" → "+(e.end?fmt(T(e.end))+" ET":"no end reported; last checked "+fmt(T(DATA.spansChecked))+" ET");
- let src = e.url ? `<p><a class="big" href="${e.url}" target="_blank" rel="noopener">Open source: ${esc(e.src)} ↗</a></p>` : `<p class="k">Sustained trouble drawn from reports; see the event log for sources.</p>`;
+ let src = e.url ? `<p><a class="big" href="${e.url}" target="_blank" rel="noopener">Open source: ${esc(e.src)} ↗</a></p>` : k==="e" ? `<p class="k">${esc(e.src||"No source")}. From the v2.0 spec; a link still needs to be added here.</p>` : `<p class="k">Sustained trouble drawn from reports; see the event log for sources.</p>`;
  if(e.via) src += `<p class="k">${e.orig?`Passed on from ${esc(e.orig)}; ${e.origUrl?`<a href="${e.origUrl}" target="_blank" rel="noopener">original</a>`:"original not linked yet"}.`:"Secondhand: this outlet is passing on someone else's reporting. Original not named."}</p>`;
  if(e.ctx) src += `<p class="k">Context, not evidence about the cause.</p>`;
  const rel=DATA.intersections.filter(ix=>ix.lanes.includes(e.lane));
@@ -987,8 +1264,9 @@ function render(){
  document.querySelector("#scope tbody").innerHTML=DATA.scope.map(r=>`<tr><td data-l="Speaker"><b>${esc(r.who)}</b></td><td data-l="When (ET)">${esc(r.t)}</td><td data-l="Their words">${esc(r.words)}</td><td data-l="Source">${srcLinks(r.src)}</td></tr>`).join("");
  document.querySelector("#tp tbody").innerHTML=DATA.timepoints.map(r=>`<tr><td data-l="Time (ET)" style="white-space:nowrap"><b>${esc(r.t)}</b></td><td data-l="What">${esc(r.what)}</td><td data-l="Who or source">${esc(r.who)}</td><td data-l="Kind">${esc(r.kind)}</td></tr>`).join("");
  $("context").innerHTML=DATA.context.map(w=>`<li>${w}</li>`).join("");
+ renderV2();
  const lg=DATA.events.map((e,i)=>({e,i,t:T(e.t)})).sort((x,y)=>x.t-y.t);
- document.querySelector("#log tbody").innerHTML=lg.map(({e,i,t})=>`<tr class="ev" data-i="${i}" tabindex="0"><td data-l="Time (ET)" style="white-space:nowrap">${fmt(t)}</td><td data-l="Thread">${esc(nm(e.lane)+subNm(e))}</td><td data-l="Event">${esc(e.label)}</td><td data-l="Type">${e.kind}</td><td data-l="Source"><a href="${e.url}" target="_blank" rel="noopener">${esc(srcText(e))}</a></td></tr>`).join("");
+ document.querySelector("#log tbody").innerHTML=lg.map(({e,i,t})=>`<tr class="ev" data-i="${i}" tabindex="0"><td data-l="Time (ET)" style="white-space:nowrap">${fmt(t)}</td><td data-l="Thread">${esc(nm(e.lane)+subNm(e))}</td><td data-l="Event">${esc(e.label)}</td><td data-l="Type">${e.kind}</td><td data-l="Source">${e.url?`<a href="${e.url}" target="_blank" rel="noopener">${esc(srcText(e))}</a>`:esc(srcText(e))}</td></tr>`).join("");
  document.querySelectorAll("#log tr.ev").forEach(r=>{r.addEventListener("click",ev=>{if(ev.target.closest("a"))return;openItem("e",+r.dataset.i);});
   r.addEventListener("keydown",ev=>{if(ev.key==="Enter")openItem("e",+r.dataset.i);});});
  linkTerms(document.querySelector("main"));
@@ -1000,6 +1278,7 @@ $("r-night").onclick=()=>setRange("night");
 $("r-today").onclick=()=>setRange("today");
 $("r-wide").onclick=()=>setRange("wide");
 $("r-week").onclick=()=>setRange("week");
+$("r-prog").onclick=()=>setRange("prog");
 $("r-faa").onclick=toggleFaa;
 $("r-all").onclick=ev=>{showAll=!showAll; ev.currentTarget.classList.toggle("on",showAll); ev.currentTarget.textContent=showAll?"Fold background lanes":"Show all lanes"; draw();};
 $("r-clear").onclick=()=>{sel=null;closeSheet();document.querySelectorAll(".ix.sel").forEach(c=>c.classList.remove("sel"));draw();};
