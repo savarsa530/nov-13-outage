@@ -310,7 +310,7 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <p class="frame" id="fundframe"></p>
 
 <h2>Event log</h2>
-<p class="note">Updated Sat 10:45 pm (v2.0): added the load-path model, confidence tiers, claims vs. evidence, the open questions register, NWS adjacency, the ownership and lobbying map, and the funding sequence. Two dates in the v2.0 spec differ from this page's sources and are shown both ways: the $30.1B request (spec Nov 12; linked reports Nov 13) and ASI's denial (spec 5:34 pm; the post as reported 5:48 pm). Lines marked "source not linked yet" come from the spec and still need a link here.</p>
+<p class="note">Updated Sat 10:45 pm (v2.0): added the load-path model, confidence tiers, claims vs. evidence, the open questions register, NWS adjacency, the ownership and lobbying map, and the funding sequence. Corrected Sun 7 am: the $30.1B request is dated Nov 13 as reported (the letter may be dated Nov 12); ASI's denial is shown at 5:34 pm (The Hill) and 5:48 pm (The War Zone); ASI's AWS and Azure footprint is now Reported via job postings, not Confirmed, and the two retry domains are Hypothesized. Lines marked "source not linked yet" come from the spec and still need a link here.</p>
 <p class="note">Corrected Sat 4 pm: the ground stop bar now ends at 8:19 pm, the lift advisory's send time (was 8:15, CNBC). Intersection #7 said every center lost comms; Bedford says instability at 17 of 22 and none went dark. Mullin's "patches" line no longer says "security," which his words didn't. The Salt Lake City precedent was dated 2007; it was Nov 19, 2009. q7 is open again until independently confirmed. Saturday times are derived from the briefing stream.</p>
 <p class="note">Corrected Sat 6:45 am: the ground stop bar now ends at 8:15 pm. Earlier versions showed it still in effect.</p>
 <div class="wrap"><table id="log" class="cards noterm"><thead><tr><th>Time (ET)</th><th>Thread</th><th>Event</th><th>Type</th><th>Source</th></tr></thead><tbody></tbody></table></div>
@@ -366,11 +366,13 @@ const S = {
  fcc:{name:"Federal Register (FCC 26-19)", url:"https://www.federalregister.gov/documents/2026/04/20/2026-07622/reducing-barriers-to-network-improvements-and-service-changes"},
  tra:{name:"Telecom Review Americas", url:"https://www.telecomreviewamericas.com/articles/telecom-operators/att-to-drive-faas-next-generation-communications-backbone/"},
  cspan:{name:"C-SPAN (Internet Archive)", url:"https://archive.org/details/CSPAN_20250613_045600_Transportation_Secy._Duffy_Press_Conference_on_Air_India_Crash"},
+ hill:{name:"The Hill", url:"https://thehill.com/policy/transportation/6220416-faa-smart-ai-ground-stop-denial/"},
+ builtin:{name:"ASI job posting (Built In Boston)", url:"https://www.builtinboston.com/job/security-engineer/10860370"},
  cloud:{name:"2024 market research", url:"https://www.potomacofficersclub.com/faa-conducts-market-research-to-identify-cloud-service-contractors/"}
 };
 
 const DATA = {
-updated: "2026-11-14T22:45:00-05:00",
+updated: "2026-11-15T07:00:00-05:00",
 /* Spans with no end were last checked here; they are drawn up to this time, not to the latest update. */
 spansChecked: "2026-11-13T20:10",
 
@@ -558,7 +560,8 @@ events: [
  {lane:"faa", sub:"flights", t:"2026-11-13T15:30", kind:"reported", label:"Kansas City Center ground stop for intermittent equipment outages; spreads to other centers 'in quick succession'", src:"HNGN", via:true, orig:"Paddle Your Own Kanoo", origUrl:null, url:"https://www.hngn.com/articles/273835/20261113/faa-orders-nationwide-ground-stop-after-air-traffic-comms-issue.htm"},
  {lane:"faa", sub:"fail", t:"2026-11-13T16:54", kind:"reported", label:"Dispatcher told The Air Current: Command Center says outage affecting 10 en route centers 'and growing' (public by ~4:54 pm, TheStreet's entry; when the Command Center said it is unknown)", src:"TheStreet", via:true, orig:"The Air Current", origUrl:null, url:"https://www.thestreet.com/travel/faa-issues-nationwide-ground-stop-due-to-communication-issues"},
  {id:"radar", lane:"faa", sub:"fail", t:"2026-11-13T17:42", kind:"reported", label:"Source: outages include ATC radars as well as radio frequencies", src:"CNN", url:"https://www.cnn.com/2026/11/13/us/live-news/flights-ground-stop-faa"},
- {lane:"smart", t:"2026-11-13T17:48", kind:"official", label:"ASI on X: ground stop 'not based on or a result of the SMART system, any product of ASI or our integration with FAA and ATC'", src:"The War Zone / Washington Times", url:"https://www.twz.com/air/faa-orders-ground-stop-for-all-flights-across-the-u-s"},
+ {lane:"smart", t:"2026-11-13T17:34", kind:"reported", label:"The Hill timestamps ASI's denial post at 5:34 pm, while the ground stop was still in effect. The War Zone's report puts it at 5:48 (next dot). Shown both ways; which capture is the post's own time isn't settled (The Hill page not re-read here)", src:"The Hill", url:"https://thehill.com/policy/transportation/6220416-faa-smart-ai-ground-stop-denial/"},
+ {lane:"smart", t:"2026-11-13T17:48", kind:"official", label:"ASI on X: ground stop 'not based on or a result of the SMART system, any product of ASI or our integration with FAA and ATC' (5:48 per this report; The Hill says 5:34)", src:"The War Zone / Washington Times", url:"https://www.twz.com/air/faa-orders-ground-stop-for-all-flights-across-the-u-s"},
  {id:"fbi", lane:"faa", sub:"cause", t:"2026-11-13T18:00", kind:"reported", label:"Bloomberg: FBI doesn't believe it was a cyberattack or crime; one line of inquiry is whether a software update caused it (time approx.)", src:"Startup Fortune", via:true, orig:"Bloomberg", origUrl:null, url:"https://startupfortune.com/fbi-probes-whether-a-software-update-caused-the-faa-ground-stop/"},
  {lane:"smart", t:"2026-11-13T17:33", kind:"official", label:"Mullin on SMART: 'We're taking a look' at that system also", src:"Washington Times", url:"https://www.washingtontimes.com/news/2026/nov/13/faa-grounds-flights-across-us-due-telecommunications-outage/"},
  {lane:"ms", t:"2026-11-12T12:30", kind:"reported", label:"Microsoft outage begins: server problems in the Americas overload remaining infrastructure and cascade", src:"Northeastern", url:"https://news.northeastern.edu/2026/11/13/global-microsoft-outage-cause/"},
@@ -849,7 +852,8 @@ const V2 = {
   radar surveillance ───────► FTI
   voice comms ─────────────► FTI
 
-ASI MULTI-CLOUD  [CONFIRMED in spec; source not linked yet]
+ASI MULTI-CLOUD FOOTPRINT  [REPORTED: job postings]
+  (SMART's own hosting unconfirmed)
   AWS GovCloud ─────────┐
   Azure Gov GCC High ───┼──► SMART app (~200 streams)
   Sentinel / Defender ──┘
@@ -894,13 +898,14 @@ HUMAN GATE  [CONFIRMED]
     → corrupted radar + voice telemetry</span>`,
  lpnotes: [
   "<b>Session boundary:</b> the FMDS data-services API and feed endpoints. This is where cloud ingestion sessions converge, and where the failure signature (connection-attempt flooding) would be physically observed.",
-  "<b>Multi-cloud retry domain:</b> AWS GovCloud and Azure GCC High as independent reconnection sources. Two environments can double the surge at the shared boundary if their retry policies aren't coordinated. That ASI runs in both is from the v2.0 spec; this page previously said SMART's production host wasn't public, and no source is linked here yet.",
+  "<b>Multi-cloud footprint (reported):</b> ASI job postings consistently describe an AWS GovCloud and Microsoft GCC High environment, with Microsoft Sentinel and Azure Defender in the security tooling (<a href=\"https://www.builtinboston.com/job/security-engineer/10860370\">Built In Boston posting</a>). That posting frames the work as defense and intelligence applications and doesn't mention the FAA, and no public FAA or ASI architecture document says SMART itself runs in both. Operational context, not a confirmed SMART fact.",
+  "<b>Multi-cloud retry domain (hypothesized):</b> if SMART does ingest from both environments, AWS and Azure would be independent reconnection sources, and uncoordinated retry policies could double the surge at the shared boundary. Hypothesized until an official architecture document surfaces.",
   "<b>Peraton is a program layer, not a data path.</b> It doesn't sit on the wire; it sits on the change-control and sequencing decisions that set when the wire gets modified. Drawn as an overlay. Bedford said Saturday the Nov 13 work was sustainment, \"not part of\" the Peraton effort.",
   "<b>NWS sits on the shared FTI/NEXRAD path, not as a separate system.</b> A co-tenant, not a retry source.",
   "<b>Three layers of attribution:</b> the topology is confirmed, the failure signature is the officials' account, and causation (which source dominated the surge) is unproven. No packet-level attribution is public."
  ],
  lpchanges: [
-  ["SMART placement","Single box","Multi-cloud (AWS + Azure); two retry domains"],
+  ["SMART placement","Single box","Multi-cloud footprint (reported, via job postings); two retry domains (hypothesized)"],
   ["Risk boundary","Vague SMART→FTI line","FMDS data-services API and feed endpoints as an explicit session boundary"],
   ["Cutover role","Background","Active session-state disruption"],
   ["NWS","Adjacent dot","Shared FTI/NEXRAD path; victim, not source"],
@@ -909,7 +914,7 @@ HUMAN GATE  [CONFIRMED]
  ],
  cve: [
   {c:"\"SMART isn't plugged in\"", who:"Duffy", st:"Partial", rec:"Rules out the STARS/ERAM command path; says nothing about network dependency.", src:[S.mcid, S.dotbrief]},
-  {c:"\"Not based on or a result of the SMART system… or our integration with FAA and ATC\"", who:"ASI", st:"Partial", rec:"An interested party's denial of command and integration roles; doesn't address data-plane load on FMDS/FTI.", src:[S.twz]},
+  {c:"\"Not based on or a result of the SMART system… or our integration with FAA and ATC\"", who:"ASI", st:"Partial", rec:"An interested party's denial of command and integration roles; doesn't address data-plane load on FMDS/FTI. Posted 5:34 pm per The Hill, 5:48 per The War Zone, while the stop was still in effect.", src:[S.hill, S.twz]},
   {c:"SMART caused the ground stop", who:"Critics; timing inference", st:"Unproven", rec:"No packet-level attribution is public."},
   {c:"SMART could not have contributed", who:"Implicit in denials", st:"Unproven", rec:"Same gap in the other direction: no attribution rules its sessions in or out."},
   {c:"The L3Harris router or install caused it", who:"Duffy; officials", st:"Partial", rec:"Mechanism named (1,000+ connection attempts every 4–5 seconds); fault undetermined.", src:[S.dotbrief]},
@@ -930,7 +935,7 @@ HUMAN GATE  [CONFIRMED]
    ["Was retry policy coordinated across AWS and Azure?","Independent retry domains multiply a surge.","Architecture docs, SRE runbooks"]]},
   {g:"Integrator and change control", id:"oq-int", q:"q6", rows:[
    ["Did Peraton's change-control board approve overlapping L3Harris and SMART windows?","Tests integration failure versus coincidence.","Change board records, cutover schedule"],
-   ["Did Peraton's change control cover sustainment work like Nov 13's at all?","Bedford said the work wasn't part of the Peraton program; if it was outside, the oversight question moves to the FAA and L3Harris.","Contract scope, FAA change-approval procedure"],
+   ["Bedford said the Nov 13 conversion work was not part of the Peraton-led program. Did Peraton's change-control board nonetheless have visibility or approval authority over it?","Unresolved. If it had neither, the oversight question moves to the FAA and L3Harris.","Change board records, cutover schedules, program-boundary documents"],
    ["Was the pre-award \"high risk\" flag mitigated before cutover?","Tests acquisition oversight.","FAA risk-mitigation plan, contract modifications"],
    ["Do \"No Excuses\" fee metrics show schedule pressure before Nov 13?","Tests incentive-driven sequencing.","Fee-metric dashboards, program reviews"],
    ["Is there any communication linking the outage window to funding or contract goals?","Tests orchestration. Asked because the timing invites it, not because anything points to it.","Emails, calendars, minutes (under audit)"]]},
@@ -979,7 +984,7 @@ HUMAN GATE  [CONFIRMED]
  fundseq: [
   ["July 2025","Congress approves $12.5B for the ATC overhaul (One Big Beautiful Bill).", "Confirmed", [S.mcid]],
   ["Sept 2026","About $30B more requested; the Modern Skies Act is introduced Sept 28 (Sen. Schmitt), with no Democratic co-sponsors identified.", "Confirmed", null, true],
-  ["Nov 12–13, 2026","The $30.1B formal request (Duffy and OMB Director Vought): $10.1B ATC modernization (incl. $7.2B common automation platform, $2B cloud), $2B towers, $18B airport projects (incl. $10B terminals). The v2.0 spec dates the letter Nov 12; the reports linked here put it on Nov 13, hours before the outage.", "Confirmed", [S.aerot]],
+  ["Nov 13, 2026 (reported; letter may be dated Nov 12)","Duffy and OMB Director Vought renew the $30.1B request, hours before the outage, as a renewal of the September proposal: $10.1B ATC modernization (incl. $7.2B common automation platform, $2B cloud), $2B towers, $18B airport projects (incl. $10B terminals). Public reports date it Friday the 13th; the formal letter may have been finalized the day before.", "Reported", [S.aerot, {name:"AvWeb (Sept proposal)", url:"https://avweb.com/?p=396301"}]],
   ["Nov 13, 2026","Ground stop, 3:54–8:19 pm. That evening the request is escalated to $50B, framed as an emergency.", "Confirmed", [{name:"Fox Business", url:"https://www.foxbusiness.com/politics/duffy-sounds-alarm-over-aging-faa-system-after-nationwide-air-travel-shutdown"}]],
   ["Nov 14, 2026","Duffy at the Saturday briefing speaks of a \"$30 billion\" request with the full request going to the Hill Monday; the $50B isn't mentioned.", "Confirmed", [S.dotbrief]],
   ["Nov 2026","Per the v2.0 spec, Democrats win control of Congress; the new session begins Jan 3, 2027.", "Confirmed", null, true],
