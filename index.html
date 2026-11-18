@@ -197,7 +197,7 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <div class="bar">
   <button id="r-night" class="on">Fri noon → Sat 7 am</button>
   <button id="r-today">Fri 12:30–8:30 pm</button>
-  <button id="r-wide">Nov 12 noon → Nov 15</button>
+  <button id="r-wide">Nov 12 noon → Nov 18</button>
   <button id="r-week">Since Sep 15 (SMART launch)</button>
   <button id="r-prog">Oct 2025 → Jan 2027 (program and funding)</button>
   <button id="r-faa" class="on">Fold FAA detail</button>
@@ -266,6 +266,10 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <div class="wrap"><table id="seam" class="cards"><thead><tr><th>Party</th><th>Role on the network</th><th>Why it matters for Nov 13</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 <ul id="seamnotes"></ul>
 
+<h2 id="staff-h">Staffing and oversight capacity (context, not causation)</h2>
+<p class="note">Context on who was available to oversee the work. None of this establishes cause. Listed so it's on the record when the root-cause analysis lands. Linked from <a href="#q15">q15</a> and <a href="#q19">q19</a>.</p>
+<div class="wrap"><table id="staff" class="cards noterm"><thead><tr><th>Item</th><th>Detail</th><th>Tier</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+
 <h2>What was known before Friday</h2>
 <p class="note">Duffy, Friday: "We didn't think we would have this kind of outage" and "I don't know that this exact scenario will happen." The record shows FTI's fragility was known; what officials say they didn't expect is a nationwide failure. Linked from <a href="#q12">q12</a>.</p>
 <div class="wrap"><table id="priors" class="cards"><thead><tr><th>When</th><th>Who</th><th>What</th><th>Source</th></tr></thead><tbody></tbody></table></div>
@@ -310,6 +314,7 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <p class="frame" id="fundframe"></p>
 
 <h2>Event log</h2>
+<p class="note">Updated Wed Nov 18, 8:30 am (v2.1): added Nov 15–17 developments (FAA technician on site, plan approval, the two source sites, the router installation pause), intersection <a href="#ix-9">#9</a> (NSA Net), questions <a href="#q15">q15</a>–<a href="#q20">q20</a>, a staffing and oversight context section, and a Bednar lobbying row. The midterm result is now sourced (NPR). The ASI PAC amount is marked unresolved: $2,500 in the Q1 FEC filing, $12,500 per Raw Story. Not a correction: Duffy's contractor-only attribution (Nov 14) now sits alongside reporting that an FAA technician monitored, tested and signed off on the work. The wide timeline view now runs to Nov 18.</p>
 <p class="note">Updated Sat 10:45 pm (v2.0): added the load-path model, confidence tiers, claims vs. evidence, the open questions register, NWS adjacency, the ownership and lobbying map, and the funding sequence. Corrected Sun 7 am: the $30.1B request is dated Nov 13 as reported (the letter may be dated Nov 12); ASI's denial is shown at 5:34 pm (The Hill) and 5:48 pm (The War Zone); ASI's AWS and Azure footprint is now Reported via job postings, not Confirmed, and the two retry domains are Hypothesized. Lines marked "source not linked yet" come from the spec and still need a link here.</p>
 <p class="note">Corrected Sat 4 pm: the ground stop bar now ends at 8:19 pm, the lift advisory's send time (was 8:15, CNBC). Intersection #7 said every center lost comms; Bedford says instability at 17 of 22 and none went dark. Mullin's "patches" line no longer says "security," which his words didn't. The Salt Lake City precedent was dated 2007; it was Nov 19, 2009. q7 is open again until independently confirmed. Saturday times are derived from the briefing stream.</p>
 <p class="note">Corrected Sat 6:45 am: the ground stop bar now ends at 8:15 pm. Earlier versions showed it still in effect.</p>
@@ -357,6 +362,30 @@ const S = {
  dotrel:{name:"DOT release", url:"https://www.transportation.gov/briefing-room/icymi-us-transportation-secretary-sean-p-duffy-provides-update-restoration-airspace"},
  atc13:{name:"ATCSCC advisories, Nov 13", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-13&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
  atc14:{name:"ATCSCC advisories, Nov 14", url:"https://www.fly.faa.gov/adv/adv_list?whichAdvisories=ATCSCC&advisoryCategory=All&date=2026-11-14&airflow=true&_airflow=on&ctop=true&_ctop=on&gStop=true&_gStop=on&gDelay=true&_gDelay=on&route=true&_route=on&other=true&_other=on"},
+ wapo17:{name:"Washington Post (one unnamed source)", url:"https://www.washingtonpost.com/transportation/2026/11/17/faa-oversaw-signed-off-repair-work-before-nationwide-ground-stop/"},
+ cnn17:{name:"CNN", url:"https://www.cnn.com/2026/11/17/us/faa-ground-stop-juniper-router-installations"},
+ wtimes17:{name:"Washington Times", url:"https://www.washingtontimes.com/news/2026/nov/17/faa-halts-new-router-installations-nationwide-ground-stop/"},
+ fc16:{name:"Fast Company", url:"https://www.fastcompany.com/91643272/the-faa-was-warned-about-its-telecom-upgrade"},
+ wsjvia:{name:"WSJ, via Luxury Launches", url:"https://luxurylaunches.com/other_stuff/l3-harris-at-center-of-flight-disruptions-11162026.php"},
+ nprreed:{name:"NPR (Reed)", url:"https://www.kuow.org/npr-news/2026-11-17/sen-jack-reed-says-faa-needs-a-real-plan-not-just-more-money"},
+ wshu:{name:"WSHU", url:"https://www.wshu.org/connecticut-news/2026-11-16/faa-cuts-elon-musk-doge-nationwide-ground-stop"},
+ nprmid:{name:"NPR (via OPB)", url:"https://www.opb.org/article/2026/11/04/2026-midterms-democrats-win-the-senate/"},
+ cbsnsa:{name:"CBS News", url:"https://www.cbsnews.com/news/nsa-network-down-classified-fort-meade/"},
+ bbgnsa:{name:"Bloomberg", url:"https://www.bloomberg.com/news/articles/2026-11-17/us-electronic-spy-agency-suffers-outage-of-classified-network"},
+ ajnsa:{name:"Al Jazeera", url:"https://www.aljazeera.com/news/2026/11/17/nsas-classified-internal-communications-network-reportedly-faces-outage"},
+ deadline:{name:"Deadline", url:"https://deadline.com/2026/11/cnn-nsa-outage-cyber-attack-worries-1237226613/"},
+ ngnsa:{name:"Nextgov", url:"https://www.nextgov.com/people/2025/12/nsa-has-met-2000-person-workforce-reduction-goal-people-familiar-say/409868"},
+ fecq1:{name:"FEC, Alfonso Q1 2026 (line SA11C.4281)", url:"https://docquery.fec.gov/pdf/829/202604159862441829/202604159862441829.pdf"},
+ rawasi:{name:"Raw Story", url:"https://www.rawstory.com/raw-investigates/us-flights-grounded/"},
+ rawbed:{name:"Raw Story (citing Politico)", url:"https://www.rawstory.com/sean-duffy-2677734181/"},
+ rtwbed:{name:"RuntimeWire", url:"https://runtimewire.com/article/duffy-s-faa-removed-contract-requirements-for-peraton-whose-lobbyist-was-his"},
+ pass25:{name:"PASS testimony (Mar 2025)", url:"https://passnational.org/?p=20032"},
+ passtrain:{name:"PASS / AWF", url:"https://awf.labortools.com/listen/pass-national-on-faa-workforce-plan-new-techs-and-system-upgrades"},
+ reu352:{name:"Reuters", url:"https://www.yahoo.com/news/us-aviation-agency-reinstating-fired-211723979.html"},
+ cbs25:{name:"CBS News (Feb 2025)", url:"https://www.cbsnews.com/amp/news/trump-faa-firings"},
+ ap25:{name:"AP", url:"https://www.clickorlando.com/news/politics/2025/02/19/jobs-cut-at-the-faa-helped-support-air-safety-a-union-says/"},
+ fg132:{name:"FlightGlobal", url:"https://www.flightglobal.com/safety/faa-complies-with-court-order-to-reinstate-fired-employees/162243.article"},
+ cisa40:{name:"Daily Record (Washington Post)", url:"https://thedailyrecord.com/2026/03/09/trump-administration-federal-hiring-push/"},
  gao:{name:"GAO-26-107992", url:"https://files.gao.gov/reports/GAO-26-107992/index.html?pubDate=20260922"},
  att25:{name:"AT&T filing, FL PSC 15389-2025", url:"https://www.psc.state.fl.us/library/filings/2025/15389-2025/15389-2025.pdf"},
  att26:{name:"AT&T filing, FL PSC 06315-2026", url:"https://www.floridapsc.com/pscfiles/library/filings/2026/06315-2026/06315-2026.pdf"},
@@ -372,7 +401,7 @@ const S = {
 };
 
 const DATA = {
-updated: "2026-11-15T07:00:00-05:00",
+updated: "2026-11-18T08:30:00-05:00",
 /* Spans with no end were last checked here; they are drawn up to this time, not to the latest update. */
 spansChecked: "2026-11-13T20:10",
 
@@ -463,6 +492,12 @@ pinned: [
  {id:"q13", q:"Who was retiring the copper line in the Nov 13 work?", splits:"A carrier retiring the line points at a carrier deadline driving FAA timing. L3Harris's own sustainment points at L3Harris and FAA scheduling.", status:"open", answer:"Duffy: it was \"such an old wire that it was being discontinued\" and \"we were required to do it or it was going to be shut down.\" He said only \"they were taking it out of service.\" No source found names the carrier or party. See the carriers panel.", src:[S.dotbrief]},
  {id:"q14", q:"Which obsolescence-fee figure is right?", splits:"If fees are still paid, the June 2025 \"stopped\" claim was partial or wrong. If not, the $200M measures something else.", status:"open", answer:"Duffy, Sat: \"we spend over $200 million a year in obsolescence fees.\" Duffy, June 2025: the FAA worked with AT&T, Verizon and smaller providers \"to get them to stop charging us the obsolescence fees,\" almost $800 million a year. Bedford, Sat: \"a billion dollars a year\" to maintain and sustain the TDM network. How the figures relate wasn't stated.", src:[S.dotbrief, S.cspan]},
  {id:"q12", q:"Duffy: \"We didn't think we would have this kind of outage.\" What did the FAA expect, given the 2023 review and his own May 2025 warning?", splits:"Separates \"we knew it was fragile\" from \"we didn't expect a nationwide failure.\" Only the second is what he said. See what was known before Friday.", status:"open"},
+ {id:"q15", q:"Was the on-site FAA technician trained and certified on the new Juniper router and the cutover procedure?", splits:"If yes, the sign-off was meaningful and the fault points at the device or its configuration. If no, \"monitored\" covers less than it sounds. PASS says contractors maintain some newly installed equipment because technicians haven't been trained on it yet.", status:"open", src:[S.cnn17, S.passtrain]},
+ {id:"q16", q:"Which FAA office approved L3Harris's installation plan, and what did its risk review cover?", splits:"Daytime work at a remote site and propagation risk on a single network are the two choices a review would have had to weigh.", status:"open", src:[S.wsjvia, S.wapo17]},
+ {id:"q17", q:"Who saw the flooding first, L3Harris's network operations center or the FAA, and when?", splits:"Detection time against the ~3:02 first signs and the 3:54 order shows how much warning there was.", status:"open"},
+ {id:"q18", q:"How do the two sites relate: the Amarillo radar site and the El Dorado, AR radio site?", splits:"Duffy said \"a single location\"; Guy said \"two places.\" Two independent sources and one source plus a victim are different failures.", status:"partly", answer:"The FAA's initial investigation names both sites; L3Harris was deploying a new router at El Dorado.", src:[S.wtimes17]},
+ {id:"q19", q:"Did Tech Ops or telecom staffing or training in the affected region change after Feb 2025?", splits:"Separates a long-standing technician shortage from a recent drop. See the staffing section.", status:"open"},
+ {id:"q20", q:"Will the NSA's \"routine patching\" explanation hold?", splits:"Mullin's Nov 13 FAA account used \"patches\"; by Nov 14 officials described a router install. Watch whether the NSA account shifts the same way.", status:"open", src:[S.cbsnsa]},
  {id:"qa1", q:"Who took over the FTI replacement from Verizon?", status:"answered", answer:"AT&T has led FENS since Aug 11, 2026; Verizon kept a supporting role with core network functions. Nobody has replaced L3Harris: it still runs the live network.", src:[S.wt]}
 ],
 also: [
@@ -485,7 +520,8 @@ lanes: [
  {id:"ms", name:"Microsoft 365", color:"--ms", group:"other"},
  {id:"911", name:"911 (user reports)", color:"--ms", group:"other"},
  {id:"dem", name:"Travel demand", color:"--demand", group:"other"},
- {id:"other", name:"Other transport", color:"--ms", group:"other"}
+ {id:"other", name:"Other transport", color:"--ms", group:"other"},
+ {id:"nsa", name:"NSA internal network", color:"--ms", group:"other"}
 ],
 /* Rows nested under the FAA lane. FAA events without a sub stay on the FAA row. */
 subs: [
@@ -513,12 +549,12 @@ events: [
  {lane:"faa", sub:"cause", t:"2026-11-14T16:00", kind:"official", label:"Page's best read at 4 pm Sat (archived): officials say a router being replaced during copper-to-fiber work at a remote site flooded the network with ~1,000 connection attempts every 4–5 seconds; Bedford: sustainment, not modernization, fault undetermined; nobody had named who was retiring the line", src:"DOT briefing (AP stream)", url:"https://www.youtube.com/watch?v=UvVNjbQU8Bk"},
  {lane:"faa", sub:"context", t:"2025-10-15T12:00", kind:"reported", tier:"Reported", label:"FAA staff internally rated Peraton \"high risk\" of financial instability before the integrator award; FAA awarded after comparing it against Parsons and IBM (month only)", src:"Spec v2.0 (source not linked yet)"},
  {lane:"faa", sub:"context", t:"2025-12-15T12:00", kind:"official", label:"Peraton named prime integrator for the $12.5B ATC overhaul (BNATCS). Spec v2.0 adds a $1.5B contract with a \"No Excuses\" fee tied to schedule, quality, cost and management metrics (month only; fee terms not in the linked source as far as checked)", src:"Washington Technology", url:"https://www.washingtontechnology.com/contracts/2026/08/faa-brings-t-network-modernization-program/415412/"},
- {lane:"smart", t:"2026-03-15T12:00", kind:"official", label:"ASI's corporate PAC gives $2,500 to Michael Alfonso (Sec. Duffy's son-in-law, WI-7), in Alfonso's Q1 report, before the June award (month only). Transparency context, not causation", src:"Daily Beast / The Bulwark", url:"https://www.thedailybeast.com/maga-nepo-candidate-michael-alfonsos-big-campaign-payday-linked-to-famous-father-in-law/"},
+ {lane:"smart", t:"2026-03-15T12:00", kind:"official", label:"ASI's corporate PAC gives $2,500 to Michael Alfonso (Sec. Duffy's son-in-law, WI-7), in Alfonso's Q1 report, before the June award (month only; Raw Story reports $12,500, unresolved). Transparency context, not causation", src:"Daily Beast / The Bulwark", url:"https://www.thedailybeast.com/maga-nepo-candidate-michael-alfonsos-big-campaign-payday-linked-to-famous-father-in-law/"},
  {lane:"smart", t:"2026-06-22T12:00", kind:"official", label:"FAA awards ASI the FMDS + SMART contract: 12 years, $875.95M", src:"Award record", url:"https://orangeslices.ai/transportation-secretary-sean-p-duffy-selects-air-space-intelligence-to-deploy-state-of-the-art-air-traffic-control-software-revolutionize-our-skies/"},
  {lane:"faa", sub:"context", t:"2026-08-15T12:00", kind:"reported", label:"FAA officials raise concerns about Peraton's subcontractor management and schedule slippage; no cure letter issued as of that reporting (month only)", src:"Spec v2.0 (source not linked yet)"},
  {lane:"faa", sub:"context", t:"2026-09-28T12:00", kind:"official", label:"Modern Skies Act introduced (Sen. Schmitt) to authorize the ~$30B; no Democratic co-sponsors identified", src:"Spec v2.0 (source not linked yet)"},
  {lane:"smart", t:"2026-10-13T12:00", kind:"official", label:"23 House Transportation Committee Democrats ask GAO to audit SMART (safety risk assessments, testing, certification, limited frontline input)", src:"AvBrief / Politico", url:"https://avbrief.com/faa-wants-piece-of-company-behind-ai-boost-for-atc/"},
- {lane:"faa", sub:"context", t:"2026-11-03T21:00", kind:"reported", label:"Midterms: per spec v2.0, Democrats win control of Congress; the new session begins Jan 3, 2027, leaving a lame-duck window for the funding request", src:"Spec v2.0 (source not linked yet)"},
+ {lane:"faa", sub:"context", t:"2026-11-03T21:00", kind:"official", label:"Midterms: Democrats win control of both chambers (AP race calls); the new session begins Jan 3, 2027, leaving a lame-duck window for the funding request", src:"NPR (via OPB)", url:"https://www.opb.org/article/2026/11/04/2026-midterms-democrats-win-the-senate/"},
  {lane:"faa", sub:"cause", t:"2026-11-13T23:30", kind:"reported", label:"Per spec v2.0, Duffy said the fault could be \"incompetence… user error or installer error from L3Harris, or a faulty router\"; root cause undetermined (time not matched to a briefing timestamp)", src:"Spec v2.0 (source not linked yet)"},
  {lane:"faa", sub:"cause", t:"2026-11-14T06:45", kind:"reported", label:"Page's best read at 6:45 am (archived): officials describe a new trigger on old hardware (Mullin's patches; Duffy's old hardware); CBS sources: an FTI update caused a reboot; nobody had named the update or who pushed it", src:"CBS News", url:"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/"},
  {lane:"faa", sub:"flights", t:"2026-11-14T06:00", kind:"reported", label:"CNBC early-Saturday count: 6,200+ delays, 3,400+ cancellations (differs from ABC7's; time approx.)", src:"CNBC", url:"https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html"},
@@ -591,7 +627,17 @@ events: [
  {lane:"wd", t:"2026-11-13T15:24", kind:"estimated", label:"StatusGator detects Workday outage (listed 8:24 PM, read as UTC = 3:24 ET; timezone not confirmed)", src:"StatusGator", url:"https://statusgator.com/services/workday"},
  {lane:"wd", t:"2026-11-13T15:45", kind:"reported", label:"Workday reports begin", src:"Downdetector", url:"https://downdetector.com/status/workday/"},
  {lane:"gf", t:"2026-11-13T16:30", kind:"reported", label:"Gateway Fiber reports begin", src:"Downdetector", url:"https://downdetector.com/status/gateway-fiber/"},
- {lane:"att", t:"2026-11-13T09:00", kind:"estimated", label:"AT&T peak (~480)", src:"Downdetector", url:"https://downdetector.com/status/att/"}
+ {lane:"att", t:"2026-11-13T09:00", kind:"estimated", label:"AT&T peak (~480)", src:"Downdetector", url:"https://downdetector.com/status/att/"},
+ {lane:"faa", sub:"context", t:"2026-11-15T12:00", kind:"official", label:"Rep. Himes on Face the Nation blames DOGE-era cuts at the FAA for the ground stop (date only)", src:"WSHU", url:"https://www.wshu.org/connecticut-news/2026-11-16/faa-cuts-elon-musk-doge-nationwide-ground-stop"},
+ {lane:"other", t:"2026-11-16T12:00", kind:"reported", label:"Brief United Airlines system disruption delays some departures; major-bank outages the same day. No causes given (date only; see intersection #9)", src:"Al Jazeera", url:"https://www.aljazeera.com/news/2026/11/17/nsas-classified-internal-communications-network-reportedly-faces-outage"},
+ {lane:"faa", sub:"cause", t:"2026-11-17T12:00", kind:"official", label:"FAA pauses new router installations nationwide and disables a function on 60 similar units (date only)", src:"Washington Times", url:"https://www.washingtontimes.com/news/2026/nov/17/faa-halts-new-router-installations-nationwide-ground-stop/"},
+ {lane:"faa", sub:"cause", t:"2026-11-17T12:01", kind:"official", label:"Initial investigation points to two sites: a radar site in Amarillo, TX, and a radio communications site in El Dorado, AR, where L3Harris had been deploying a new router (date only)", src:"Washington Times", url:"https://www.washingtontimes.com/news/2026/nov/17/faa-halts-new-router-installations-nationwide-ground-stop/"},
+ {lane:"faa", sub:"cause", t:"2026-11-17T12:02", kind:"official", label:"Duffy: both routers under test at L3Harris headquarters in Florida, with FAA, Juniper and Cisco engineers (date only)", src:"Washington Times", url:"https://www.washingtontimes.com/news/2026/nov/17/faa-halts-new-router-installations-nationwide-ground-stop/"},
+ {lane:"faa", sub:"cause", t:"2026-11-17T12:03", kind:"official", label:"Bedford on Capitol Hill: the L3Harris engineer \"was monitored by an FAA technician\" under the FAA's \"comprehensive risk management process\" (date only)", src:"CNN", url:"https://www.cnn.com/2026/11/17/us/faa-ground-stop-juniper-router-installations"},
+ {lane:"faa", sub:"cause", t:"2026-11-17T12:04", kind:"reported", label:"An FAA official supervised the switchover, tested the finished work and signed off on it, per one person close to the investigation (date only)", src:"Washington Post", url:"https://www.washingtonpost.com/transportation/2026/11/17/faa-oversaw-signed-off-repair-work-before-nationwide-ground-stop/"},
+ {lane:"faa", sub:"cause", t:"2026-11-17T12:05", kind:"reported", label:"The FAA approved L3Harris's installation plan before the work and had a representative present, who helped the technician get into the facility (date only)", src:"WSJ, via Luxury Launches", via:true, url:"https://luxurylaunches.com/other_stuff/l3-harris-at-center-of-flight-disruptions-11162026.php"},
+ {lane:"faa", sub:"context", t:"2026-11-17T12:06", kind:"official", label:"Sen. Reed (NPR): \"Was the contractor properly supervised?\" Questions whether the FAA \"after DOGE\" can supervise this work; says about $9B of $14.5B already provided is unspent (date only)", src:"NPR", url:"https://www.kuow.org/npr-news/2026-11-17/sen-jack-reed-says-faa-needs-a-real-plan-not-just-more-money"},
+ {lane:"nsa", t:"2026-11-17T08:00", kind:"reported", label:"NSA Net, the NSA's classified internal network, down since at least early Tuesday; staggered arrivals at Fort Meade. NSA: \"scheduled routine maintenance\" (time approx.)", src:"Bloomberg; CBS", url:"https://www.cbsnews.com/news/nsa-network-down-classified-fort-meade/"}
 ],
 
 /* Order here is display order inside each group. Open group: strong and open. Folded strip: explained, coincidence, denied.
@@ -697,7 +743,22 @@ intersections: [
   against:[
    {text:"Rebooking surges, stranded travelers grabbing trains, card and refund activity: demand explains it."},
    {text:"The spikes trail the order, which is what demand predicts."}],
-  settles:[]}
+  settles:[]},
+ {n:9, t:"2026-11-17T08:00", lanes:["nsa","faa"], status:"open", title:"NSA's classified network goes down four days after NSA helped assess the FAA outage",
+  claim:"NSA Net, the NSA's internal classified network, went down Tuesday, Nov 17. The NSA called it scheduled routine maintenance. On Nov 13 Mullin said \"NSA is working with us\" on the FAA cyber assessment. The 8 am time is a placeholder: Bloomberg says only \"since at least early Tuesday morning.\"",
+  supports:[
+   {text:"Same shape of explanation: a routine change, then \"no evidence\" of a cyberattack from mostly unnamed officials, with no attributed forensic finding in either case.", src:[S.cbsnsa]},
+   {text:"Two sources told CBS the outage came from routine system patching. Mullin's Nov 13 FAA account also used \"patches\"; by Nov 14 officials described a router install instead. Whether NSA's account holds is open (q20).", src:[S.cbsnsa], q:"q20"},
+   {text:"Both agencies were cut in 2025. The NSA met a 2,000-person workforce reduction goal.", src:[S.ngnsa]},
+   {text:"Part of a cluster: Microsoft (Nov 12), FAA (Nov 13), bank outages and a United disruption (Nov 16), NSA (Nov 17). Causes are stated for two of the five.", src:[S.ajnsa, S.deadline]}],
+  against:[
+   {text:"Different networks: an internal classified network versus a public safety one. The NSA says mission-critical capabilities stayed up.", src:[S.ajnsa]},
+   {text:"Different mechanisms as described: a software patch versus a hardware router install."},
+   {text:"No contractor, carrier or shared infrastructure has been reported for the NSA outage."},
+   {text:"No source compares this week's outages with a normal week. Heavy coverage makes ordinary outages visible.", src:[S.deadline]}],
+  settles:[
+   {text:"A shared vendor, carrier or software component across any two of the outages."},
+   {text:"An NSA root-cause statement, and whether it keeps the \"patching\" account."}]}
 ],
 
 common: [
@@ -746,6 +807,8 @@ claims: [
  {claim:"\"No facilities went dark\"; \"Nothing was fully lost\"", who:"Bedford", onRecord:"named", spec:"none", specNote:"no facility data shown; Duffy called them \"the systems that went down\"", dir:"Rules out outright failure", t:"Sat ~11:35 (derived)", src:[S.dotbrief], q:"q10"},
  {claim:"\"A single location\"", who:"Duffy", onRecord:"named", spec:"none", specNote:"site not named; earlier \"at least one\" remote location", dir:"Scope", t:"Sat ~11:29 (derived)", src:[S.dotbrief]},
  {claim:"Two places flooded the network, ~1,000 connections every 4–5 seconds", who:"Guy (FAA Acting CTO)", onRecord:"named", spec:"partial", specNote:"a rate and a count; sites not named; conflicts with \"a single location\"", dir:"Assigns cause", t:"Sat ~11:40 (derived)", src:[S.dotbrief], q:"q4"},
+ {claim:"The L3Harris engineer \"was monitored by an FAA technician\"", who:"Bedford (Capitol Hill)", onRecord:"named", spec:"partial", specNote:"names a role, not a person or office", dir:"Places the FAA on site", t:"Tue Nov 17", src:[S.cnn17], q:"q15"},
+ {claim:"The FAA approved the installation plan; an FAA official tested and signed off on the work", who:"Unnamed sources (WSJ; Washington Post)", onRecord:"anon", spec:"partial", specNote:"specific actions; approving office not named", dir:"Places the FAA in the approval chain", t:"Tue Nov 17", src:[S.wsjvia, S.wapo17], q:"q16"},
  {claim:"September's outage was \"a massive Amtrak line cut\"", who:"Bedford", onRecord:"named", spec:"partial", specNote:"\"I think\"; the page records that attribution as corrected (see the Sept 21 event)", dir:"Context", t:"Sat ~11:36 (derived)", src:[S.dotbrief, S.aero]}
 ],
 /* status: reported | unconfirmed | up */
@@ -788,6 +851,7 @@ priors: [
  {t:"July 2025", who:"Congress", what:"$12.5B appropriated for the air traffic control overhaul.", src:[S.mcid]},
  {t:"June 12–13, 2025", who:"Duffy", what:"Telecom providers charged \"obsolescence fees\" \"per their contract,\" almost $800 million a year; he said the FAA \"worked with our telecom providers, at&t, verizon, and other smaller providers, to get them to stop charging.\"", src:[S.cspan]},
  {t:"May 2025", who:"Duffy", what:"Newark: \"We could see other situations like this around the country because the system is old.\" He also said an update had just been done on the backup system.", src:[S.mmail, S.yabc]},
+ {t:"Mar 4, 2025", who:"PASS (technicians' union), House testimony", what:"The FAA is about 800 short in systems specialists; a staffing model has been in the works for at least a decade.", src:[S.pass25]},
  {t:"Nov 2023", who:"FAA-commissioned review", what:"Called FTI obsolete and warned a failure could disconnect an entire regional center.", src:[S.slf]},
  {t:"Nov 19, 2009", who:"FAA / DOT Inspector General", what:"Salt Lake City FTI \"software configuration\" failure. The Inspector General found a Harris technician misconfigured a temporary FTI router at Los Angeles Center during Salt Lake City Center's move to fiber; the error surfaced when a new router went in.", src:[S.oig09, S.nw09]}
 ],
@@ -807,6 +871,7 @@ seam: [
  {p:"ASI", role:"SMART, a cloud-based planning layer that sends recommendations over the network.", why:"Rides on the network rather than running it. ASI denies any role, including integration.", src:"Washington Times", url:"https://www.washingtontimes.com/news/2026/nov/13/faa-expanded-ai-air-traffic-tool-centers-days-nationwide-ground-stop/"}
 ],
 seamNotes: [
+ "<b>On site Nov 13 (added v2.1).</b> Bedford: the L3Harris engineer \"was monitored by an FAA technician\" (<a href=\"https://www.cnn.com/2026/11/17/us/faa-ground-stop-juniper-router-installations\">CNN</a>). One person close to the investigation says an FAA official also tested the finished work and signed off (<a href=\"https://www.washingtonpost.com/transportation/2026/11/17/faa-oversaw-signed-off-repair-work-before-nationwide-ground-stop/\">Washington Post</a>), and the WSJ reports the FAA approved the installation plan beforehand (<a href=\"https://luxurylaunches.com/other_stuff/l3-harris-at-center-of-flight-disruptions-11162026.php\">via Luxury Launches</a>). The approving office isn't named. Juniper (the new router) and Cisco engineers are in the testing (<a href=\"https://www.washingtontimes.com/news/2026/nov/17/faa-halts-new-router-installations-nationwide-ground-stop/\">Washington Times</a>). See <a href=\"#q15\">q15</a>, <a href=\"#q16\">q16</a>.",
  "<b>Blame at the seam has a record.</b> After the Sept 2025 Dallas outage the FAA said L3Harris oversight 'failed to ensure that redundancies in the system functioned properly,' and American Airlines' leadership said they struggled to reach Frontier and L3Harris during the crisis. That's the escalation gap in practice. <a href=\"https://www.nbcnews.com/news/us-news/dallas-airports-restored-normal-operations-rcna232637\">NBC News</a>",
  "<b>Failure, then a funding request.</b> DOT and the White House asked Congress for another $30.1B on Friday, the day of the outage (<a href=\"https://www.aljazeera.com/news/2026/11/13/us-grounds-all-flights-after-communication-issue\">Al Jazeera</a>). A $30B request also followed the Sept 21 Northeast failure; the telecom line item has risen from $4.75B to $5.91B (<a href=\"https://avweb.com/?p=396301\">AvWeb</a>). The need can be real and the pattern can still be true.",
  "<b>Old equipment or a bad update.</b> The same day as the $30.1B request, Trump described the cause as 'a bunch of old broken stuff in the infrastructure' (<a href=\"https://www.mediaite.com/media/tv/trump-breaks-silence-to-tell-fox-atc-outage-may-have-been-caused-by-old-broken-stuff/\">Mediaite</a>, citing Reuters and Fox). If the cause holds up as a bad update pushed to routers, that isn't the same thing as old equipment failing. Which layer the Midway router sits in is an <a href=\"#q7\">open question</a>.",
@@ -817,7 +882,7 @@ seamNotes: [
 ],
 context: [
  "<b>Builder:</b> Air Space Intelligence (ASI), Boston. Founders Phillip Buckendorf (CEO), Kris Dorosz (CTO), Lucas Kukielka. FAA contract for FMDS + SMART awarded June 22, 2026: 12 years, $875.95M, 12 bidders, beat Palantir and Thales. <a href=\"https://orangeslices.ai/transportation-secretary-sean-p-duffy-selects-air-space-intelligence-to-deploy-state-of-the-art-air-traffic-control-software-revolutionize-our-skies/\">Award record</a>",
- "<b>ASI's corporate PAC:</b> gave $2,500 to Michael Alfonso (Sec. Duffy's son-in-law, WI-7) before the June award, per The Bulwark's review of FEC filings (Substack summaries date it to March 2026, in Alfonso's Q1 report). No evidence it affected the award. <a href=\"https://www.thedailybeast.com/maga-nepo-candidate-michael-alfonsos-big-campaign-payday-linked-to-famous-father-in-law/\">Daily Beast / The Bulwark</a> · <a href=\"https://www.fec.gov/data/committee/C00930628/\">ASI PAC on FEC</a> · <a href=\"https://docquery.fec.gov/pdf/829/202604159862441829/202604159862441829.pdf\">Alfonso Q1 2026 filing</a> · <a href=\"https://pbswisconsin.org/news-item/duffy-funneled-1-million-to-son-in-laws-republican-primary-campaign-for-congress/\">Alfonso is Duffy's son-in-law</a>",
+ "<b>ASI's corporate PAC:</b> gave $2,500 to Michael Alfonso (Sec. Duffy's son-in-law, WI-7) before the June award, per The Bulwark's review of FEC filings and the Q1 filing itself (line SA11C.4281, dated Mar 31). Raw Story reports $12,500; that figure isn't in the Q1 filing and stays unresolved (Substack summaries date it to March 2026, in Alfonso's Q1 report). No evidence it affected the award. <a href=\"https://www.thedailybeast.com/maga-nepo-candidate-michael-alfonsos-big-campaign-payday-linked-to-famous-father-in-law/\">Daily Beast / The Bulwark</a> · <a href=\"https://www.fec.gov/data/committee/C00930628/\">ASI PAC on FEC</a> · <a href=\"https://docquery.fec.gov/pdf/829/202604159862441829/202604159862441829.pdf\">Alfonso Q1 2026 filing</a> · <a href=\"https://pbswisconsin.org/news-item/duffy-funneled-1-million-to-son-in-laws-republican-primary-campaign-for-congress/\">Alfonso is Duffy's son-in-law</a>",
  "<b>Founders personally:</b> no individual federal donations found for Buckendorf, Dorosz or Kukielka in my searches. Not a full FEC export; absence is not proof.",
  "<b>Lead investor:</b> Andreessen Horowitz led ASI's Dec 2023 round (David Ulevitch, board observer). Marc Andreessen and Ben Horowitz each gave $2.5M to the pro-Trump super PAC Right for America in 2024 per FEC filings; Horowitz later gave $2.5M to a pro-Harris super PAC. <a href=\"https://news.bloomberglaw.com/private-equity/silicon-valleys-andreessen-horowitz-give-millions-to-trump-pac\">Bloomberg</a> · <a href=\"https://www.citizen.org/article/big-tech-embraces-trump-report/\">Public Citizen</a>",
  "<b>Public alignment:</b> Buckendorf credited \"President Trump, Secretary Duffy and Administrator Bedford\" in the award announcement and was a featured speaker at Breitbart's Aug 25 AI policy event (what he said there isn't checked here). Speech, not donations. <a href=\"https://www.transportation.gov/briefing-room/modern-skies-trumps-transportation-secretary-sean-p-duffy-selects-air-space\">DOT release</a> · <a href=\"https://www.breitbart.com/politics/2026/08/18/breitbart-news-host-policy-event-ai-is-here/\">Breitbart event listing</a>",
@@ -918,10 +983,11 @@ HUMAN GATE  [CONFIRMED]
   {c:"SMART caused the ground stop", who:"Critics; timing inference", st:"Unproven", rec:"No packet-level attribution is public."},
   {c:"SMART could not have contributed", who:"Implicit in denials", st:"Unproven", rec:"Same gap in the other direction: no attribution rules its sessions in or out."},
   {c:"The L3Harris router or install caused it", who:"Duffy; officials", st:"Partial", rec:"Mechanism named (1,000+ connection attempts every 4–5 seconds); fault undetermined.", src:[S.dotbrief]},
+  {c:"The contractor caused it (\"a contractor didn't meet the moment\")", who:"Duffy (Nov 14)", st:"Partial", rec:"Incomplete on the record. Bedford (Nov 17): an FAA technician monitored the install. Washington Post (one unnamed source): an FAA official tested and signed off. WSJ: the plan was FAA-approved. Fault (install, configuration or device) still undetermined; root cause pending.", src:[S.dotbrief, S.cnn17, S.wapo17, S.wsjvia]},
   {c:"NWS had a nationwide radar outage", who:"Social posts; early reports", st:"False as stated", rec:"NWS denied it; the issue was regional weather radio.", pend:true},
   {c:"NWS is unrelated", who:"Implicit in denials", st:"Contradicted by architecture", rec:"Shared FTI/NEXRAD paths; NANOG reported both the same afternoon.", pend:true},
   {c:"The $50B is an emergency response", who:"Duffy", st:"Chronologically true", rec:"The escalation came after the stop; the $30.1B request came before it.", src:[S.aerot]},
-  {c:"ASI's PAC donation had no bearing", who:"Not addressed publicly", st:"Unresolved", rec:"$2,500 to Duffy's son-in-law in March 2026; contract awarded June 2026. No evidence it affected the award."},
+  {c:"ASI's PAC donation had no bearing", who:"Not addressed publicly", st:"Unresolved", rec:"$2,500 to Duffy's son-in-law in March 2026 per the Q1 FEC filing (Raw Story reports $12,500; unresolved); contract awarded June 2026. No evidence it affected the award.", src:[S.fecq1, S.rawasi]},
   {c:"Peraton's oversight failed", who:"Critics", st:"Under audit", rec:"Pre-award risk flag; Aug 2026 performance concerns; no cure letter. Bedford: the Nov 13 work wasn't part of Peraton's program.", pend:true},
   {c:"The outage was orchestrated for funding", who:"Speculation", st:"Unsupported", rec:"The timing invites the question; no artifact shows intent."},
   {c:"ASI founders gave $5.8M to Trump", who:"Commentary", st:"Unverified", rec:"Not confirmed in the FEC data reviewed. Quarantined (see the money section)."}
@@ -943,6 +1009,11 @@ HUMAN GATE  [CONFIRMED]
    ["Did NWS traffic share the specific affected FTI router segments?","Co-tenant on the same failure versus a separate failure.","NWS network telemetry, FTI segment maps"],
    ["Did NWS reconnects add to the surge?","Victim versus amplifier.","NWS session logs"],
    ["Were radar feeds and voice on truly diverse primary and backup paths?","Tests the Inspector General's earlier path-diversity findings.","FTI diversity documentation, OIG follow-up"]]},
+  {g:"On-site oversight and approval (added v2.1)", id:"oq-ovs", q:"q15", rows:[
+   ["Was the FAA technician at El Dorado trained and certified on the new Juniper router?","Decides what the sign-off was worth.","Training and certification records; RCA"],
+   ["Which office approved the installation plan, and what did the risk review cover?","Places the approval decision.","Approval record; change-board minutes"],
+   ["Who saw the flooding first, and when?","Measures detection lag.","L3Harris NOCC and FAA logs; RCA timeline"],
+   ["Did technician staffing or training in that district change after Feb 2025?","Tests the oversight-capacity question raised in Congress.","FAA workforce data by district; PASS"]]},
   {g:"Funding and congressional risk", id:"oq-fund", rows:[
    ["What is the lame-duck path for the $30.1B or $50B?","Decides whether the request survives.","Whip counts, committee markup, Johnson's package"],
    ["Will Democrats condition or restructure the funding after Jan 3?","Changes program scope and timing.","Leadership statements, bill text"],
@@ -966,7 +1037,7 @@ HUMAN GATE  [CONFIRMED]
   ["Indra","Radar","—","Public, state-linked","Spanish government (SEPI) ~28%"]
  ],
  spend: [
-  {d:"ASI PAC", r:"Michael Alfonso (Duffy's son-in-law)", a:"$2,500", t:"Mar 2026, before the contract", src:[{name:"Daily Beast / The Bulwark", url:"https://www.thedailybeast.com/maga-nepo-candidate-michael-alfonsos-big-campaign-payday-linked-to-famous-father-in-law/"}]},
+  {d:"ASI PAC", r:"Michael Alfonso (Duffy's son-in-law)", a:"$2,500 in the Q1 filing (Raw Story reports $12,500; unresolved)", t:"Mar 31, 2026 per the filing, before the contract", src:[S.fecq1, {name:"Daily Beast / The Bulwark", url:"https://www.thedailybeast.com/maga-nepo-candidate-michael-alfonsos-big-campaign-payday-linked-to-famous-father-in-law/"}, S.rawasi]},
   {d:"Marc Andreessen", r:"Right for America (pro-Trump super PAC)", a:"$2.5M", t:"2024", src:[{name:"Bloomberg", url:"https://news.bloomberglaw.com/private-equity/silicon-valleys-andreessen-horowitz-give-millions-to-trump-pac"}]},
   {d:"Ben Horowitz", r:"Right for America (pro-Trump super PAC)", a:"$2.5M", t:"2024", src:[{name:"Bloomberg", url:"https://news.bloomberglaw.com/private-equity/silicon-valleys-andreessen-horowitz-give-millions-to-trump-pac"}]},
   {d:"Ben Horowitz", r:"Pro-Harris super PAC", a:"$2.5M", t:"2024, after Harris entered", src:[{name:"Bloomberg", url:"https://news.bloomberglaw.com/private-equity/silicon-valleys-andreessen-horowitz-give-millions-to-trump-pac"}]},
@@ -978,16 +1049,26 @@ HUMAN GATE  [CONFIRMED]
   ["BGR Government Affairs","Registered to lobby for Air Space Intelligence, Inc. on \"artificial intelligence defense software\" (Q3 2026 LD-1).","Confirmed"],
   ["Duffy at BGR","Lobbied there in 2020, with consulting ties through 2024, on airline industry issues (Partnership for Open and Fair Skies), not the ASI account.","Confirmed"],
   ["BGR's ASI team","Dan Greenwood (former Deputy Assistant to the President; NSC Senior Director for Legislative Affairs), Max Richards (legislative director for Sen. Schmitt; SASC), Alex Gallo (former HASC professional staff), Tristan Whitaker, Pete Landrum (former senior defense policy advisor to Sen. Sessions).","Confirmed"],
+  ["Mark Bednar","Duffy's former congressional communications director; registered lobbyist for Peraton in the year it won the integrator contract; reported to sit on the board of the nonprofit that funded Duffy's \"Great American Road Trip\" series. A documented relationship; no influence is established.","Reported",[S.rawbed, S.rtwbed]],
   ["Revolving-door lane","White House, NSC and defense committees, not FAA-specific.","Hypothesized"]
  ],
  quar: "<b>Unverified, quarantined:</b> a claim that ASI's founders gave more than $5.8M to Trump's campaign or super PACs in 2024 is circulating in commentary. It isn't confirmed in the FEC data reviewed, and this page's own search found no individual federal donations by the three founders (not a full FEC export). It stays out of the causal chain and the funding analysis.",
+ staffing: [
+  ["FAA probationary firings, Feb 2025","352 of about 45,000, none \"safety critical\" per Duffy. The union says those fired included systems specialists, safety inspectors and maintenance mechanics; 18 ATC facilities lost maintenance mechanics.","Confirmed / Reported",[S.reu352, S.cbs25, S.ap25]],
+  ["Reinstatement","132 union-represented employees reinstated around Mar 20, 2025 under a court order; an appeals court stayed that order in Apr 2025. What happened to them since is unknown.","Reported",[S.fg132]],
+  ["Shortage predates the cuts","Union testimony, Mar 2025: about 800 short in systems specialists, with a staffing model in the works for at least a decade.","Confirmed",[S.pass25]],
+  ["Training gap","Contractors maintain some newly installed equipment because FAA technicians haven't been trained on it yet (union account).","Reported",[S.passtrain]],
+  ["CISA","Lost nearly 40% of its workforce in 2025; named in the Nov 13 response.","Reported",[S.cisa40]],
+  ["NSA","Met a 2,000-person workforce reduction goal by Dec 2025. Context for intersection #9.","Reported",[S.ngnsa]],
+  ["Congress","Reed: whether the FAA \"after DOGE\" can supervise this work. Himes: blames DOGE-era cuts.","Confirmed",[S.nprreed, S.wshu]]
+ ],
  fundseq: [
   ["July 2025","Congress approves $12.5B for the ATC overhaul (One Big Beautiful Bill).", "Confirmed", [S.mcid]],
   ["Sept 2026","About $30B more requested; the Modern Skies Act is introduced Sept 28 (Sen. Schmitt), with no Democratic co-sponsors identified.", "Confirmed", null, true],
   ["Nov 13, 2026 (reported; letter may be dated Nov 12)","Duffy and OMB Director Vought renew the $30.1B request, hours before the outage, as a renewal of the September proposal: $10.1B ATC modernization (incl. $7.2B common automation platform, $2B cloud), $2B towers, $18B airport projects (incl. $10B terminals). Public reports date it Friday the 13th; the formal letter may have been finalized the day before.", "Reported", [S.aerot, {name:"AvWeb (Sept proposal)", url:"https://avweb.com/?p=396301"}]],
   ["Nov 13, 2026","Ground stop, 3:54–8:19 pm. That evening the request is escalated to $50B, framed as an emergency.", "Confirmed", [{name:"Fox Business", url:"https://www.foxbusiness.com/politics/duffy-sounds-alarm-over-aging-faa-system-after-nationwide-air-travel-shutdown"}]],
   ["Nov 14, 2026","Duffy at the Saturday briefing speaks of a \"$30 billion\" request with the full request going to the Hill Monday; the $50B isn't mentioned.", "Confirmed", [S.dotbrief]],
-  ["Nov 2026","Per the v2.0 spec, Democrats win control of Congress; the new session begins Jan 3, 2027.", "Confirmed", null, true],
+  ["Nov 3–4, 2026","Democrats win control of both chambers, per AP race calls; the new session begins Jan 3, 2027.", "Confirmed", [S.nprmid]],
   ["Lame duck","The only path to enactment before control changes.", "Hypothesized", null]
  ],
  oversight: [
@@ -997,6 +1078,7 @@ HUMAN GATE  [CONFIRMED]
   ["Nov 13","Sen. Blumenthal calls for a \"prompt, penetrating investigation.\"", [{name:"NPR", url:"https://www.npr.org/2026/11/13/nx-s1-6040403/faa-nationwide-groundstop-airports"}]],
   ["After Nov 13","Schumer called the $50B request \"alarming,\" criticized the funding priorities, and said the administration should \"work with Congress to put taxpayer dollars where they're actually needed.\"", null, true],
   ["After Nov 13","Jeffries said the administration was blaming others \"instead of taking responsibility.\"", null, true],
+  ["Nov 17","Sen. Reed (Appropriations): \"Was the contractor properly supervised?\" and whether the FAA \"after DOGE\" can supervise this work; about $9B of the $14.5B already provided is unspent.", [S.nprreed]],
   ["After Nov 13","Speaker Johnson signaled FAA funding in a lame-duck \"aggressive legislative package.\"", null, true]
  ],
  fundrisk: [
@@ -1022,8 +1104,9 @@ function renderV2(){
  document.querySelector("#holders tbody").innerHTML = V2.holders.map(r=>`<tr><td data-l="Entity"><b>${esc(r[0])}</b></td><td data-l="Role">${esc(r[1])}</td><td data-l="Value">${esc(r[2])}</td><td data-l="Ownership">${esc(r[3])}</td><td data-l="Key holders">${esc(r[4])} ${PEND}</td></tr>`).join("");
  document.querySelector("#spend tbody").innerHTML = V2.spend.map(r=>`<tr><td data-l="Donor"><b>${esc(r.d)}</b></td><td data-l="Recipient">${esc(r.r)}</td><td data-l="Amount">${esc(r.a)}</td><td data-l="Timing">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):PEND}</td></tr>`).join("");
  $("spendframe").textContent = V2.spendFrame;
- document.querySelector("#lobby tbody").innerHTML = V2.lobby.map(r=>`<tr><td data-l="Entity"><b>${esc(r[0])}</b></td><td data-l="Detail">${esc(r[1])}</td><td data-l="Tier">${tierPill(r[2])} ${r[2]==="Hypothesized"?"":PEND}</td></tr>`).join("");
+ document.querySelector("#lobby tbody").innerHTML = V2.lobby.map(r=>`<tr><td data-l="Entity"><b>${esc(r[0])}</b></td><td data-l="Detail">${esc(r[1])}</td><td data-l="Tier">${tierPill(r[2])} ${r[3]?sl(r[3]):(r[2]==="Hypothesized"?"":PEND)}</td></tr>`).join("");
  $("quar").innerHTML = V2.quar;
+ document.querySelector("#staff tbody").innerHTML = V2.staffing.map(r=>`<tr><td data-l="Item"><b>${esc(r[0])}</b></td><td data-l="Detail">${esc(r[1])}</td><td data-l="Tier">${tierPill(r[2])}</td><td data-l="Source">${r[3]?sl(r[3]):PEND}</td></tr>`).join("");
  $("fundseq").innerHTML = V2.fundseq.map(([t,w,tr,src,p])=>`<li><b>${esc(t)}:</b> ${esc(w)} ${tierPill(tr)}${sl(src)}${p?" "+PEND:""}</li>`).join("");
  $("oversight").innerHTML = V2.oversight.map(([t,w,src,p])=>`<li><b>${esc(t)}:</b> ${esc(w)}${sl(src)}${p?" "+PEND:""}</li>`).join("");
  document.querySelector("#fundrisk tbody").innerHTML = V2.fundrisk.map(r=>`<tr><td data-l="Factor"><b>${esc(r[0])}</b></td><td data-l="Effect">${esc(r[1])}</td></tr>`).join("");
@@ -1040,7 +1123,7 @@ const VERD = {fits:"Fits", cuts:"Cuts", mixed:"Mixed", silent:"Silent", unknown:
 const QST = {open:{label:"Open", c:"--open"}, partly:{label:"Partly answered", c:"--demand"}, answered:{label:"Answered", c:"--expl"}};
 const CONF = {low:{label:"Low confidence", c:"--muted"}, moderate:{label:"Moderate confidence", c:"--demand"}, high:{label:"High confidence", c:"--expl"}};
 const MAXLINES = 3;
-const RANGES = {night:["2026-11-13T12:00","2026-11-14T07:00"], today:["2026-11-13T12:30","2026-11-13T20:30"], wide:["2026-11-12T12:00","2026-11-16T00:00"], week:["2026-09-15T00:00","2026-11-14T07:00"], prog:["2025-10-01T00:00","2027-01-10T00:00"]};
+const RANGES = {night:["2026-11-13T12:00","2026-11-14T07:00"], today:["2026-11-13T12:30","2026-11-13T20:30"], wide:["2026-11-12T12:00","2026-11-18T12:00"], week:["2026-09-15T00:00","2026-11-14T07:00"], prog:["2025-10-01T00:00","2027-01-10T00:00"]};
 let range="night", sel=null, showAll=false, faaOpen=true;
 const $ = id => document.getElementById(id);
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
