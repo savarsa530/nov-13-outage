@@ -198,6 +198,30 @@ pre.lp .hy{color:var(--soft)}
 ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 #principles .fold-body{padding:8px 14px 10px}
 #principles td:first-child{font-weight:600;white-space:nowrap}
+/* v3.1: section nav, what's new, label guide, numbered questions */
+.toc{position:sticky;top:0;z-index:20;background:var(--bg);margin:0 -20px 14px;padding:8px 20px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.toc a{flex:none;font-size:12.5px;color:var(--ink2);text-decoration:none;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--card);white-space:nowrap}
+.toc a:hover{border-color:var(--ink2)}
+.toc a.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.toc a .c{color:var(--muted);font-weight:400;margin-left:4px}
+h2[id],h3[id],.pin,.ix,.oqg,.ex,details.fold,section.card{scroll-margin-top:60px}
+.whatsnew{margin:0 0 14px;padding:12px 16px}
+.whatsnew .wn-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;margin-bottom:4px}
+.whatsnew .wn-h strong{font-size:15px}
+.whatsnew ul{margin:4px 0 2px} .whatsnew li{font-size:14px}
+.whatsnew details{margin-top:6px} .whatsnew details summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--ink2)}
+.whatsnew .ver{margin-top:8px} .whatsnew .ver b{font-size:13.5px}
+.newtag{display:inline-block;font-size:11px;font-weight:600;color:var(--strong);border:1px solid currentColor;border-radius:99px;padding:0 7px}
+#labelsbody{padding:6px 14px 12px}
+#labelsbody h4{font-size:14px;margin:16px 0 2px} #labelsbody h4:first-of-type{margin-top:8px}
+#labelsbody .where{font-size:12.5px;color:var(--muted);margin:0 0 6px}
+#labelsbody td:first-child{white-space:nowrap;width:1%}
+#labelsbody tr:last-child td{border-bottom:0}
+#labelsbody .vsw{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px}
+.qdot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px}
+.qn{display:inline-block;font:600 11.5px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink2);border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:3px 6px;margin-right:8px;vertical-align:1px}
+#qsort .k{margin-right:2px}
+@media (max-width:700px){.toc{margin:0 -14px 12px;padding:8px 14px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -205,8 +229,15 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <main>
 <h1>Nov 13 outage threads</h1>
 <p class="sub" id="updated"></p>
+<nav class="toc" id="toc" aria-label="Sections"></nav>
+<section class="card whatsnew" id="whatsnew" aria-label="What's new"></section>
 
 <section class="card best v3" id="best" aria-labelledby="best-h"></section>
+
+<details class="fold" id="labels">
+ <summary>How to read the labels</summary>
+ <div class="fold-body noterm" id="labelsbody"></div>
+</details>
 
 <h2 id="matrix-h">Accountability matrix</h2>
 <p class="note">Who had a role on Nov 13, what they've said, and what the record shows. Roles are documented; fault isn't established.</p>
@@ -224,7 +255,7 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
  <div class="fold-body"><div id="tiers" class="noterm"></div><div class="wrap"><table class="noterm"><tbody id="princ"></tbody></table></div></div>
 </details>
 
-<h2>Timeline</h2>
+<h2 id="timeline-h">Timeline</h2>
 <div class="bar">
   <button id="r-night" class="on">Fri noon → Sat 7 am</button>
   <button id="r-today">Fri 12:30–8:30 pm</button>
@@ -259,7 +290,7 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
  <div class="fold-body wrap"><table class="cards noterm"><thead><tr><th>Element</th><th>Before</th><th>Now</th></tr></thead><tbody id="lpchg"></tbody></table></div>
 </details>
 
-<h2>How the facts fit each explanation</h2>
+<h2 id="grid-h">How the facts fit each explanation</h2>
 <p class="note">How could one update cross FTI's two separate backbone cores? Each key fact is checked against each way. Tap a cell for the reasoning. The verdicts are this page's reading, not reporting.</p>
 <div class="card wrap" id="grid"></div>
 
@@ -271,14 +302,15 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <div id="cve" class="dgrid noterm"></div>
 <p class="note">Claims that rule things out are firmer than claims that assign cause. Early in an incident that can be innocent: ruling things out is fast, and assigning cause takes an investigation. Recheck when the FAA publishes preliminary findings.</p>
 
-<h2>Open questions</h2>
+<h2 id="oq-h">Open questions</h2>
 <p class="note">No single answer settles it. Each one adds information about the broader issue. Ticked as news lands.</p>
+<div class="bar" id="qsort" role="group" aria-label="Sort questions"></div>
 <div class="card pins" id="pins"></div>
 <h3 id="oqr-h">Open questions register</h3>
 <p class="note">The questions grouped by thread, with what each would settle and the record that would answer it.</p>
 <div id="oqr"></div>
 
-<h2>Intersections</h2>
+<h2 id="ix-h">Intersections</h2>
 <p class="note">Still open, strongest first. Each card shows what supports it, what cuts against it and what would tell us more. Intersections are hypotheses until a source confirms them.</p>
 <div class="ixgrid" id="cards"></div>
 <details class="fold" id="strip">
@@ -291,7 +323,7 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <div class="wrap"><table id="nwst" class="cards noterm"><thead><tr><th>Tier</th><th>What</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 <p class="frame" id="nwsframe"></p>
 
-<h2>Who touches the network (the seam)</h2>
+<h2 id="seam-h">Who touches the network (the seam)</h2>
 <p class="note">Three companies are working on one live system at the same time. L3Harris runs FTI today, Verizon provides core functions, and AT&amp;T is planning the move off it to FENS. Nobody has replaced L3Harris yet. Wherever responsibility gets handed between them is where something can go wrong unnoticed.</p>
 <p class="note">Corrected 7:55 pm. Earlier versions said the FAA's network was moving from L3Harris to Verizon; that has been out of date since August.</p>
 <div class="wrap"><table id="seam" class="cards"><thead><tr><th>Party</th><th>Role on the network</th><th>Why it matters for Nov 13</th><th>Source</th></tr></thead><tbody></tbody></table></div>
@@ -301,7 +333,7 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <p class="note">Context on who was available to oversee the work. None of this establishes cause. Listed so it's on the record when the root-cause analysis lands. Linked from <a href="#q15">q15</a> and <a href="#q19">q19</a>.</p>
 <div class="wrap"><table id="staff" class="cards noterm"><thead><tr><th>Item</th><th>Detail</th><th>Tier</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 
-<h2>What was known before Friday</h2>
+<h2 id="priors-h">What was known before Friday</h2>
 <p class="note">Duffy, Friday: "We didn't think we would have this kind of outage" and "I don't know that this exact scenario will happen." The record shows FTI's fragility was known; what officials say they didn't expect is a nationwide failure. Linked from <a href="#q12">q12</a>.</p>
 <div class="wrap"><table id="priors" class="cards"><thead><tr><th>When</th><th>Who</th><th>What</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 
@@ -309,7 +341,7 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <p class="note">Nobody on the record has named who was retiring the copper line in the Nov 13 work (<a href="#q13">q13</a>). Duffy named three carriers as partners on the new architecture. This lists what is documented about each, with sources; it doesn't link any of them to the outage. No source alleges a conflict of interest.</p>
 <div class="wrap"><table id="carriers" class="cards"><thead><tr><th>Carrier</th><th>Copper or TDM retirement</th><th>FAA role</th><th>Source</th></tr></thead><tbody></tbody></table></div>
 
-<h2>What all 22 centers share (common points of failure)</h2>
+<h2 id="common-h">What all 22 centers share (common points of failure)</h2>
 <h3 id="centers-h">Which centers failed</h3>
 <p class="note">Six of 22 are named in reporting. The FAA has confirmed none by name; Bedford says instability hit 17, none named. Linked from <a href="#q10">q10</a> and <a href="#q1">q1</a>.</p>
 <div class="wrap"><table id="centers" class="cards"><thead><tr><th>Center</th><th>Earliest sign (ET)</th><th>What was reported</th><th>Source</th></tr></thead><tbody></tbody></table></div>
@@ -344,7 +376,8 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <div class="wrap"><table id="fundrisk" class="cards noterm"><thead><tr><th>Factor</th><th>Effect on funding probability</th></tr></thead><tbody></tbody></table></div>
 <p class="frame" id="fundframe"></p>
 
-<h2>Event log</h2>
+<h2 id="log-h">Event log</h2>
+<p class="note">Updated Wed Nov 18 (v3.1, layout only): added a section bar that stays at the top of the screen, a What's new panel under the title, a <a href="#labels">guide to the labels</a> (every label set kept separate, with plain-language meanings), and visible numbers on the open questions with a sort control (page order stays the default). No facts, labels, verdicts or sources changed.</p>
 <p class="note">Updated Wed Nov 18, 8:18 am (v3.0): the top of the page is now a status strip (Officially stated, Reported, Contested or Unknown, with what would change each) instead of a best-read verdict. The best-read text is unchanged and sits in a collapsed fold labeled as this page's interpretation, not a finding. Added an <a href="#matrix-h">accountability matrix</a> (roles are documented; fault isn't established; Peraton is shown as program context only). Claims vs. evidence is now a <a href="#cve-h">dispute tracker</a>: the L3Harris row is split into installer, router and configuration cards, and cards were added for "not a cyberattack" (officially stated, not ruled out) and "one site vs. two." No new sources.</p>
 <p class="note">Updated Wed Nov 18, 8:15 am (v2.2): brought older sections up to date with the Nov 17 facts. The best read, questions q4, q6, q7 and q11, the facts-by-explanation grid and the where-it-started note now include the two named sites (Amarillo, TX; El Dorado, AR), the FAA's on-site oversight and plan approval, the router pause and the lab testing. q4 and q7 now note that the early "starting at Midway" account doesn't match the official sites.</p>
 <p class="note">Updated Wed Nov 18, 7:55 am (v2.1): added Nov 15–17 developments (FAA technician on site, plan approval, the two source sites, the router installation pause), intersection <a href="#ix-9">#9</a> (NSA Net), questions <a href="#q15">q15</a>–<a href="#q20">q20</a>, a staffing and oversight context section, and a Bednar lobbying row. The midterm result is now sourced (NPR). The ASI PAC amount is marked unresolved: $2,500 in the Q1 FEC filing, $12,500 per Raw Story. Not a correction: Duffy's contractor-only attribution (Nov 14) now sits alongside reporting that an FAA technician monitored, tested and signed off on the work. The wide timeline view now runs to Nov 18.</p>
@@ -1460,6 +1493,136 @@ function card(ix){const st=STATUS[ix.status];
  <div class="claim">${esc(ix.claim)}<div class="chips">${ix.lanes.map(id=>`<span class="chip">${esc(shortNm(nm(id)))}</span>`).join("")}</div></div>${pillOf(ix)}</div>
  ${part("Supports",ix.supports,"Nothing on the page.")}${part("Cuts against",ix.against,"Nothing on the page.")}${part("Would tell us more",ix.settles,"Nothing specific on the page yet.")}
  <div><button class="more">Details and nearby events →</button></div></article>`;}
+/* ---------- v3.1: navigation layer. Adds ways in; changes no facts, labels or verdicts. ---------- */
+
+/* What's new: one entry per version, newest first. Bullets restate the event-log notes; the full notes stay in the event log. */
+const CHANGES = [
+ {v:"v3.1", when:"Wed Nov 18", layout:true, items:[
+  `Navigation only, no new facts: a section bar that stays at the top, this panel, a <a href="#labels">guide to the labels</a>, and numbers on the <a href="#oq-h">open questions</a> with a sort control.`]},
+ {v:"v3.0", when:"Wed Nov 18, 8:18 am", items:[
+  `The top of the page is now a <a href="#best">status table</a>: Officially stated, Reported, Contested or Unknown, with what would change each.`,
+  `The earlier best-read text is unchanged; it moved into a collapsed fold labeled as this page's interpretation, not a finding.`,
+  `New <a href="#matrix-h">accountability matrix</a>: roles are documented; fault isn't established. Peraton is shown as program context only.`,
+  `Claims vs. evidence is now a <a href="#cve-h">dispute tracker</a>. The L3Harris row is split into installer, router and configuration cards; added "not a cyberattack" (officially stated, not ruled out) and "one site vs. two."`,
+  `No new sources.`]},
+ {v:"v2.2", when:"Wed Nov 18, 8:15 am", items:[
+  `Older sections brought up to date with the Nov 17 facts: the two named sites (Amarillo, TX; El Dorado, AR), the FAA's on-site oversight and plan approval, the router pause and the lab testing. Touches the status read, the <a href="#grid-h">facts-by-explanation grid</a> and questions <a href="#q4">q4</a>, <a href="#q6">q6</a>, <a href="#q7">q7</a>, <a href="#q11">q11</a>.`,
+  `<a href="#q4">q4</a> and <a href="#q7">q7</a> now note that the early "starting at Midway" account doesn't match the official sites.`]},
+ {v:"v2.1", when:"Wed Nov 18, 7:55 am", items:[
+  `Added Nov 15–17 developments (FAA technician on site, plan approval, the two source sites, the router installation pause).`,
+  `New intersection <a href="#ix-9">#9</a> (NSA Net), questions <a href="#q15">q15</a>–<a href="#q20">q20</a>, a <a href="#staff-h">staffing and oversight</a> section, and a Bednar lobbying row.`,
+  `Not a correction: Duffy's contractor-only attribution (Nov 14) now sits alongside reporting that an FAA technician monitored, tested and signed off on the work.`]}
+];
+function renderWhatsNew(){
+ let seen=null; try{seen=localStorage.getItem("nov13-seen");}catch(e){}
+ const cur=CHANGES.find(c=>!c.layout)||CHANGES[0], seenIdx=seen?CHANGES.findIndex(c=>c.v===seen):-1;
+ const isNew=i=>seen!==null&&(seenIdx===-1||i<seenIdx);
+ const ver=(c,i)=>`<div class="ver"><b>${c.v}</b> <span class="k">${esc(c.when)}${c.layout?" · layout only":""}</span>${isNew(i)?` <span class="newtag">New since your last visit</span>`:""}<ul>${c.items.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+ const top=CHANGES.filter((c,i)=>i===0||isNew(i)||c===cur), rest=CHANGES.filter(c=>!top.includes(c));
+ $("whatsnew").innerHTML=`<div class="wn-h"><strong>What's new</strong><span class="src">latest content update ${cur.v}, ${esc(cur.when)}</span></div>
+ ${top.map(c=>ver(c,CHANGES.indexOf(c))).join("")}
+ ${rest.length?`<details><summary>Earlier updates (${rest.length})</summary>${rest.map(c=>ver(c,CHANGES.indexOf(c))).join("")}</details>`:""}
+ <p class="src" style="margin:8px 0 0">Every correction and full update note, including v2.0 and earlier: <a href="#log-h">event log</a>.</p>`;
+ try{localStorage.setItem("nov13-seen",CHANGES[0].v);}catch(e){}
+}
+
+/* Label guide: every label set the page uses, kept separate on purpose. Plain-language glosses only; each card's own text governs. */
+function renderLabels(){
+ const row=(pill,mean)=>`<tr><td>${pill}</td><td>${mean}</td></tr>`;
+ const set=(title,where,rows)=>`<h4>${title}</h4><p class="where">${where}</p><div class="wrap"><table><tbody>${rows.join("")}</tbody></table></div>`;
+ const ixP=k=>`<span class="pill" style="color:var(${STATUS[k].c})">${esc(STATUS[k].label)}</span>`;
+ const rec=(l,c)=>`<span class="rec" style="color:var(${c})">${l}</span>`;
+ const vs=(cls,l)=>`<span class="vsw ${cls}">${l}</span>`;
+ const qd=k=>`<span class="qdot" style="background:var(${QST[k].c})"></span>${QST[k].label}`;
+ const cf=k=>`<span class="pill" style="color:var(${CONF[k].c})">${CONF[k].label}</span>`;
+ const tierDef=Object.fromEntries(V2.tiers);
+ $("labelsbody").innerHTML=`<p class="note" style="margin-top:6px">The page uses several label sets on purpose. Each one answers a different question (who said it, how well it's sourced, how it holds up against the record), so a denial is never flattened into a finding. The same word can mean different things in different sets: <b>Confirmed</b> on an intersection is not the same as <b>Confirmed</b> as a source tier, and <b>Partial</b> as a dispute verdict is not <b>Partial</b> detail in the claims table. The meanings below are plain-language summaries; the text on each card or row is the authority.</p>
+ ${set("1. Where things stand","Used in the status table at the top and the accountability matrix. Describes the public record, not a verdict.",[
+  row(stPill("Officially stated"),"An official said it on the record. That's not the same as independently confirmed."),
+  row(stPill("Reported"),"News outlets report it; not officially confirmed. Check how many outlets and whether sources are named."),
+  row(stPill("Contested"),"Officials or parties disagree, or the record points two ways."),
+  row(stPill("Unknown"),"Nobody on the record has said.")])}
+ ${set("2. Source tiers","Used in the load-path model, NWS, staffing, lobbying and funding sections. How strong the sourcing is.",[
+  ...["Confirmed","Reported","Hypothesized","Unverified"].map(t=>row(tierPill(t),esc(tierDef[t]))),
+  row(tierPill("Confirmed / Reported"),"Part of the line is confirmed, part only reported.")])}
+ ${set("3. Dispute verdicts","Used in the dispute tracker. How a specific claim holds up against what the record actually shows.",[
+  row(tierPill("Partial"),"True as far as it goes, but leaves something out. Example: a denial that covers the command path but not the network."),
+  row(tierPill("Unresolved"),"Competing possibilities; the record doesn't decide between them yet."),
+  row(tierPill("Unproven"),"No evidence either way has been made public."),
+  row(tierPill("Under audit"),"A formal review is pending."),
+  row(tierPill("False as stated"),"The record contradicts the claim as it was worded."),
+  row(tierPill("Contradicted by architecture"),"How the systems are physically connected cuts against the claim."),
+  row(tierPill("Chronologically true"),"The order of events matches the claim. That's all it establishes."),
+  row(tierPill("Unsupported"),"Nothing on the record supports it."),
+  row(tierPill("Unverified"),"Circulating but not confirmed. Quarantined and kept out of the causal chain."),
+  row(`${tierPill("Officially stated")}${tierPill("Reported")}${tierPill("Unknown")}`,"Same meanings as set 1.")])}
+ ${set("4. Intersections","Used on the intersection cards and the timeline badges. An intersection is a hypothesis that two threads are connected; it stays a hypothesis until a source confirms it.",[
+  row(ixP("strong"),"The most support so far. Still a hypothesis."),
+  row(ixP("open"),"Plausible; not enough to rank."),
+  row(ixP("confirmed"),"A source has confirmed the connection."),
+  row(ixP("denied"),"An official or interested party denied it. A denial isn't a finding."),
+  row(ixP("explained"),"A separate cause probably accounts for the overlap."),
+  row(ixP("coincidence"),"They overlap in time, with little else linking them."),
+  row(ixP("ruledout"),"The record excludes it.")])}
+ ${set("5. Facts vs. explanations grid","Used in the grid. This page's reading of one fact against one possible explanation, not reporting.",[
+  row(vs("fits","Fits"),"The fact is what you'd expect if this explanation were right."),
+  row(vs("cuts","Cuts against"),"The fact is hard to square with this explanation."),
+  row(vs("mixed","Mixed"),"Parts point each way."),
+  row(vs("silent","Silent / Not yet known"),"The fact doesn't bear on it, or the information isn't public yet.")])}
+ ${set("6. Claims on the record","Used in the claims table. Who is speaking and how much detail came with it.",[
+  row(rec("Named official","--expl"),"A named official said it publicly."),
+  row(rec("Anonymous","--demand"),"Attributed to an unnamed source."),
+  row(rec("Interested party","--denied"),"Said by someone with a stake in the answer, such as a company denying its own role."),
+  row(`<span class="k">Specific · Partial · No detail</span>`,"How much supporting detail came with the claim.")])}
+ ${set("7. Open questions","Used on the numbered question list.",[
+  row(qd("open"),"Nobody on the record has answered it."),
+  row(qd("partly"),"Some of it is answered; what's still missing is noted."),
+  row(qd("answered"),"Answered on the record.")])}
+ ${set("8. This page's own read","Used only inside the collapsed interpretation fold under the status table.",[
+  row(cf("low")+cf("moderate")+cf("high"),"How confident this page is in its own interpretation. An opinion, not a finding.")])}
+ <p class="note" style="margin-top:14px">Timeline dots have their own marks (official, reported, estimated, secondhand); the legend sits above the chart. The reasoning rules behind all of this are in <a href="#principles">How claims are tagged</a>.</p>`;
+}
+
+/* Open questions: show each id and allow sorting. Page order (the curated order) stays the default. */
+let qMode="page";
+const qNum = p => /^q\d+$/.test(p.id) ? +p.id.slice(1) : 999;
+const QORD = {open:0, partly:1, answered:2};
+function renderPins(){
+ const modes=[["page","Page order"],["num","By number"],["status","Open first"]];
+ $("qsort").innerHTML=`<span class="k">Sort:</span>`+modes.map(([k,l])=>`<button data-qs="${k}" class="${k===qMode?"on":""}" aria-pressed="${k===qMode}">${l}</button>`).join("")
+  +`<span class="k" style="margin-left:auto">${["open","partly","answered"].map(s=>`${DATA.pinned.filter(p=>p.status===s).length} ${QST[s].label.toLowerCase()}`).join(" · ")}</span>`;
+ const list=[...DATA.pinned];
+ if(qMode==="num") list.sort((a,b)=>qNum(a)-qNum(b));
+ if(qMode==="status") list.sort((a,b)=>QORD[a.status]-QORD[b.status]||qNum(a)-qNum(b));
+ $("pins").innerHTML=list.map(p=>{const st=QST[p.status];
+  return `<div class="pin${p.status==="answered"?" done":""}" id="${p.id}"><span class="dot" style="background:var(${st.c})"></span><div><b><span class="qn">${esc(p.id)}</span>${esc(p.q)}</b>${p.answer?`<div class="sp ans">${esc(p.answer)}${srcLinks(p.src)}</div>`:""}${p.splits?`<div class="sp">${esc(p.splits)}</div>`:""}</div><span class="st">${st.label}</span></div>`}).join("")
+  +`<details class="also"><summary>Also watching (${DATA.also.length})</summary><ul>${DATA.also.map(w=>`<li>${w}</li>`).join("")}</ul></details>`;
+}
+function initPins(){
+ $("qsort").addEventListener("click",ev=>{const b=ev.target.closest("button[data-qs]"); if(!b)return; qMode=b.dataset.qs; renderPins(); linkTerms($("pins"));});
+}
+
+/* Section bar: built from the h2s, with counts where a count tells you something. */
+const TOC_SHORT = {"best":"Status","matrix-h":"Accountability","timeline-h":"Timeline","loadpath-h":"Load path","grid-h":"Facts vs. explanations","claims-h":"Claims & disputes","oq-h":"Open questions","ix-h":"Intersections","nws-h":"Weather Service","seam-h":"Network seam","staff-h":"Staffing","priors-h":"Known before","carriers-h":"Retiring the line","common-h":"22 centers","money-h":"Money","fund-h":"Funding","log-h":"Event log"};
+function buildToc(){
+ const cnt = {
+  "oq-h": `${DATA.pinned.filter(p=>p.status==="open").length} open`,
+  "ix-h": `${DATA.intersections.filter(isOpen).length} open`,
+  "claims-h": `${DATA.claims.length + V2.cve.length}`,
+  "log-h": `${DATA.events.length}`
+ };
+ const items=[{id:"best"}, ...[...document.querySelectorAll("main h2[id]")].map(h=>({id:h.id, t:h.textContent}))];
+ $("toc").innerHTML=items.map(x=>`<a href="#${x.id}" data-to="${x.id}">${esc(TOC_SHORT[x.id]||x.t)}${cnt[x.id]?`<span class="c">${cnt[x.id]}</span>`:""}</a>`).join("");
+ $("toc").addEventListener("click",ev=>{const a=ev.target.closest("a[data-to]"); if(!a)return; ev.preventDefault(); const el=$(a.dataset.to); el.scrollIntoView({behavior:"smooth",block:"start"}); history.replaceState(null,"","#"+a.dataset.to);});
+ const links=Object.fromEntries([...$("toc").querySelectorAll("a")].map(a=>[a.dataset.to,a]));
+ let cur=null;
+ const setOn=id=>{if(id===cur)return; cur=id; Object.values(links).forEach(a=>a.classList.toggle("on",a.dataset.to===id)); const a=links[id]; if(a){const t=$("toc"); t.scrollTo({left:a.offsetLeft-t.clientWidth/2+a.clientWidth/2,behavior:"smooth"});}};
+ const heads=items.map(x=>$(x.id));
+ const pick=()=>{let best=heads[0]; for(const h of heads){ if(h.getBoundingClientRect().top<120) best=h; else break; } setOn(best.id);};
+ addEventListener("scroll",()=>{clearTimeout(buildToc.t); buildToc.t=setTimeout(pick,60);},{passive:true});
+ pick();
+}
+
 function render(){
  $("updated").textContent = "Last updated "+fmt(UPD)+" ET · times Eastern";
  renderStrip(); initMatrix();
@@ -1475,9 +1638,7 @@ function render(){
  const REC={named:{l:"Named official",c:"--expl"},anon:{l:"Anonymous",c:"--demand"},party:{l:"Interested party",c:"--denied"}}, SPEC={specific:"Specific",partial:"Partial",none:"No detail"};
  const recPill=k=>`<span class="rec" style="color:var(${REC[k].c})">${REC[k].l}</span>`;
  document.querySelector("#claims tbody").innerHTML=DATA.claims.map(c=>`<tr><td data-l="Claim"><b>${esc(c.claim)}</b>${c.q?` <a href="#${c.q}" class="src">open question</a>`:""}</td><td data-l="Who">${esc(c.who)}</td><td data-l="On record">${recPill(c.onRecord)}${c.also?recPill(c.also):""}</td><td data-l="How specific">${SPEC[c.spec]}${c.specNote?`<span class="src"> · ${esc(c.specNote)}</span>`:""}</td><td data-l="Direction">${esc(c.dir)}</td><td data-l="First said">${esc(c.t)}${srcLinks(c.src)}</td></tr>`).join("");
- $("pins").innerHTML=DATA.pinned.map(p=>{const st=QST[p.status];
-  return `<div class="pin${p.status==="answered"?" done":""}" id="${p.id}"><span class="dot" style="background:var(${st.c})"></span><div><b>${esc(p.q)}</b>${p.answer?`<div class="sp ans">${esc(p.answer)}${srcLinks(p.src)}</div>`:""}${p.splits?`<div class="sp">${esc(p.splits)}</div>`:""}</div><span class="st">${st.label}</span></div>`}).join("")
-  +`<details class="also"><summary>Also watching (${DATA.also.length})</summary><ul>${DATA.also.map(w=>`<li>${w}</li>`).join("")}</ul></details>`;
+ renderPins();
 
  const open=DATA.intersections.filter(isOpen), closed=DATA.intersections.filter(ix=>!isOpen(ix));
  $("cards").innerHTML=open.map(card).join("");
@@ -1500,7 +1661,7 @@ function render(){
  document.querySelector("#scope tbody").innerHTML=DATA.scope.map(r=>`<tr><td data-l="Speaker"><b>${esc(r.who)}</b></td><td data-l="When (ET)">${esc(r.t)}</td><td data-l="Their words">${esc(r.words)}</td><td data-l="Source">${srcLinks(r.src)}</td></tr>`).join("");
  document.querySelector("#tp tbody").innerHTML=DATA.timepoints.map(r=>`<tr><td data-l="Time (ET)" style="white-space:nowrap"><b>${esc(r.t)}</b></td><td data-l="What">${esc(r.what)}</td><td data-l="Who or source">${esc(r.who)}</td><td data-l="Kind">${esc(r.kind)}</td></tr>`).join("");
  $("context").innerHTML=DATA.context.map(w=>`<li>${w}</li>`).join("");
- renderV2();
+ renderV2(); renderWhatsNew(); renderLabels();
  const lg=DATA.events.map((e,i)=>({e,i,t:T(e.t)})).sort((x,y)=>x.t-y.t);
  document.querySelector("#log tbody").innerHTML=lg.map(({e,i,t})=>`<tr class="ev" data-i="${i}" tabindex="0"><td data-l="Time (ET)" style="white-space:nowrap">${fmt(t)}</td><td data-l="Thread">${esc(nm(e.lane)+subNm(e))}</td><td data-l="Event">${esc(e.label)}</td><td data-l="Type">${e.kind}</td><td data-l="Source">${e.url?`<a href="${e.url}" target="_blank" rel="noopener">${esc(srcText(e))}</a>`:esc(srcText(e))}</td></tr>`).join("");
  document.querySelectorAll("#log tr.ev").forEach(r=>{r.addEventListener("click",ev=>{if(ev.target.closest("a"))return;openItem("e",+r.dataset.i);});
@@ -1508,7 +1669,7 @@ function render(){
  linkTerms(document.querySelector("main"));
 }
 /* in-page links to pinned questions open any fold on the way and mark the row */
-document.addEventListener("click",ev=>{const a=ev.target.closest("main a[href^='#q']"); if(a){ev.preventDefault();goTo(a.getAttribute("href").slice(1));}});
+document.addEventListener("click",ev=>{if(ev.defaultPrevented)return; const a=ev.target.closest("main a[href^='#']"); if(!a)return; const id=a.getAttribute("href").slice(1); if(!id||id.startsWith("ix-")||!$(id))return; ev.preventDefault(); goTo(id); if(!id.startsWith("q")) history.replaceState(null,"","#"+id);});
 
 $("r-night").onclick=()=>setRange("night");
 $("r-today").onclick=()=>setRange("today");
@@ -1520,9 +1681,9 @@ $("r-all").onclick=ev=>{showAll=!showAll; ev.currentTarget.classList.toggle("on"
 $("r-clear").onclick=()=>{sel=null;closeSheet();document.querySelectorAll(".ix.sel").forEach(c=>c.classList.remove("sel"));draw();};
 let rz, lastW=innerWidth; addEventListener("resize",()=>{if(innerWidth===lastW)return; lastW=innerWidth; clearTimeout(rz);rz=setTimeout(draw,120);});
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",draw);
-function fromHash(){const m=location.hash.match(/^#ix-(\d+)$/); if(m){openIx(+m[1],false);goTo("ix-"+m[1]);} else if(/^#(q\w+|ex-\w+|term-\w+)$/.test(location.hash)) goTo(location.hash.slice(1));}
+function fromHash(){const m=location.hash.match(/^#ix-(\d+)$/); if(m){openIx(+m[1],false);goTo("ix-"+m[1]);} else if(/^#(q\w+|ex-\w+|term-\w+|oq-\w+|labels|[\w-]+-h)$/.test(location.hash)) goTo(location.hash.slice(1));}
 addEventListener("hashchange",fromHash);
-render(); draw(); fromHash();
+render(); initPins(); buildToc(); draw(); fromHash();
 </script>
 </body>
 </html>
