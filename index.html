@@ -256,6 +256,19 @@ h2[id],h3[id],.pin,.ix,.oqg,.ex,details.fold,section.card{scroll-margin-top:60px
 .hy-on .lpa-h::before{border-left:2px dashed var(--soft)}
 .hy-on .lpa-h::after{border-top-color:var(--soft)}
 #lptext pre.lp{border:0;border-radius:0 0 12px 12px}
+/* v3.4: narrative drift */
+.dr-path{margin:0 0 12px;font-size:14px}
+ol.dr{list-style:none;margin:0;padding:0 0 0 4px;position:relative}
+.dr-s{position:relative;padding:0 0 14px 24px;margin:0}
+.dr-s::before{content:"";position:absolute;left:5px;top:14px;bottom:0;border-left:2px solid var(--line)}
+.dr-s:last-child::before{display:none}
+.dr-dot{position:absolute;left:0;top:4px;width:12px;height:12px;border-radius:50%;background:var(--ink)}
+.dr-rep .dr-dot{background:var(--ink);opacity:.45}
+.dr-h{font-size:13px;display:flex;flex-wrap:wrap;gap:2px 6px;align-items:baseline}
+.dr-n{font-size:11px;font-weight:700;color:var(--muted);min-width:14px}
+.dr-t{font-size:14px;margin-top:2px}
+.dr-now{border-top:1px solid var(--line);padding-top:10px;font-size:14px}
+.dr-now>div{margin-top:4px}
 /* iOS: keep the section bar above scrollable tables, which get their own layers */
 .toc{transform:translateZ(0);-webkit-transform:translateZ(0)}
 @media (max-width:700px){.toc{margin:0 -14px 12px;padding:8px 14px}}
@@ -317,6 +330,11 @@ h2[id],h3[id],.pin,.ix,.oqg,.ex,details.fold,section.card{scroll-margin-top:60px
  <summary>Time points, defined</summary>
  <div class="fold-body wrap"><p class="note">Advisory = when the FAA Command Center sent it. Official statement = a time an official said aloud. Reported = a time a news outlet gave. Derived = this page's own arithmetic.</p><table id="tp" class="cards noterm"><thead><tr><th>Time (ET)</th><th>What</th><th>Who or source</th><th>Kind</th></tr></thead><tbody></tbody></table></div>
 </details>
+
+<h2 id="drift-h">How the story changed</h2>
+<p class="note">The same question answered differently over time, in order. Every step is an existing claim or timeline entry on this page, with its source; nothing new is added here. Where each topic stands now comes from the status table at the top.</p>
+<div class="bar" id="driftchips" role="group" aria-label="Choose a topic"></div>
+<div class="card" id="drift"></div>
 
 <h2 id="loadpath-h">Load-path model</h2>
 <p class="note">Where data and load travel, and where the public record stops. Topology isn't causation: the drawing shows what connects to what, not which system generated the surge. Tags on the boxes are the v2.0 spec's tiers; the hypothesized path is unproven. Tap underlined terms for definitions.</p>
@@ -418,6 +436,8 @@ h2[id],h3[id],.pin,.ix,.oqg,.ex,details.fold,section.card{scroll-margin-top:60px
 <p class="frame" id="fundframe"></p>
 
 <h2 id="log-h">Event log</h2>
+<p class="note">Updated Wed Nov 18 (v3.4, layout only): added <a href="#drift-h">How the story changed</a>, which puts four topics (where it started, what happened, how far it reached, who's responsible) in time order. Every step is an existing claim or timeline entry with its source, and each topic ends with its row from the status table. No facts or sources added.</p>
+<p class="note">Updated Wed Nov 18 (v3.3, sources): linked the two NWS lines tagged Confirmed that had no source. The NWS denial now links WBTV (quoting the NWS post at 6:14 pm Friday and the local office on the regional weather-radio issue) and News4Jax; the same links now sit on the dispute card "NWS had a nationwide radar outage" and on the intersection card. NEXRAD's joint operation by NOAA, the FAA and the Air Force now links the CRS report (Jul 10, 2026) and NOAA's NEXRAD strategic plan. The same line's FTI-stakeholder and NOAAnet clauses still have no source: the L3Harris FTI sheet says FTI connects to "hundreds of government agencies and external NAS stakeholders" but doesn't name NWS, so it isn't linked for that. No wording or tiers changed.</p>
 <p class="note">Updated Wed Nov 18 (v3.2, layout only): the <a href="#loadpath-h">load-path model</a> is now drawn as layered boxes that fit a phone screen, each with a plain-language line, and a button that marks the hypothesized (unproven) path on them. The original text diagram is kept, unchanged, in a fold underneath. No facts, tiers or sources changed.</p>
 <p class="note">Updated Wed Nov 18 (v3.1, layout only): added a section bar that stays at the top of the screen, a What's new panel under the title, a <a href="#labels">guide to the labels</a> (every label set kept separate, with plain-language meanings), and visible numbers on the open questions with a sort control (page order stays the default). No facts, labels, verdicts or sources changed.</p>
 <p class="note">Updated Wed Nov 18, 8:18 am (v3.0): the top of the page is now a status strip (Officially stated, Reported, Contested or Unknown, with what would change each) instead of a best-read verdict. The best-read text is unchanged and sits in a collapsed fold labeled as this page's interpretation, not a finding. Added an <a href="#matrix-h">accountability matrix</a> (roles are documented; fault isn't established; Peraton is shown as program context only). Claims vs. evidence is now a <a href="#cve-h">dispute tracker</a>: the L3Harris row is split into installer, router and configuration cards, and cards were added for "not a cyberattack" (officially stated, not ruled out) and "one site vs. two." No new sources.</p>
@@ -436,6 +456,10 @@ const S = {
  cbs:{name:"CBS News", url:"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/"},
  cnn:{name:"CNN live", url:"https://www.cnn.com/2026/11/13/us/live-news/flights-ground-stop-faa"},
  l3:{name:"L3Harris FTI profile", url:"https://www.l3harris.com/sites/default/files/2025-03/fti-program-profile-sell-sheet-l3harris-sas-mn.pdf"},
+ wbtv:{name:"WBTV (quotes NWS post, 6:14 pm)", url:"https://www.wbtv.com/2026/11/13/not-true-national-weather-service-says-tech-issues-regional-not-widespread/"},
+ jax:{name:"News4Jax", url:"https://www.news4jax.com/news/local/2026/11/13/no-radar-outage-national-weather-service-sets-record-straight/"},
+ crs:{name:"CRS, Federal Weather Radar: In Brief (Jul 10, 2026)", url:"https://www.everycrsreport.com/files/2026-07-10_R49027_317178ef6f024fe3a5b817f988bede22791cfea2.html"},
+ rocplan:{name:"NOAA ROC, NEXRAD Strategic Plan", url:"https://www.roc.noaa.gov/public-documents/wsr88d/NEXRAD_Strategic_Plan_2021-2025_May%202021_v5.pdf"},
  news9:{name:"News9", url:"https://www.news9.com/oklahoma-city-news/national-weather-service-reports-nationwide-radar-website-outage"},
  avweb:{name:"AVweb / FLYING", url:"https://avweb.com/aviation-news/faa-expands-ai-assisted-traffic-management/"},
  vftw:{name:"View from the Wing", url:"https://viewfromthewing.com/faa-ground-stop-every-u-s-airport-departure-halted-as-air-traffic-control-communications-fail/"},
@@ -762,7 +786,7 @@ intersections: [
    {text:"A NANOG thread that afternoon: \"Both the FAA and National Weather Service are reporting nation-wide telecommunication issues this afternoon,\" with reports pointing at an L3Harris-managed network update that triggered a reboot. Operator-list reporting, not official. (Per spec v2.0; no source linked here yet.) See the NWS section."}],
   against:[
    {text:"Different departments, DOT and Commerce."},
-   {text:"NWS denied a nationwide radar outage: the radar network was operating normally, and the trouble was regional weather radio problems. That narrows NWS's share to communications, consistent with a co-tenant hit by the same transport failure rather than a separate failure. (Per spec v2.0; no source linked here yet.)"},
+   {text:"NWS denied a nationwide radar outage: the radar network was operating normally, and the trouble was regional weather radio problems. That narrows NWS's share to communications, consistent with a co-tenant hit by the same transport failure rather than a separate failure.", src:[S.wbtv, S.jax]},
    {text:"No official link yet."},
    {text:"The NWS notice comes about 90 minutes after the first FAA trouble around 3:02. Inferred from the two times on this page; the NWS start time itself is unknown."}],
   settles:[
@@ -1138,7 +1162,7 @@ HUMAN GATE  [CONFIRMED]
   {c:"\"SMART isn't plugged in\"", who:"Duffy", st:"Partial", rec:"Rules out the STARS/ERAM command path; says nothing about network dependency.", src:[S.mcid, S.dotbrief]},
   {c:"\"Not based on or a result of the SMART system… or our integration with FAA and ATC\"", who:"ASI", st:"Partial", rec:"An interested party's denial of command and integration roles; doesn't address data-plane load on FMDS/FTI. Posted 5:34 pm per The Hill, 5:48 per The War Zone, while the stop was still in effect.", src:[S.hill, S.twz]},
   {c:"SMART could not have contributed", who:"Implicit in denials", st:"Unproven", rec:"Same gap in the other direction: no attribution rules its sessions in or out."},
-  {c:"NWS had a nationwide radar outage", who:"Social posts; early reports", st:"False as stated", rec:"NWS denied it; the issue was regional weather radio.", pend:true},
+  {c:"NWS had a nationwide radar outage", who:"Social posts; early reports", st:"False as stated", rec:"NWS denied it; the issue was regional weather radio.", src:[S.wbtv, S.jax]},
   {c:"NWS is unrelated", who:"Implicit in denials", st:"Contradicted by architecture", rec:"Shared FTI/NEXRAD paths; NANOG reported both the same afternoon.", pend:true},
   {c:"The $50B is an emergency response", who:"Duffy", st:"Chronologically true", rec:"The escalation came after the stop; the $30.1B request came before it.", src:[S.aerot]},
   {c:"ASI's PAC donation had no bearing", who:"Not addressed publicly", st:"Unresolved", rec:"$2,500 to Duffy's son-in-law in March 2026 per the Q1 FEC filing (Raw Story reports $12,500; unresolved); contract awarded June 2026. No evidence it affected the award.", src:[S.fecq1, S.rawasi]},
@@ -1174,10 +1198,10 @@ HUMAN GATE  [CONFIRMED]
    ["Does the GAO audit's scope include Nov 13 causation?","Decides whether attribution becomes public.","GAO engagement letter, scope memo"]]}
  ],
  nws: [
-  {tier:"Confirmed", t:"NWS and FAA share NEXRAD radar, jointly operated with DoD; FTI program documents list NWS as a stakeholder; FAA–NWS data sharing runs through a defined NOAAnet interface.", pend:true},
+  {tier:"Confirmed", t:"NWS and FAA share NEXRAD radar, jointly operated with DoD; FTI program documents list NWS as a stakeholder; FAA–NWS data sharing runs through a defined NOAAnet interface.", src:[S.crs, S.rocplan], pendNote:"the FTI-stakeholder and NOAAnet parts"},
   {tier:"Reported", t:"NWS posted a notice of nationwide radar website and communications issues around 4:29 pm, about 90 minutes after the first FAA trouble (~3:02). The 90 minutes is this page's arithmetic.", src:[S.news9]},
   {tier:"Reported", t:"A NANOG operators' thread that afternoon: \"Both the FAA and National Weather Service are reporting nation-wide telecommunication issues this afternoon,\" with reports pointing at an L3Harris-managed network that ran an update which triggered a reboot.", pend:true},
-  {tier:"Confirmed", t:"NWS denied a nationwide radar outage. The radar network was operating normally; the issue was regional weather radio problems.", pend:true}
+  {tier:"Confirmed", t:"NWS denied a nationwide radar outage. The radar network was operating normally; the issue was regional weather radio problems.", src:[S.wbtv, S.jax]}
  ],
  nwsFrame: "NWS reads as a co-tenant on the FTI/NEXRAD path, not an independent failure domain. The public record fits NWS being a victim of the same transport disruption better than an independent retry source. Whether NWS traffic shared the specific affected router segments, and whether NWS reconnects amplified the surge, isn't established; both are in the open questions register.",
  holders: [
@@ -1376,7 +1400,7 @@ function renderV2(){
   ${r.settle?`<p><span class="cap">What would settle it</span><br>${esc(r.settle)}</p>`:""}
   ${r.q?`<p>${ql(r.q)}</p>`:""}</article>`}).join("");
  $("oqr").innerHTML = V2.oqr.map(g=>`<div class="oqg" id="${g.id}"><b>${esc(g.g)}</b>${g.q?` <a href="#${g.q}" class="src">related open question</a>`:""}${g.ix?` <a href="#ix-${g.ix}" class="src">intersection #${g.ix}</a>`:""}</div><div class="wrap"><table class="cards noterm"><thead><tr><th>Question</th><th>Why it matters</th><th>Evidence needed</th></tr></thead><tbody>${g.rows.map(r=>`<tr><td data-l="Question"><b>${esc(r[0])}</b></td><td data-l="Why it matters">${esc(r[1])}</td><td data-l="Evidence needed">${esc(r[2])}</td></tr>`).join("")}</tbody></table></div>`).join("");
- document.querySelector("#nwst tbody").innerHTML = V2.nws.map(r=>`<tr><td data-l="Tier">${tierPill(r.tier)}</td><td data-l="What">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):PEND}</td></tr>`).join("");
+ document.querySelector("#nwst tbody").innerHTML = V2.nws.map(r=>`<tr><td data-l="Tier">${tierPill(r.tier)}</td><td data-l="What">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):""}${r.pendNote?` <span class="pend">not linked yet: ${esc(r.pendNote)}</span>`:(r.src?"":PEND)}</td></tr>`).join("");
  $("nwsframe").textContent = V2.nwsFrame;
  document.querySelector("#holders tbody").innerHTML = V2.holders.map(r=>`<tr><td data-l="Entity"><b>${esc(r[0])}</b></td><td data-l="Role">${esc(r[1])}</td><td data-l="Value">${esc(r[2])}</td><td data-l="Ownership">${esc(r[3])}</td><td data-l="Key holders">${esc(r[4])} ${PEND}</td></tr>`).join("");
  document.querySelector("#spend tbody").innerHTML = V2.spend.map(r=>`<tr><td data-l="Donor"><b>${esc(r.d)}</b></td><td data-l="Recipient">${esc(r.r)}</td><td data-l="Amount">${esc(r.a)}</td><td data-l="Timing">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):PEND}</td></tr>`).join("");
@@ -1589,6 +1613,10 @@ function card(ix){const st=STATUS[ix.status];
 
 /* What's new: one entry per version, newest first. Bullets restate the event-log notes; the full notes stay in the event log. */
 const CHANGES = [
+ {v:"v3.4", when:"Wed Nov 18", layout:true, items:[
+  `New: <a href="#drift-h">How the story changed</a>. Four topics, each shown as the sequence of official and reported accounts, ending with where it stands now. Built only from claims and timeline entries already on the page.`]},
+ {v:"v3.3", when:"Wed Nov 18", items:[
+  `Sources linked for the two <a href="#nws-h">NWS lines</a> tagged Confirmed: the NWS radar-outage denial (WBTV, News4Jax) and NEXRAD's joint operation (CRS report, NOAA). The FTI-stakeholder and NOAAnet clauses still have no source and are marked that way. No wording or tiers changed.`]},
  {v:"v3.2", when:"Wed Nov 18", layout:true, items:[
   `Layout only: the <a href="#loadpath-h">load-path model</a> is now a diagram that fits a phone, with plain-language lines and a button to show the hypothesized path. The original text diagram is kept in a fold.`]},
  {v:"v3.1", when:"Wed Nov 18", layout:true, items:[
@@ -1677,6 +1705,47 @@ function renderLabels(){
  <p class="note" style="margin-top:14px">Timeline dots have their own marks (official, reported, estimated, secondhand); the legend sits above the chart. The reasoning rules behind all of this are in <a href="#principles">How claims are tagged</a>.</p>`;
 }
 
+/* v3.4: narrative drift. Steps point at existing claims (c: index into DATA.claims) or timeline events (e: id, or exact time). Text and sources are read from those records. */
+const DRIFT = [
+ {id:"where", topic:"Where it started", strip:"Where it started", q:["q7","q18"], d:"It started at a single location",
+  path:"Midway → one location → two places → Amarillo and El Dorado",
+  steps:[{e:"midway"},{c:14},{c:15},{e:"2026-11-17T12:01"}]},
+ {id:"what", topic:"What happened", strip:"Mechanism", q:["q4","q11"],
+  path:"Software update → patches and new equipment → overloaded routers → one new router flooding the network",
+  steps:[{e:"fbi"},{e:"ftiupd"},{c:3},{c:2},{e:"patches"},{c:15},{e:"2026-11-17T12:02"}]},
+ {id:"reach", topic:"How far it reached", strip:"Scope", q:["q1","q10"],
+  path:"All centers → 10 and growing → instability at 17 of 22, none dark",
+  steps:[{c:7},{e:"2026-11-13T16:54"},{c:12},{c:13}]},
+ {id:"who", topic:"Who's responsible", strip:"FAA oversight on site", q:["q15","q16"], d:"The contractor caused it",
+  path:"A contractor's error → an FAA technician was watching → the FAA approved the plan and signed off",
+  steps:[{e:"2026-11-13T23:30"},{e:"2026-11-14T11:14"},{c:9},{c:16},{c:17}]}
+];
+let driftSel = DRIFT[0].id;
+function driftStep(s){
+ if(s.c!==undefined){const c=DATA.claims[s.c]; return {when:c.t, who:c.who, text:c.claim, src:srcLinks(c.src), kind:c.onRecord==="named"?"official":"reported"};}
+ const e=DATA.events.find(x=>x.id===s.e)||DATA.events.find(x=>x.t===s.e); if(!e) return null;
+ const src=e.url?` <span class="src"><a href="${e.url}" target="_blank" rel="noopener">${esc(srcText(e))}</a></span>`:` <span class="src">${esc(srcText(e))}</span>`;
+ const dOnly=/\((date|month) only\)/.test(e.label), when=dOnly?new Date(T(e.t)).toLocaleDateString("en-US",{timeZone:"America/New_York",month:"short",day:"numeric"})+(/month only/.test(e.label)?" (month only)":" (date only)"):fmt(T(e.t))+" ET";
+ return {when, who:"", text:e.label, src, kind:e.kind, i:DATA.events.indexOf(e)};
+}
+function renderDrift(){
+ $("driftchips").innerHTML=DRIFT.map(t=>`<button data-dr="${t.id}" class="${t.id===driftSel?"on":""}" aria-pressed="${t.id===driftSel}">${esc(t.topic)}</button>`).join("");
+ const t=DRIFT.find(x=>x.id===driftSel), row=STATUS_STRIP.find(r=>r.topic===t.strip);
+ const steps=t.steps.map(driftStep).filter(Boolean);
+ $("drift").innerHTML=`<p class="dr-path"><span class="cap">The shift, in short</span><br>${esc(t.path)} <span class="k">(this page's summary of the steps below)</span></p>
+ <ol class="dr">${steps.map((s,n)=>`<li class="dr-s dr-${s.kind==="official"?"off":"rep"}"><span class="dr-dot" aria-hidden="true"></span>
+  <div class="dr-h"><span class="dr-n">${n+1}</span><b>${esc(s.when)}</b>${s.who?` <span class="k">${esc(s.who)}</span>`:""} <span class="k">· ${s.kind==="official"?"Official":"Reported"}</span></div>
+  <div class="dr-t">${esc(s.text)}${s.src}${s.i!==undefined?` <button class="more" data-ev="${s.i}">on the timeline</button>`:""}</div></li>`).join("")}</ol>
+ ${row?`<div class="dr-now"><span class="cap">Where it stands now</span><div>${stPills(row.state)} ${esc(row.says)}</div><div class="k">Would change it: ${esc(row.flip)}</div></div>`:""}
+ <p class="acts" style="margin-top:10px">${t.q.map(q=>`<a class="qa" href="#${q}" data-q="${q}">${q}</a>`).join("")}${t.d?`<a class="qa" href="#cve-h">Dispute: ${esc(t.d)}</a>`:""}</p>`;
+ linkTerms($("drift"));
+}
+function initDrift(){
+ $("driftchips").addEventListener("click",ev=>{const b=ev.target.closest("button[data-dr]"); if(!b)return; driftSel=b.dataset.dr; renderDrift();});
+ $("drift").addEventListener("click",ev=>{const b=ev.target.closest("button[data-ev]"); if(b) openItem("e",+b.dataset.ev);});
+ renderDrift();
+}
+
 /* Open questions: show each id and allow sorting. Page order (the curated order) stays the default. */
 let qMode="page";
 const qNum = p => /^q\d+$/.test(p.id) ? +p.id.slice(1) : 999;
@@ -1697,7 +1766,7 @@ function initPins(){
 }
 
 /* Section bar: built from the h2s, with counts where a count tells you something. */
-const TOC_SHORT = {"best":"Status","matrix-h":"Accountability","timeline-h":"Timeline","loadpath-h":"Load path","grid-h":"Facts vs. explanations","claims-h":"Claims & disputes","oq-h":"Open questions","ix-h":"Intersections","nws-h":"Weather Service","seam-h":"Network seam","staff-h":"Staffing","priors-h":"Known before","carriers-h":"Retiring the line","common-h":"22 centers","money-h":"Money","fund-h":"Funding","log-h":"Event log"};
+const TOC_SHORT = {"best":"Status","matrix-h":"Accountability","timeline-h":"Timeline","drift-h":"Story changes","loadpath-h":"Load path","grid-h":"Facts vs. explanations","claims-h":"Claims & disputes","oq-h":"Open questions","ix-h":"Intersections","nws-h":"Weather Service","seam-h":"Network seam","staff-h":"Staffing","priors-h":"Known before","carriers-h":"Retiring the line","common-h":"22 centers","money-h":"Money","fund-h":"Funding","log-h":"Event log"};
 function buildToc(){
  const cnt = {
   "oq-h": `${DATA.pinned.filter(p=>p.status==="open").length} open`,
@@ -1777,7 +1846,7 @@ let rz, lastW=innerWidth; addEventListener("resize",()=>{if(innerWidth===lastW)r
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",draw);
 function fromHash(){const m=location.hash.match(/^#ix-(\d+)$/); if(m){openIx(+m[1],false);goTo("ix-"+m[1]);} else if(/^#(q\w+|ex-\w+|term-\w+|oq-\w+|labels|[\w-]+-h)$/.test(location.hash)) goTo(location.hash.slice(1));}
 addEventListener("hashchange",fromHash);
-render(); initPins(); buildToc(); draw(); fromHash();
+render(); initPins(); initDrift(); buildToc(); draw(); fromHash();
 </script>
 </body>
 </html>
