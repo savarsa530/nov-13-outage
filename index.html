@@ -418,6 +418,7 @@ h2[id],h3[id],.pin,.ix,.oqg,.ex,details.fold,section.card{scroll-margin-top:60px
 <p class="frame" id="fundframe"></p>
 
 <h2 id="log-h">Event log</h2>
+<p class="note">Updated Wed Nov 18 (v3.3, sources): linked the two NWS lines tagged Confirmed that had no source. The NWS denial now links WBTV (quoting the NWS post at 6:14 pm Friday and the local office on the regional weather-radio issue) and News4Jax; the same links now sit on the dispute card "NWS had a nationwide radar outage" and on the intersection card. NEXRAD's joint operation by NOAA, the FAA and the Air Force now links the CRS report (Jul 10, 2026) and NOAA's NEXRAD strategic plan. The same line's FTI-stakeholder and NOAAnet clauses still have no source: the L3Harris FTI sheet says FTI connects to "hundreds of government agencies and external NAS stakeholders" but doesn't name NWS, so it isn't linked for that. No wording or tiers changed.</p>
 <p class="note">Updated Wed Nov 18 (v3.2, layout only): the <a href="#loadpath-h">load-path model</a> is now drawn as layered boxes that fit a phone screen, each with a plain-language line, and a button that marks the hypothesized (unproven) path on them. The original text diagram is kept, unchanged, in a fold underneath. No facts, tiers or sources changed.</p>
 <p class="note">Updated Wed Nov 18 (v3.1, layout only): added a section bar that stays at the top of the screen, a What's new panel under the title, a <a href="#labels">guide to the labels</a> (every label set kept separate, with plain-language meanings), and visible numbers on the open questions with a sort control (page order stays the default). No facts, labels, verdicts or sources changed.</p>
 <p class="note">Updated Wed Nov 18, 8:18 am (v3.0): the top of the page is now a status strip (Officially stated, Reported, Contested or Unknown, with what would change each) instead of a best-read verdict. The best-read text is unchanged and sits in a collapsed fold labeled as this page's interpretation, not a finding. Added an <a href="#matrix-h">accountability matrix</a> (roles are documented; fault isn't established; Peraton is shown as program context only). Claims vs. evidence is now a <a href="#cve-h">dispute tracker</a>: the L3Harris row is split into installer, router and configuration cards, and cards were added for "not a cyberattack" (officially stated, not ruled out) and "one site vs. two." No new sources.</p>
@@ -436,6 +437,10 @@ const S = {
  cbs:{name:"CBS News", url:"https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/"},
  cnn:{name:"CNN live", url:"https://www.cnn.com/2026/11/13/us/live-news/flights-ground-stop-faa"},
  l3:{name:"L3Harris FTI profile", url:"https://www.l3harris.com/sites/default/files/2025-03/fti-program-profile-sell-sheet-l3harris-sas-mn.pdf"},
+ wbtv:{name:"WBTV (quotes NWS post, 6:14 pm)", url:"https://www.wbtv.com/2026/11/13/not-true-national-weather-service-says-tech-issues-regional-not-widespread/"},
+ jax:{name:"News4Jax", url:"https://www.news4jax.com/news/local/2026/11/13/no-radar-outage-national-weather-service-sets-record-straight/"},
+ crs:{name:"CRS, Federal Weather Radar: In Brief (Jul 10, 2026)", url:"https://www.everycrsreport.com/files/2026-07-10_R49027_317178ef6f024fe3a5b817f988bede22791cfea2.html"},
+ rocplan:{name:"NOAA ROC, NEXRAD Strategic Plan", url:"https://www.roc.noaa.gov/public-documents/wsr88d/NEXRAD_Strategic_Plan_2021-2025_May%202021_v5.pdf"},
  news9:{name:"News9", url:"https://www.news9.com/oklahoma-city-news/national-weather-service-reports-nationwide-radar-website-outage"},
  avweb:{name:"AVweb / FLYING", url:"https://avweb.com/aviation-news/faa-expands-ai-assisted-traffic-management/"},
  vftw:{name:"View from the Wing", url:"https://viewfromthewing.com/faa-ground-stop-every-u-s-airport-departure-halted-as-air-traffic-control-communications-fail/"},
@@ -762,7 +767,7 @@ intersections: [
    {text:"A NANOG thread that afternoon: \"Both the FAA and National Weather Service are reporting nation-wide telecommunication issues this afternoon,\" with reports pointing at an L3Harris-managed network update that triggered a reboot. Operator-list reporting, not official. (Per spec v2.0; no source linked here yet.) See the NWS section."}],
   against:[
    {text:"Different departments, DOT and Commerce."},
-   {text:"NWS denied a nationwide radar outage: the radar network was operating normally, and the trouble was regional weather radio problems. That narrows NWS's share to communications, consistent with a co-tenant hit by the same transport failure rather than a separate failure. (Per spec v2.0; no source linked here yet.)"},
+   {text:"NWS denied a nationwide radar outage: the radar network was operating normally, and the trouble was regional weather radio problems. That narrows NWS's share to communications, consistent with a co-tenant hit by the same transport failure rather than a separate failure.", src:[S.wbtv, S.jax]},
    {text:"No official link yet."},
    {text:"The NWS notice comes about 90 minutes after the first FAA trouble around 3:02. Inferred from the two times on this page; the NWS start time itself is unknown."}],
   settles:[
@@ -1138,7 +1143,7 @@ HUMAN GATE  [CONFIRMED]
   {c:"\"SMART isn't plugged in\"", who:"Duffy", st:"Partial", rec:"Rules out the STARS/ERAM command path; says nothing about network dependency.", src:[S.mcid, S.dotbrief]},
   {c:"\"Not based on or a result of the SMART system… or our integration with FAA and ATC\"", who:"ASI", st:"Partial", rec:"An interested party's denial of command and integration roles; doesn't address data-plane load on FMDS/FTI. Posted 5:34 pm per The Hill, 5:48 per The War Zone, while the stop was still in effect.", src:[S.hill, S.twz]},
   {c:"SMART could not have contributed", who:"Implicit in denials", st:"Unproven", rec:"Same gap in the other direction: no attribution rules its sessions in or out."},
-  {c:"NWS had a nationwide radar outage", who:"Social posts; early reports", st:"False as stated", rec:"NWS denied it; the issue was regional weather radio.", pend:true},
+  {c:"NWS had a nationwide radar outage", who:"Social posts; early reports", st:"False as stated", rec:"NWS denied it; the issue was regional weather radio.", src:[S.wbtv, S.jax]},
   {c:"NWS is unrelated", who:"Implicit in denials", st:"Contradicted by architecture", rec:"Shared FTI/NEXRAD paths; NANOG reported both the same afternoon.", pend:true},
   {c:"The $50B is an emergency response", who:"Duffy", st:"Chronologically true", rec:"The escalation came after the stop; the $30.1B request came before it.", src:[S.aerot]},
   {c:"ASI's PAC donation had no bearing", who:"Not addressed publicly", st:"Unresolved", rec:"$2,500 to Duffy's son-in-law in March 2026 per the Q1 FEC filing (Raw Story reports $12,500; unresolved); contract awarded June 2026. No evidence it affected the award.", src:[S.fecq1, S.rawasi]},
@@ -1174,10 +1179,10 @@ HUMAN GATE  [CONFIRMED]
    ["Does the GAO audit's scope include Nov 13 causation?","Decides whether attribution becomes public.","GAO engagement letter, scope memo"]]}
  ],
  nws: [
-  {tier:"Confirmed", t:"NWS and FAA share NEXRAD radar, jointly operated with DoD; FTI program documents list NWS as a stakeholder; FAA–NWS data sharing runs through a defined NOAAnet interface.", pend:true},
+  {tier:"Confirmed", t:"NWS and FAA share NEXRAD radar, jointly operated with DoD; FTI program documents list NWS as a stakeholder; FAA–NWS data sharing runs through a defined NOAAnet interface.", src:[S.crs, S.rocplan], pendNote:"the FTI-stakeholder and NOAAnet parts"},
   {tier:"Reported", t:"NWS posted a notice of nationwide radar website and communications issues around 4:29 pm, about 90 minutes after the first FAA trouble (~3:02). The 90 minutes is this page's arithmetic.", src:[S.news9]},
   {tier:"Reported", t:"A NANOG operators' thread that afternoon: \"Both the FAA and National Weather Service are reporting nation-wide telecommunication issues this afternoon,\" with reports pointing at an L3Harris-managed network that ran an update which triggered a reboot.", pend:true},
-  {tier:"Confirmed", t:"NWS denied a nationwide radar outage. The radar network was operating normally; the issue was regional weather radio problems.", pend:true}
+  {tier:"Confirmed", t:"NWS denied a nationwide radar outage. The radar network was operating normally; the issue was regional weather radio problems.", src:[S.wbtv, S.jax]}
  ],
  nwsFrame: "NWS reads as a co-tenant on the FTI/NEXRAD path, not an independent failure domain. The public record fits NWS being a victim of the same transport disruption better than an independent retry source. Whether NWS traffic shared the specific affected router segments, and whether NWS reconnects amplified the surge, isn't established; both are in the open questions register.",
  holders: [
@@ -1376,7 +1381,7 @@ function renderV2(){
   ${r.settle?`<p><span class="cap">What would settle it</span><br>${esc(r.settle)}</p>`:""}
   ${r.q?`<p>${ql(r.q)}</p>`:""}</article>`}).join("");
  $("oqr").innerHTML = V2.oqr.map(g=>`<div class="oqg" id="${g.id}"><b>${esc(g.g)}</b>${g.q?` <a href="#${g.q}" class="src">related open question</a>`:""}${g.ix?` <a href="#ix-${g.ix}" class="src">intersection #${g.ix}</a>`:""}</div><div class="wrap"><table class="cards noterm"><thead><tr><th>Question</th><th>Why it matters</th><th>Evidence needed</th></tr></thead><tbody>${g.rows.map(r=>`<tr><td data-l="Question"><b>${esc(r[0])}</b></td><td data-l="Why it matters">${esc(r[1])}</td><td data-l="Evidence needed">${esc(r[2])}</td></tr>`).join("")}</tbody></table></div>`).join("");
- document.querySelector("#nwst tbody").innerHTML = V2.nws.map(r=>`<tr><td data-l="Tier">${tierPill(r.tier)}</td><td data-l="What">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):PEND}</td></tr>`).join("");
+ document.querySelector("#nwst tbody").innerHTML = V2.nws.map(r=>`<tr><td data-l="Tier">${tierPill(r.tier)}</td><td data-l="What">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):""}${r.pendNote?` <span class="pend">not linked yet: ${esc(r.pendNote)}</span>`:(r.src?"":PEND)}</td></tr>`).join("");
  $("nwsframe").textContent = V2.nwsFrame;
  document.querySelector("#holders tbody").innerHTML = V2.holders.map(r=>`<tr><td data-l="Entity"><b>${esc(r[0])}</b></td><td data-l="Role">${esc(r[1])}</td><td data-l="Value">${esc(r[2])}</td><td data-l="Ownership">${esc(r[3])}</td><td data-l="Key holders">${esc(r[4])} ${PEND}</td></tr>`).join("");
  document.querySelector("#spend tbody").innerHTML = V2.spend.map(r=>`<tr><td data-l="Donor"><b>${esc(r.d)}</b></td><td data-l="Recipient">${esc(r.r)}</td><td data-l="Amount">${esc(r.a)}</td><td data-l="Timing">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):PEND}</td></tr>`).join("");
@@ -1589,6 +1594,8 @@ function card(ix){const st=STATUS[ix.status];
 
 /* What's new: one entry per version, newest first. Bullets restate the event-log notes; the full notes stay in the event log. */
 const CHANGES = [
+ {v:"v3.3", when:"Wed Nov 18", items:[
+  `Sources linked for the two <a href="#nws-h">NWS lines</a> tagged Confirmed: the NWS radar-outage denial (WBTV, News4Jax) and NEXRAD's joint operation (CRS report, NOAA). The FTI-stakeholder and NOAAnet clauses still have no source and are marked that way. No wording or tiers changed.`]},
  {v:"v3.2", when:"Wed Nov 18", layout:true, items:[
   `Layout only: the <a href="#loadpath-h">load-path model</a> is now a diagram that fits a phone, with plain-language lines and a button to show the hypothesized path. The original text diagram is kept in a fold.`]},
  {v:"v3.1", when:"Wed Nov 18", layout:true, items:[
