@@ -58,6 +58,29 @@ tr.ev{cursor:pointer} tr.ev:hover td{background:var(--grid)}
 .best .lead{font-size:16px}
 .best .row{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:10px;font-size:14px}
 .best .row>div{flex:1 1 280px;min-width:0}
+/* v3.0: status strip, interpretation fold, matrix, dispute tracker */
+.best.v3{border-left-color:var(--ink2)}
+.best .sthead{font-size:13px;color:var(--ink2);margin:2px 0 8px;max-width:none}
+#strip3 td:first-child{font-weight:600;white-space:nowrap}
+#strip3 tr:last-child td{border-bottom:0}
+.st3{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;margin:1px 4px 1px 0}
+.qa{font-size:12.5px;white-space:nowrap;margin-right:6px}
+details.interp{margin-top:12px}
+details.interp>summary{background:var(--bg)}
+details.interp .fold-body{background:var(--bg);padding:12px 14px}
+details.interp .fold-body p{max-width:72ch}
+#matrix tr.mx{cursor:pointer} #matrix tr.mx:hover td{background:var(--grid)}
+#matrix tr.mut td{color:var(--muted)} #matrix tr.mut b{color:var(--ink2)}
+#matrix ul{margin:0;padding-left:16px} #matrix li{margin:2px 0}
+.ctx{display:inline-block;font-size:11px;font-weight:600;line-height:1.35;color:var(--muted);border:1px dashed var(--muted);border-radius:6px;padding:2px 7px;margin-top:4px}
+.dgrid{display:grid;grid-template-columns:1fr;gap:12px;align-items:start}
+@media (min-width:900px){.dgrid{grid-template-columns:1fr 1fr}}
+.dcard{display:flex;flex-direction:column;gap:8px;font-size:13.5px}
+.dcard .dh{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.dcard .dh b{font-size:14.5px;line-height:1.4}
+.dcard p{margin:0}
+.dcard ul{margin:2px 0 0;padding-left:18px} .dcard li{margin:3px 0}
+.dcard.plain{background:var(--bg)}
 
 /* fold-outs */
 details.fold{margin-top:14px}
@@ -159,6 +182,8 @@ table.eg td.fact .src{display:block}
  table.cards thead{display:none}
  table.cards tr{display:block;border-bottom:1px solid var(--line);padding:12px 2px}
  table.cards td{display:block;border:0;padding:3px 0}
+ #strip3 td[data-l="Topic"]{font-size:15px}
+ #strip3 td[data-l="Topic"]::before{display:none!important}
  table.cards td[data-l]::before{content:attr(data-l);display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:4px}
 }
 /* v2.0: confidence tiers, load path, registers */
@@ -181,7 +206,13 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <h1>Nov 13 outage threads</h1>
 <p class="sub" id="updated"></p>
 
-<section class="card best" id="best" aria-labelledby="best-h"></section>
+<section class="card best v3" id="best" aria-labelledby="best-h"></section>
+
+<h2 id="matrix-h">Accountability matrix</h2>
+<p class="note">Who had a role on Nov 13, what they've said, and what the record shows. Roles are documented; fault isn't established.</p>
+<div class="bar" id="mxchips" role="group" aria-label="Filter actors"></div>
+<div class="wrap"><table id="matrix" class="cards noterm"><thead><tr><th>Actor</th><th>Role on Nov 13</th><th>What they've said</th><th>What the record shows</th><th>Open question</th><th>What it decides</th></tr></thead><tbody></tbody></table></div>
+<p class="note">Tap a row for its sources. States follow the strip above: Officially stated, Reported, Contested, Unknown.</p>
 
 <details class="fold" id="terms">
  <summary>Key terms</summary>
@@ -235,9 +266,9 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <h2 id="claims-h">Claims on the record</h2>
 <p class="note">What has been said, by whom, and how much detail came with it. A claim here is a statement put out as fact without ample evidence behind it yet; it stays here while open questions about it haven't been addressed. Saturday times are derived from the briefing stream (start ~10:30 plus stream time). Open questions below are what nobody has said yet.</p>
 <div class="wrap"><table id="claims" class="cards noterm"><thead><tr><th>Claim</th><th>Who</th><th>On record</th><th>How specific</th><th>Direction</th><th>First said</th></tr></thead><tbody></tbody></table></div>
-<h3 id="cve-h">Claims vs. evidence</h3>
-<p class="note">Each claim set against what the public record actually supports. When a denial is quoted, the right column says what it denies: the command path or the network path.</p>
-<div class="wrap"><table id="cve" class="cards noterm"><thead><tr><th>Claim</th><th>Source</th><th>Status</th><th>What the record supports</th></tr></thead><tbody></tbody></table></div>
+<h3 id="cve-h">Dispute tracker (claims vs. evidence)</h3>
+<p class="note">Each claim set against what the public record actually supports, who holds which position, and what would settle it. When a denial is quoted, the record line says what it denies: the command path or the network path. The first seven cards are the live disputes; the rest are carried over from v2.0.</p>
+<div id="cve" class="dgrid noterm"></div>
 <p class="note">Claims that rule things out are firmer than claims that assign cause. Early in an incident that can be innocent: ruling things out is fast, and assigning cause takes an investigation. Recheck when the FAA publishes preliminary findings.</p>
 
 <h2>Open questions</h2>
@@ -314,6 +345,7 @@ ol.seq{padding-left:22px;margin:6px 0} ol.seq li{margin:5px 0;font-size:14px}
 <p class="frame" id="fundframe"></p>
 
 <h2>Event log</h2>
+<p class="note">Updated Wed Nov 18, 8:18 am (v3.0): the top of the page is now a status strip (Officially stated, Reported, Contested or Unknown, with what would change each) instead of a best-read verdict. The best-read text is unchanged and sits in a collapsed fold labeled as this page's interpretation, not a finding. Added an <a href="#matrix-h">accountability matrix</a> (roles are documented; fault isn't established; Peraton is shown as program context only). Claims vs. evidence is now a <a href="#cve-h">dispute tracker</a>: the L3Harris row is split into installer, router and configuration cards, and cards were added for "not a cyberattack" (officially stated, not ruled out) and "one site vs. two." No new sources.</p>
 <p class="note">Updated Wed Nov 18, 8:15 am (v2.2): brought older sections up to date with the Nov 17 facts. The best read, questions q4, q6, q7 and q11, the facts-by-explanation grid and the where-it-started note now include the two named sites (Amarillo, TX; El Dorado, AR), the FAA's on-site oversight and plan approval, the router pause and the lab testing. q4 and q7 now note that the early "starting at Midway" account doesn't match the official sites.</p>
 <p class="note">Updated Wed Nov 18, 7:55 am (v2.1): added Nov 15–17 developments (FAA technician on site, plan approval, the two source sites, the router installation pause), intersection <a href="#ix-9">#9</a> (NSA Net), questions <a href="#q15">q15</a>–<a href="#q20">q20</a>, a staffing and oversight context section, and a Bednar lobbying row. The midterm result is now sourced (NPR). The ASI PAC amount is marked unresolved: $2,500 in the Q1 FEC filing, $12,500 per Raw Story. Not a correction: Duffy's contractor-only attribution (Nov 14) now sits alongside reporting that an FAA technician monitored, tested and signed off on the work. The wide timeline view now runs to Nov 18.</p>
 <p class="note">Updated Sat 10:45 pm (v2.0): added the load-path model, confidence tiers, claims vs. evidence, the open questions register, NWS adjacency, the ownership and lobbying map, and the funding sequence. Corrected Sun 7 am: the $30.1B request is dated Nov 13 as reported (the letter may be dated Nov 12); ASI's denial is shown at 5:34 pm (The Hill) and 5:48 pm (The War Zone); ASI's AWS and Azure footprint is now Reported via job postings, not Confirmed, and the two retry domains are Hypothesized. Lines marked "source not linked yet" come from the spec and still need a link here.</p>
@@ -402,7 +434,7 @@ const S = {
 };
 
 const DATA = {
-updated: "2026-11-18T08:15:00-05:00",
+updated: "2026-11-18T08:18:00-05:00",
 /* Spans with no end were last checked here; they are drawn up to this time, not to the latest update. */
 spansChecked: "2026-11-13T20:10",
 
@@ -980,13 +1012,32 @@ HUMAN GATE  [CONFIRMED]
   ["Peraton","Absent from the diagram","Program overlay at the change-control layer"],
   ["Attribution","Binary: SMART did or didn't","Three tiers: topology, signature, unproven causation"]
  ],
+ /* v3.0: optional settle ("what would settle it"), positions [{who, says}] and q. Rows without them render as plain cards. The first seven are the live disputes. */
  cve: [
+  {c:"Installer error caused it", who:"Officials (one of three possibilities)", st:"Unresolved", rec:"Mechanism named (1,000+ connection attempts every 4–5 seconds). Whether installation, configuration or the device is at fault is undetermined. An FAA technician monitored the install.", src:[S.dotbrief, S.cnn17],
+   positions:[{who:"Duffy (Nov 14)", says:"\"A contractor didn't meet the moment.\""},{who:"Bedford", says:"Fault (installation, configuration or a bad router) undetermined; an FAA technician monitored the install."}],
+   settle:"Work orders, installer logs, L3Harris lab results", q:"q11"},
+  {c:"A faulty router caused it", who:"Officials (one of three possibilities)", st:"Unresolved", rec:"Both routers are in lab testing at L3Harris with FAA, Juniper and Cisco engineers. The FAA paused new router installations and disabled a function on 60 similar units.", src:[S.wtimes17, S.cnn17],
+   positions:[{who:"Bedford", says:"A bad router is one of three possibilities; undetermined."},{who:"Duffy (Nov 17)", says:"Both routers under test at L3Harris headquarters."}],
+   settle:"Device diagnostics; whether the 60 disabled units share the fault", q:"q11"},
+  {c:"A configuration error caused it", who:"Officials (one of three possibilities)", st:"Unresolved", rec:"Named by Bedford as one of three possibilities. No configuration or change record is public.", src:[S.dotbrief],
+   positions:[{who:"Bedford", says:"Configuration is one of three possibilities; undetermined."}],
+   settle:"Config baseline vs. what was deployed; the change record", q:"q4"},
+  {c:"SMART contributed to the ground stop", who:"Critics; timing inference", st:"Unproven", rec:"No packet-level attribution is public, in either direction. SMART holds persistent read sessions on the FTI/FMDS boundary but has no command authority.", src:[S.hill, S.twz, S.mcid],
+   positions:[{who:"ASI", says:"\"Not based on or a result of the SMART system… or our integration with FAA and ATC.\""},{who:"Duffy", says:"\"SMART isn't plugged in.\""},{who:"Critics", says:"Timing inference; no attribution offered."}],
+   settle:"Data-stream load analysis; timeline correlation by center", q:"q9"},
+  {c:"It wasn't a cyberattack", who:"Duffy, Bedford, Mullin; FBI per Bloomberg", st:"Officially stated", rec:"Officials say they don't believe it was; the FBI reportedly doesn't either. An official statement, not an attributed finding, so this page doesn't call it ruled out.", src:[S.dotbrief, S.sw, S.sf],
+   positions:[{who:"Duffy, Bedford, Mullin", says:"\"Don't believe\" / \"zero evidence.\""},{who:"FBI (Bloomberg, via Startup Fortune)", says:"Doesn't believe it was a cyberattack or crime; looking at a software update."}],
+   settle:"An attributed FBI or CISA finding"},
+  {c:"The contractor caused it (\"a contractor didn't meet the moment\")", who:"Duffy (Nov 14)", st:"Partial", rec:"Incomplete on the record. Bedford (Nov 17): an FAA technician monitored the install. Washington Post (one unnamed source): an FAA official tested and signed off. WSJ: the plan was FAA-approved. Fault (install, configuration or device) still undetermined; root cause pending.", src:[S.dotbrief, S.cnn17, S.wapo17, S.wsjvia],
+   positions:[{who:"Duffy (Nov 14)", says:"\"A contractor didn't meet the moment\"; \"I'm stuck with L3 Harris.\""},{who:"Bedford (Nov 17)", says:"The L3Harris engineer \"was monitored by an FAA technician.\""},{who:"Washington Post (one unnamed source)", says:"An FAA official tested the work and signed off."},{who:"WSJ", says:"The installation plan was FAA-approved."}],
+   settle:"The approval record; the root-cause analysis's assignment of fault", q:"q16"},
+  {c:"It started at a single location", who:"Duffy (Nov 14)", st:"Unresolved", rec:"Guy said \"two places\" the same day. On Nov 17 the FAA named two sites: a radar site in Amarillo, TX and a radio site in El Dorado, AR.", src:[S.dotbrief, S.cnn17],
+   positions:[{who:"Duffy (Nov 14)", says:"\"A single location.\""},{who:"Guy (Nov 14)", says:"\"Two places.\""},{who:"FAA (Nov 17)", says:"Two sites named: Amarillo, TX and El Dorado, AR."}],
+   settle:"The root-cause analysis", q:"q18"},
   {c:"\"SMART isn't plugged in\"", who:"Duffy", st:"Partial", rec:"Rules out the STARS/ERAM command path; says nothing about network dependency.", src:[S.mcid, S.dotbrief]},
   {c:"\"Not based on or a result of the SMART system… or our integration with FAA and ATC\"", who:"ASI", st:"Partial", rec:"An interested party's denial of command and integration roles; doesn't address data-plane load on FMDS/FTI. Posted 5:34 pm per The Hill, 5:48 per The War Zone, while the stop was still in effect.", src:[S.hill, S.twz]},
-  {c:"SMART caused the ground stop", who:"Critics; timing inference", st:"Unproven", rec:"No packet-level attribution is public."},
   {c:"SMART could not have contributed", who:"Implicit in denials", st:"Unproven", rec:"Same gap in the other direction: no attribution rules its sessions in or out."},
-  {c:"The L3Harris router or install caused it", who:"Duffy; officials", st:"Partial", rec:"Mechanism named (1,000+ connection attempts every 4–5 seconds); fault undetermined.", src:[S.dotbrief]},
-  {c:"The contractor caused it (\"a contractor didn't meet the moment\")", who:"Duffy (Nov 14)", st:"Partial", rec:"Incomplete on the record. Bedford (Nov 17): an FAA technician monitored the install. Washington Post (one unnamed source): an FAA official tested and signed off. WSJ: the plan was FAA-approved. Fault (install, configuration or device) still undetermined; root cause pending.", src:[S.dotbrief, S.cnn17, S.wapo17, S.wsjvia]},
   {c:"NWS had a nationwide radar outage", who:"Social posts; early reports", st:"False as stated", rec:"NWS denied it; the issue was regional weather radio.", pend:true},
   {c:"NWS is unrelated", who:"Implicit in denials", st:"Contradicted by architecture", rec:"Shared FTI/NEXRAD paths; NANOG reported both the same afternoon.", pend:true},
   {c:"The $50B is an emergency response", who:"Duffy", st:"Chronologically true", rec:"The escalation came after the stop; the $30.1B request came before it.", src:[S.aerot]},
@@ -1093,6 +1144,97 @@ HUMAN GATE  [CONFIRMED]
  ],
  fundFrame: "The September request was made under one political configuration; the Nov 13 outage happened under another. The change in congressional control is a first-order variable in whether the request is enacted, and it's the backdrop the escalation to $50B has to be read against. This section presents the sequence and the oversight actions as documented facts and doesn't characterize the motives of anyone involved."
 };
+/* ---------- v3.0: status strip + accountability matrix ----------
+ state: Officially stated | Reported | Contested | Unknown. Never "Confirmed" for officials' words alone; never "Ruled out" without a finding attributed to a named body.
+ Every row reuses sources already on this page. */
+const SST = {"Officially stated":"--ink2", Reported:"--demand", Contested:"--open", Unknown:"--muted"};
+TIER["Officially stated"] = SST["Officially stated"];
+const stPill = s => `<span class="st3" style="color:var(${SST[s]||"--muted"})">${esc(s)}</span>`;
+const stPills = s => [].concat(s).map(stPill).join("");
+const STATUS_STRIP = [
+ {topic:"Mechanism", state:"Officially stated", says:"A newly installed router flooded others with about 1,000 connection attempts every 4–5 seconds (Duffy, Guy, Nov 14).", src:[S.dotbrief], flip:"Root-cause analysis; device logs", q:["q4"]},
+ {topic:"Fault", state:"Unknown", says:"Installation, configuration or a bad device: \"undetermined\" (Bedford).", src:[S.dotbrief], flip:"Root-cause analysis; L3Harris lab results", q:["q11"]},
+ {topic:"Where it started", state:"Contested", says:"Two sites named (Amarillo, TX radar; El Dorado, AR radio). \"A single location\" (Duffy) vs. \"two places\" (Guy).", src:[S.cnn17, S.dotbrief], flip:"Root-cause analysis", q:["q18"]},
+ {topic:"FAA oversight on site", state:["Officially stated","Reported"], says:"An FAA technician monitored the install (Bedford). Tested and signed off (Washington Post, one unnamed source). Plan FAA-approved (WSJ).", src:[S.cnn17, S.wapo17, S.wsjvia], flip:"Approval record; training records", q:["q15","q16"]},
+ {topic:"Scope", state:"Officially stated", says:"Instability at 17 of 22 en route facilities, none named; \"none went dark\" (Bedford).", src:[S.dotbrief], flip:"Facility-level data", q:["q10"]},
+ {topic:"Cyber", state:"Officially stated", says:"\"Don't believe\" / \"zero evidence\" (Duffy, Bedford, Mullin). No attributed finding.", src:[S.dotbrief, S.sw, S.sf], flip:"An FBI or CISA finding", q:[]},
+ {topic:"SMART's role", state:"Contested", says:"Denied by ASI and officials; no packet-level attribution either way.", src:[S.hill, S.twz, S.mcid], flip:"Load analysis; root-cause analysis", q:["q9"]},
+ {topic:"Root-cause analysis", state:"Unknown", says:"Promised, no date, no named reviewer.", src:[S.dotbrief], flip:"Publication", q:[]}
+];
+/* type: faa | contractor | oversight. rec items carry their own state. ctx:true = program context, not a Nov 13 actor (styled muted). */
+const MATRIX = [
+ {actor:"FAA, Tech Ops technician (El Dorado)", type:"faa", role:"Monitored the install", said:[],
+  rec:[{t:"Monitored the install (Bedford)", st:"Officially stated", src:[S.cnn17]},{t:"Tested and signed off (one unnamed source)", st:"Reported", src:[S.wapo17]}],
+  q:["q15"], decides:"Whether the sign-off could have caught it"},
+ {actor:"FAA, plan approval", type:"faa", role:"Approved the installation plan", said:[],
+  rec:[{t:"Plan approved beforehand; approving office unnamed (WSJ)", st:"Reported", src:[S.wsjvia]}],
+  q:["q16"], decides:"Where the approval decision sat"},
+ {actor:"FAA / DOT leadership (Bedford, Duffy)", type:"faa", role:"Operator and regulator; ordered the ground stop",
+  said:[{t:"Contractor error and an old system; \"I'm stuck with L3 Harris\"; a root-cause analysis promised", src:[S.dotbrief]}],
+  rec:[{t:"Sign-off and approval reporting complicates contractor-only blame", st:"Reported", src:[S.wapo17, S.wsjvia]}],
+  q:["q12"], decides:"Public accountability; the funding case"},
+ {actor:"L3Harris", type:"contractor", role:"Owns and operates FTI; did the install",
+  said:[{t:"Supporting the investigation; \"takes … seriously\"", pend:true}],
+  rec:[{t:"Its engineer did the install, monitored by the FAA (Bedford)", st:"Officially stated", src:[S.cnn17]},{t:"Fault undetermined", st:"Unknown", src:[S.dotbrief]},{t:"After the Sept 2025 Dallas outage the FAA said L3Harris oversight failed to ensure redundancies worked", st:"Reported", src:[S.nbcdal]}],
+  q:["q4","q11"], decides:"Contract liability; the FENS transition"},
+ {actor:"Juniper / Cisco", type:"contractor", role:"Router vendors (new / old)", said:[],
+  rec:[{t:"Both routers in lab testing at L3Harris with FAA, Juniper and Cisco engineers (Duffy)", st:"Officially stated", src:[S.wtimes17]}],
+  q:["q11"], decides:"Device fault vs. install"},
+ {actor:"ASI (SMART)", type:"contractor", role:"Advisory data consumer on FTI/FMDS",
+  said:[{t:"Denies any role", src:[S.hill, S.twz]}],
+  rec:[{t:"No packet-level attribution either way", st:"Unknown", src:[]}],
+  q:["q9"], decides:"AI rollout risk"},
+ {actor:"Peraton", type:"contractor", ctx:true, role:"Modernization integrator", said:[],
+  rec:[{t:"Bedford: the Nov 13 work was \"not part of\" Peraton's program", st:"Officially stated", src:[S.dotbrief]}],
+  q:["oq-int"], decides:"Whether change control had visibility"},
+ {actor:"Congress / GAO", type:"oversight", role:"Oversight and funding",
+  said:[{t:"Reed, Himes, Blumenthal, Schumer, Jeffries (see oversight actions)", src:[S.nprreed, S.wshu, {name:"NPR", url:"https://www.npr.org/2026/11/13/nx-s1-6040403/faa-nationwide-groundstop-airports"}], go:"fund-h"}],
+  rec:[{t:"GAO audit of SMART requested Oct 13 by 23 House Transportation Committee Democrats", st:"Reported", src:[{name:"AvBrief / Politico", url:"https://avbrief.com/faa-wants-piece-of-company-behind-ai-boost-for-atc/"}]},{t:"Democrats control both chambers from Jan 3, 2027 (AP race calls)", st:"Reported", src:[S.nprmid]}],
+  q:["oq-fund"], decides:"What becomes public; what gets funded"}
+];
+const MXTYPES = [["all","All actors"],["faa","FAA"],["contractor","Contractors"],["oversight","Oversight"]];
+let mxType = "all";
+const OQNAME = id => { const g=V2.oqr.find(x=>x.id===id); return g ? g.g : id; };
+const qLink = q => q.startsWith("oq-") ? `<a class="qa" href="#${q}">Register: ${esc(OQNAME(q))}</a>` : `<a class="qa" href="#${q}" data-q="${q}">${q}</a>`;
+function renderStrip(){
+ const B=DATA.bestRead, cf=CONF[B.confidence];
+ $("best").innerHTML=`<div class="best-h"><strong id="best-h">Where things stand</strong><span class="src">as of ${fmt(UPD)} ET</span></div>
+ <p class="sthead">What's settled, contested or unknown, and what would change it. No causal conclusion here: states describe the record, not a verdict.</p>
+ <div class="wrap"><table id="strip3" class="cards noterm"><thead><tr><th>Topic</th><th>State</th><th>What's on the record</th><th>Would change it</th><th>Open question</th></tr></thead><tbody>${
+  STATUS_STRIP.map(r=>`<tr><td data-l="Topic">${esc(r.topic)}</td><td data-l="State">${stPills(r.state)}</td><td data-l="What's on the record">${esc(r.says)}${srcLinks(r.src)}</td><td data-l="Would change it">${esc(r.flip)}</td><td data-l="Open question">${r.q.length?r.q.map(qLink).join(""):`<span class="k">—</span>`}</td></tr>`).join("")
+ }</tbody></table></div>
+ <details class="fold interp" id="interp"><summary>This page's interpretation (not a finding) · as of ${fmt(T(B.asOf))}</summary><div class="fold-body">
+  <div class="best-h"><span class="pill" style="color:var(${cf.c})">${cf.label}</span><span class="src">${esc(B.basis)}</span></div>
+  <p class="lead">${esc(B.text)}</p>
+  <div class="row"><div><span class="cap">How sure</span><br>${esc(B.confidenceWhy)}</div><div><span class="cap">What would flip it</span><br><a href="#${B.flipQ}" data-q="${B.flipQ}">${esc(B.flipLink)}</a>. ${esc(B.flip)}</div></div>
+  <p class="src" style="margin-top:10px">${B.srcs.map(s=>`<a href="${s.url}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ")}</p>
+ </div></details>`;
+}
+function renderMatrix(){
+ $("mxchips").innerHTML = MXTYPES.map(([k,l])=>`<button data-mx="${k}" class="${k===mxType?"on":""}" aria-pressed="${k===mxType}">${l}</button>`).join("");
+ const said = m => m.said.length ? `<ul>${m.said.map(s=>`<li>${esc(s.t)}${s.pend?" "+PEND:""}</li>`).join("")}</ul>` : `<span class="k">None on record</span>`;
+ const rec = m => `<ul>${m.rec.map(r=>`<li>${stPill(r.st)} ${esc(r.t)}${srcLinks(r.src)}</li>`).join("")}</ul>`;
+ document.querySelector("#matrix tbody").innerHTML = MATRIX.map((m,i)=>({m,i})).filter(o=>mxType==="all"||o.m.type===mxType).map(({m,i})=>
+  `<tr class="mx${m.ctx?" mut":""}" data-mxi="${i}" tabindex="0"><td data-l="Actor"><b>${esc(m.actor)}</b>${m.ctx?`<br><span class="ctx">Program context: per Bedford, not part of the Nov 13 work</span>`:""}</td><td data-l="Role on Nov 13">${esc(m.role)}</td><td data-l="What they've said">${said(m)}</td><td data-l="What the record shows">${rec(m)}</td><td data-l="Open question">${m.q.map(qLink).join(" ")}</td><td data-l="What it decides">${esc(m.decides)}</td></tr>`).join("");
+}
+function openMatrix(i){
+ const m=MATRIX[i], all=[...m.said.flatMap(s=>s.src||[]), ...m.rec.flatMap(r=>r.src||[])], seen=new Set(), srcs=all.filter(s=>!seen.has(s.url)&&seen.add(s.url));
+ sheet(`<div class="k">Accountability matrix${m.ctx?" · program context":""}</div><h3>${esc(m.actor)}</h3>
+ <p><span class="cap">Role on Nov 13</span><br>${esc(m.role)}</p>
+ ${m.ctx?`<p class="k">Per Bedford, the Nov 13 work was not part of Peraton's program. Shown as context, not as a Nov 13 actor.</p>`:""}
+ <h4>What they've said</h4>${m.said.length?`<ul>${m.said.map(s=>`<li>${esc(s.t)}${srcLinks(s.src)}${s.pend?" "+PEND:""}</li>`).join("")}</ul>`:`<p class="k">None on record.</p>`}
+ <h4>What the record shows</h4><ul>${m.rec.map(r=>`<li>${stPill(r.st)} ${esc(r.t)}${srcLinks(r.src)}</li>`).join("")}</ul>
+ <h4>What it decides</h4><p>${esc(m.decides)}</p>
+ ${srcs.length?`<h4>Sources</h4><p>${srcLinks(srcs)}</p>`:""}
+ <div class="acts">${m.q.map(q=>`<button data-act="goto" data-to="${q}">${q.startsWith("oq-")?"Register: "+esc(OQNAME(q)):"Open question "+q}</button>`).join("")}${m.said.some(s=>s.go)?`<button data-act="goto" data-to="fund-h">Oversight actions</button>`:""}</div>`);
+}
+function initMatrix(){
+ $("mxchips").addEventListener("click",ev=>{const b=ev.target.closest("button[data-mx]"); if(!b)return; mxType=b.dataset.mx; renderMatrix();});
+ $("matrix").addEventListener("click",ev=>{if(ev.target.closest("a"))return; const tr=ev.target.closest("tr[data-mxi]"); if(tr) openMatrix(+tr.dataset.mxi);});
+ $("matrix").addEventListener("keydown",ev=>{if(ev.key!=="Enter"&&ev.key!==" ")return; const tr=ev.target.closest("tr[data-mxi]"); if(tr){ev.preventDefault(); openMatrix(+tr.dataset.mxi);}});
+ renderMatrix();
+}
+
 function renderV2(){
  const sl = a => a&&a.length ? srcLinks(a) : "";
  $("tiers").innerHTML = `<p class="note" style="margin-top:4px">${V2.tiers.map(([t,d])=>`${tierPill(t)} ${esc(d)}`).join("<br>")}</p>`;
@@ -1100,7 +1242,14 @@ function renderV2(){
  $("lpdiagram").innerHTML = V2.diagram.replace(/&(?!amp;)/g,"&amp;").replace(/<(?!\/?span)/g,"&lt;");
  $("lpnotes").innerHTML = V2.lpnotes.map(w=>`<li>${w}</li>`).join("");
  $("lpchg").innerHTML = V2.lpchanges.map(r=>`<tr><td data-l="Element"><b>${esc(r[0])}</b></td><td data-l="Before">${esc(r[1])}</td><td data-l="Now">${esc(r[2])}</td></tr>`).join("");
- document.querySelector("#cve tbody").innerHTML = V2.cve.map(r=>`<tr><td data-l="Claim"><b>${esc(r.c)}</b></td><td data-l="Source">${esc(r.who)}</td><td data-l="Status">${tierPill(r.st)}</td><td data-l="What the record supports">${esc(r.rec)}${sl(r.src)}${r.pend?" "+PEND:""}</td></tr>`).join("");
+ const ql = q => q ? qLink(q) : "";
+ $("cve").innerHTML = V2.cve.map(r=>{const full=r.settle||r.positions;
+  return `<article class="card dcard${full?"":" plain"}"><div class="dh"><b>${esc(r.c)}</b>${tierPill(r.st)}</div>
+  <p class="k">Claimed by: ${esc(r.who)}</p>
+  <p><span class="cap">What the record supports</span><br>${esc(r.rec)}${sl(r.src)}${r.pend?" "+PEND:""}</p>
+  ${r.positions?`<div><span class="cap">Positions</span><ul>${r.positions.map(p=>`<li><b>${esc(p.who)}:</b> ${esc(p.says)}</li>`).join("")}</ul></div>`:""}
+  ${r.settle?`<p><span class="cap">What would settle it</span><br>${esc(r.settle)}</p>`:""}
+  ${r.q?`<p>${ql(r.q)}</p>`:""}</article>`}).join("");
  $("oqr").innerHTML = V2.oqr.map(g=>`<div class="oqg" id="${g.id}"><b>${esc(g.g)}</b>${g.q?` <a href="#${g.q}" class="src">related open question</a>`:""}${g.ix?` <a href="#ix-${g.ix}" class="src">intersection #${g.ix}</a>`:""}</div><div class="wrap"><table class="cards noterm"><thead><tr><th>Question</th><th>Why it matters</th><th>Evidence needed</th></tr></thead><tbody>${g.rows.map(r=>`<tr><td data-l="Question"><b>${esc(r[0])}</b></td><td data-l="Why it matters">${esc(r[1])}</td><td data-l="Evidence needed">${esc(r[2])}</td></tr>`).join("")}</tbody></table></div>`).join("");
  document.querySelector("#nwst tbody").innerHTML = V2.nws.map(r=>`<tr><td data-l="Tier">${tierPill(r.tier)}</td><td data-l="What">${esc(r.t)}</td><td data-l="Source">${r.src?sl(r.src):PEND}</td></tr>`).join("");
  $("nwsframe").textContent = V2.nwsFrame;
@@ -1313,11 +1462,7 @@ function card(ix){const st=STATUS[ix.status];
  <div><button class="more">Details and nearby events →</button></div></article>`;}
 function render(){
  $("updated").textContent = "Last updated "+fmt(UPD)+" ET · times Eastern";
- const B=DATA.bestRead, cf=CONF[B.confidence];
- $("best").innerHTML=`<div class="best-h"><strong id="best-h">Best read right now</strong><span class="src">as of ${fmtT(T(B.asOf))}</span><span class="pill" style="color:var(${cf.c})">${cf.label}</span><span class="src">${esc(B.basis)}</span></div>
- <p class="lead">${esc(B.text)}</p>
- <div class="row"><div><span class="cap">How sure</span><br>${esc(B.confidenceWhy)}</div><div><span class="cap">What would flip it</span><br><a href="#${B.flipQ}" data-q="${B.flipQ}">${esc(B.flipLink)}</a>. ${esc(B.flip)}</div></div>
- <p class="src" style="margin-top:10px">${B.srcs.map(s=>`<a href="${s.url}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ")}</p>`;
+ renderStrip(); initMatrix();
  document.querySelector("#terms tbody").innerHTML=DATA.terms.map(t=>`<tr id="term-${t.id}"><td>${esc(t.term)}</td><td>${esc(t.def)}</td></tr>`).join("");
 
  const G=DATA.grid, fits=G.cols.map(c=>G.rows.filter(r=>r.cells[c.id][0]==="fits").length), mx=Math.max(...fits), lead=fits.filter(x=>x===mx).length===1?fits.indexOf(mx):-1;
