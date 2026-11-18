@@ -221,6 +221,43 @@ h2[id],h3[id],.pin,.ix,.oqg,.ex,details.fold,section.card{scroll-margin-top:60px
 .qdot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px}
 .qn{display:inline-block;font:600 11.5px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink2);border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:3px 6px;margin-right:8px;vertical-align:1px}
 #qsort .k{margin-right:2px}
+/* v3.2: load-path diagram as layered cards */
+.lpv{margin:0 0 10px}
+.lpbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-bottom:12px}
+.lpflow,.lpside{display:flex;flex-direction:column;align-items:stretch}
+.lprow{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:640px){.lprow{grid-template-columns:1fr 1fr}}
+.lpcol{display:flex;flex-direction:column}
+.lpn{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px}
+.lpn.t-confirmed{border-left:4px solid var(--expl)}
+.lpn.t-reported{border:1px dashed var(--demand);border-left:4px dashed var(--demand)}
+.lpn-ov{border-style:dashed;background:var(--bg)}
+.lpn-h{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;padding-right:30px}
+.lpn-h b{font-size:14.5px;line-height:1.35}
+.lpn-tech{font:11.5px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--muted);margin:3px 0 6px;text-transform:uppercase;letter-spacing:.02em}
+.lpn p{margin:0;color:var(--ink2)}
+.lpn ul{margin:6px 0 0;padding-left:18px} .lpn li{margin:2px 0}
+.lpa{position:relative;align-self:center;display:flex;align-items:center;min-height:38px;padding:6px 0 10px 18px;font-size:12px;color:var(--muted)}
+.lpa::before{content:"";position:absolute;left:6px;top:0;bottom:6px;border-left:2px solid var(--line)}
+.lpa::after{content:"";position:absolute;left:1px;bottom:0;border:6px solid transparent;border-top:8px solid var(--line);border-bottom:0}
+.lpa span{max-width:34ch}
+.lpsplit{align-self:center;font-size:12px;color:var(--muted);padding:6px 0;position:relative;width:100%;text-align:center}
+.lpsplit::before{content:"";display:block;width:2px;height:12px;background:var(--line);margin:0 auto 4px}
+.lpbl{margin:4px 0 6px}
+@media (max-width:639px){.lpcol+.lpcol{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}}
+.lpside{margin-top:18px;padding-top:12px;border-top:1px dashed var(--line)}
+.lpside .cap{margin-bottom:8px}
+.lphyp{margin-top:16px;border:1.5px dashed var(--soft);border-radius:12px;padding:12px 14px;font-size:13.5px}
+.lphyp ol{margin:8px 0 6px;padding-left:22px} .lphyp li{margin:3px 0;color:var(--soft);font-weight:500}
+.lph{display:none;position:absolute;top:10px;right:10px;min-width:24px;height:24px;padding:0 6px;border-radius:99px;background:var(--soft);color:#fff;font-size:11.5px;font-weight:700;align-items:center;justify-content:center}
+.hy-on .lph{display:inline-flex}
+.hy-on .lpn[data-h]{border-color:var(--soft);box-shadow:0 0 0 2px var(--soft)}
+.hy-on .lpa-h{color:var(--soft)}
+.hy-on .lpa-h::before{border-left:2px dashed var(--soft)}
+.hy-on .lpa-h::after{border-top-color:var(--soft)}
+#lptext pre.lp{border:0;border-radius:0 0 12px 12px}
+/* iOS: keep the section bar above scrollable tables, which get their own layers */
+.toc{transform:translateZ(0);-webkit-transform:translateZ(0)}
 @media (max-width:700px){.toc{margin:0 -14px 12px;padding:8px 14px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -282,8 +319,12 @@ h2[id],h3[id],.pin,.ix,.oqg,.ex,details.fold,section.card{scroll-margin-top:60px
 </details>
 
 <h2 id="loadpath-h">Load-path model</h2>
-<p class="note">Where data and load travel, and where the public record stops. Topology isn't causation: the drawing shows what connects to what, not which system generated the surge. Tags in brackets are the v2.0 spec's tiers; the hypothesized path at the bottom is unproven.</p>
-<pre class="lp noterm" id="lpdiagram"></pre>
+<p class="note">Where data and load travel, and where the public record stops. Topology isn't causation: the drawing shows what connects to what, not which system generated the surge. Tags on the boxes are the v2.0 spec's tiers; the hypothesized path is unproven. Tap underlined terms for definitions.</p>
+<div class="lpv" id="lpvis"></div>
+<details class="fold" id="lptext">
+ <summary>Original text diagram</summary>
+ <div class="fold-body"><pre class="lp noterm" id="lpdiagram"></pre></div>
+</details>
 <ul id="lpnotes"></ul>
 <details class="fold" id="lpchanges">
  <summary>What changed from the earlier picture</summary>
@@ -377,6 +418,7 @@ h2[id],h3[id],.pin,.ix,.oqg,.ex,details.fold,section.card{scroll-margin-top:60px
 <p class="frame" id="fundframe"></p>
 
 <h2 id="log-h">Event log</h2>
+<p class="note">Updated Wed Nov 18 (v3.2, layout only): the <a href="#loadpath-h">load-path model</a> is now drawn as layered boxes that fit a phone screen, each with a plain-language line, and a button that marks the hypothesized (unproven) path on them. The original text diagram is kept, unchanged, in a fold underneath. No facts, tiers or sources changed.</p>
 <p class="note">Updated Wed Nov 18 (v3.1, layout only): added a section bar that stays at the top of the screen, a What's new panel under the title, a <a href="#labels">guide to the labels</a> (every label set kept separate, with plain-language meanings), and visible numbers on the open questions with a sort control (page order stays the default). No facts, labels, verdicts or sources changed.</p>
 <p class="note">Updated Wed Nov 18, 8:18 am (v3.0): the top of the page is now a status strip (Officially stated, Reported, Contested or Unknown, with what would change each) instead of a best-read verdict. The best-read text is unchanged and sits in a collapsed fold labeled as this page's interpretation, not a finding. Added an <a href="#matrix-h">accountability matrix</a> (roles are documented; fault isn't established; Peraton is shown as program context only). Claims vs. evidence is now a <a href="#cve-h">dispute tracker</a>: the L3Harris row is split into installer, router and configuration cards, and cards were added for "not a cyberattack" (officially stated, not ruled out) and "one site vs. two." No new sources.</p>
 <p class="note">Updated Wed Nov 18, 8:15 am (v2.2): brought older sections up to date with the Nov 17 facts. The best read, questions q4, q6, q7 and q11, the facts-by-explanation grid and the where-it-started note now include the two named sites (Amarillo, TX; El Dorado, AR), the FAA's on-site oversight and plan approval, the router pause and the lab testing. q4 and q7 now note that the early "starting at Midway" account doesn't match the official sites.</p>
@@ -1029,6 +1071,31 @@ HUMAN GATE  [CONFIRMED]
     → legacy routers already stressed by cutover
     → buffer/processor exhaustion
     → corrupted radar + voice telemetry</span>`,
+ /* v3.2: the same diagram as layered cards. Wording restates the text diagram; "plain" lines are plain-language glosses. h = step(s) on the hypothesized path. */
+ lp: {
+  top: [
+   {id:"src", t:"Where the information comes from", tech:"External / operational sources", plain:"Flight plans, weather, capacity and staffing data, plus radar and pilot–controller voice.",
+    items:["Flight, weather, capacity and staffing data → FMDS ingest","Radar surveillance → FTI directly","Voice comms → FTI directly"]},
+   {id:"asi", t:"SMART and the cloud behind it", tech:"ASI multi-cloud footprint", tier:"Reported", tierNote:"via job postings", h:"1", plain:"ASI's SMART app (about 200 data streams). The cloud setup is from ASI job postings; where SMART itself is hosted is unconfirmed.",
+    items:["AWS GovCloud","Azure Gov GCC High","Sentinel / Defender (security tooling)"]}
+  ],
+  a1:"Reads, subscribes and polls over persistent sessions",
+  fmds:{id:"fmds", t:"The doorway into FAA data", tech:"FMDS data services / feed endpoints · session boundary", h:"2", plain:"Where outside apps' connections converge, and where connection flooding would physically be seen."},
+  a2:"Data and load pass into the network",
+  fti:{id:"fti", t:"The FAA's nationwide telecom network", tech:"FTI transport layer", tier:"Confirmed", h:"3–4", plain:"Carries radar, radio and data between FAA sites. Run by L3Harris, mid-rebuild.",
+   items:["L3Harris copper→fiber cutover (~68–70% complete)","Legacy Cisco 600-series routers (~25 yrs old)","New digital router: reported source of 1,000+ connection attempts every 4–5 seconds"]},
+  branches: [
+   {label:"Branch 1 · air traffic", chain:[{id:"atc", t:"Air traffic control systems", tech:"STARS / ERAM / legacy TFM", h:"5", plain:"The radar and flight-data systems controllers work from."},
+           {id:"artcc", t:"22 en route centers → controllers", tech:"22 ARTCCs", plain:"The centers that handle high-altitude traffic nationwide."}]},
+   {label:"Branch 2 · weather", chain:[{id:"nws", t:"Weather Service, on the same lines", tech:"NWS / NEXRAD shared path", plain:"A co-tenant on shared FTI paths, not a separate system."},
+           {id:"nwsc", t:"Weather radio and NWS comms", tech:"NWS communications / weather radio", plain:"Where the regional weather-radio issue showed up."}]}
+  ],
+  side: [
+   {id:"prog", t:"Who schedules changes to the network", tech:"Program layer · Peraton, prime integrator ($1.5B)", tag:"Overlay, not on the wire", plain:"Cutover synchronization, change control, subcontractor management, risk reduction. Bedford (Sat): the Nov 13 work was \"not part of\" this program."},
+   {id:"gate", t:"People who decide on SMART's advice", tech:"Human gate · Command Center review", tier:"Confirmed", plain:"Command Center review, then local accept or reject. SMART is advisory only, with no command authority."}
+  ],
+  hyp: ["SMART reconnect surge (AWS + Azure)","Hits the FMDS/FTI session boundary","Legacy routers already stressed by the cutover","Buffer/processor exhaustion","Corrupted radar + voice telemetry"]
+ },
  lpnotes: [
   "<b>Session boundary:</b> the FMDS data-services API and feed endpoints. This is where cloud ingestion sessions converge, and where the failure signature (connection-attempt flooding) would be physically observed.",
   "<b>Multi-cloud footprint (reported):</b> ASI job postings consistently describe an AWS GovCloud and Microsoft GCC High environment, with Microsoft Sentinel and Azure Defender in the security tooling (<a href=\"https://www.builtinboston.com/job/security-engineer/10860370\">Built In Boston posting</a>). That posting frames the work as defense and intelligence applications and doesn't mention the FAA, and no public FAA or ASI architecture document says SMART itself runs in both. Operational context, not a confirmed SMART fact.",
@@ -1268,10 +1335,35 @@ function initMatrix(){
  renderMatrix();
 }
 
+function renderLoadPath(){
+ const L=V2.lp;
+ const node=n=>`<div class="lpn${n.tier?" t-"+n.tier.toLowerCase():""}${n.tag?" lpn-ov":""}" id="lp-${n.id}"${n.h?` data-h="${n.h}"`:""}>
+  ${n.h?`<span class="lph" aria-hidden="true">${n.h}</span>`:""}
+  <div class="lpn-h"><b>${esc(n.t)}</b>${n.tier?tierPill(n.tier)+(n.tierNote?`<span class="k">${esc(n.tierNote)}</span>`:""):""}${n.tag?`<span class="ctx">${esc(n.tag)}</span>`:""}</div>
+  <div class="lpn-tech noterm">${esc(n.tech)}</div>
+  <p>${esc(n.plain)}</p>${n.items?`<ul>${n.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:""}</div>`;
+ const arrow=(l,hy)=>`<div class="lpa${hy?" lpa-h":""}"><span>${esc(l||"")}</span></div>`;
+ $("lpvis").innerHTML=`<div class="lpbar"><button id="lphy" aria-pressed="false">Show the hypothesized path</button><span class="k">Solid boxes and their tags come from the record. The hypothesized path is <b>unproven</b>.</span></div>
+ <div class="lpflow">
+  <div class="lprow">${L.top.map(node).join("")}</div>
+  ${arrow(L.a1,1)}
+  ${node(L.fmds)}
+  ${arrow(L.a2,1)}
+  ${node(L.fti)}
+  <div class="lpsplit"><span>Splits two ways</span></div>
+  <div class="lprow">${L.branches.map((b,i)=>`<div class="lpcol"><div class="cap lpbl">${esc(b.label)}</div>${b.chain.map((n,j)=>(j?arrow("",i===0&&j===0):"")+node(n)).join("")}</div>`).join("")}</div>
+ </div>
+ <div class="lpside"><div class="cap">Around the wire, not on it</div><div class="lprow">${L.side.map(node).join("")}</div></div>
+ <div class="lphyp"><div class="lpn-h"><b>Hypothesized load path</b>${tierPill("Unproven")}</div>
+  <ol>${L.hyp.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
+  <p class="k">Numbers match the purple markers when the path is shown. No packet-level attribution is public in either direction.</p></div>`;
+ $("lphy").onclick=ev=>{const on=$("lpvis").classList.toggle("hy-on"); ev.currentTarget.setAttribute("aria-pressed",on); ev.currentTarget.classList.toggle("on",on); ev.currentTarget.textContent=on?"Hide the hypothesized path":"Show the hypothesized path";};
+}
 function renderV2(){
  const sl = a => a&&a.length ? srcLinks(a) : "";
  $("tiers").innerHTML = `<p class="note" style="margin-top:4px">${V2.tiers.map(([t,d])=>`${tierPill(t)} ${esc(d)}`).join("<br>")}</p>`;
  $("princ").innerHTML = V2.principles.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("");
+ renderLoadPath();
  $("lpdiagram").innerHTML = V2.diagram.replace(/&(?!amp;)/g,"&amp;").replace(/<(?!\/?span)/g,"&lt;");
  $("lpnotes").innerHTML = V2.lpnotes.map(w=>`<li>${w}</li>`).join("");
  $("lpchg").innerHTML = V2.lpchanges.map(r=>`<tr><td data-l="Element"><b>${esc(r[0])}</b></td><td data-l="Before">${esc(r[1])}</td><td data-l="Now">${esc(r[2])}</td></tr>`).join("");
@@ -1497,6 +1589,8 @@ function card(ix){const st=STATUS[ix.status];
 
 /* What's new: one entry per version, newest first. Bullets restate the event-log notes; the full notes stay in the event log. */
 const CHANGES = [
+ {v:"v3.2", when:"Wed Nov 18", layout:true, items:[
+  `Layout only: the <a href="#loadpath-h">load-path model</a> is now a diagram that fits a phone, with plain-language lines and a button to show the hypothesized path. The original text diagram is kept in a fold.`]},
  {v:"v3.1", when:"Wed Nov 18", layout:true, items:[
   `Navigation only, no new facts: a section bar that stays at the top, this panel, a <a href="#labels">guide to the labels</a>, and numbers on the <a href="#oq-h">open questions</a> with a sort control.`]},
  {v:"v3.0", when:"Wed Nov 18, 8:18 am", items:[
